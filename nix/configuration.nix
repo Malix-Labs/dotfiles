@@ -1,45 +1,30 @@
+# /etc/nixos/configuration.nix
+# This file contains your main NixOS system configuration.
+# It is designed to be concise, focusing on user-specific settings and overrides.
+
 { config, lib, pkgs, ... }:
 
 {
+  # Enable experimental features for Nix CLI and Flakes.
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  # Enable NVIDIA modesetting
-  hardware.nvidia.modesetting.enable = true;
-
-  # The 'open' driver currently has build issues on this specific channel/version.
-  # Reverting to the proprietary driver for now.
-  # hardware.nvidia.open = true;
-
-  # Do not explicitly set videoDrivers here, let hardware.nvidia options handle it
-  # services.xserver.videoDrivers = [
-  # "nvidia"
-  # "amdgpu"
-  # ];
-
-  # Bootloader.
+  # Bootloader Configuration
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.grub.enable = false; # Explicitly disable GRUB
 
-  # latest (6.15) conflicts with nvidia apparently
+  # Pin kernel version due to NVIDIA compatibility.
+  # Note: You currently have 6.14.8 running, but your flake was set to 6.12.30.
+  # If you encounter compilation issues again, revert to a known working kernel like 6.12.30.
   boot.kernelPackages = pkgs.linuxPackages_6_14;
 
+  # Networking Configuration
   networking.hostName = "nixos"; # Define your hostname.
-  # networking.wireless.enable = true; # Enables wireless support via wpa_supplicant.
+  networking.networkmanager.enable = true; # Enable network manager
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.00.1,localhost,internal.domain";
-
-  # Enable networking
-  networking.networkmanager.enable = true;
-
-  # Set your time zone.
+  # Localization and Time
   time.timeZone = "Europe/Paris";
-
-  # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
-
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "fr_FR.UTF-8";
     LC_IDENTIFICATION = "fr_FR.UTF-8";
@@ -51,28 +36,18 @@
     LC_TELEPHONE = "fr_FR.UTF-8";
     LC_TIME = "fr_FR.UTF-8";
   };
+  console.keyMap = "fr"; # Configure console keymap
 
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
-  # Enable the GNOME Desktop Environment.
+  # Display Manager and Desktop Environment (GNOME implicitly enables X11 and libinput)
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
 
-  # Configure keymap in X11
   services.xserver.xkb = {
     layout = "fr";
     variant = "";
   };
 
-  # Configure console keymap
-  console.keyMap = "fr";
-
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-
-  # Enable sound with pipewire.
-  # The option `hardware.pulseaudio' has been renamed to `services.pulseaudio'.
+  # Sound with PipeWire (Pulseaudio explicitly disabled)
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
@@ -80,33 +55,25 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
   };
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
+  # Printing
+  services.printing.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+  # User Configuration
   users.users.malix = {
     isNormalUser = true;
     description = "Malix";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
       vesktop
-      # thunderbird
     ];
   };
 
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
+  # Package Management
+  nixpkgs.config.allowUnfree = true; # Allow unfree packages
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
+  # System-wide packages
   environment.systemPackages = with pkgs; [
     kitty
     google-chrome
@@ -114,34 +81,8 @@
     wget
     git
     helix
-    # vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    # wget
   ];
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  # enable = true;
-  # enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.opensssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "24.11"; # Did you read the comment?
+  # System state version
+  system.stateVersion = "24.11";
 }
