@@ -67,6 +67,10 @@
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
       vesktop
+      gh
+      zed-editor.fhs
+      vscode.fhs
+      # gitkraken # commented out temporarily because the stable package doesn't build but the unstable one does so waiting for the backport
     ];
   };
 
@@ -75,12 +79,13 @@
 
   # System-wide packages
   environment.systemPackages = with pkgs; [
-    kitty
+    ghostty
     google-chrome
     fastfetch
     wget
     git
     helix
+    clipboard-jh
   ];
 
   # System state version
