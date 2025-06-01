@@ -86,6 +86,8 @@
 		git
 		helix
 		clipboard-jh
+		nixd
+		nixfmt-rfc-style
 	];
 
 	# System state version
