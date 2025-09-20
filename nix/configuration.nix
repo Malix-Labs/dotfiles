@@ -1,7 +1,3 @@
-# /etc/nixos/configuration.nix
-# This file contains your main NixOS system configuration.
-# It is designed to be concise, focusing on user-specific settings and overrides.
-
 {
   config,
   lib,
@@ -14,7 +10,6 @@
 }:
 
 {
-  # Enable experimental features for Nix CLI and Flakes.
   nix.settings = {
     experimental-features = [
       "nix-command"
@@ -24,7 +19,6 @@
     extra-trusted-public-keys = [ "cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM=" ];
   };
 
-  # Bootloader Configuration
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
     loader = {
@@ -37,15 +31,13 @@
     # initrd.luks.devices.cryptroot.device = "/dev/disk/by-uuid/UUID-OF-SDA2"; # TODO: see https://wiki.nixos.org/wiki/Full_Disk_Encryption#Enter_password_on_Boot to continue setup
   };
 
-  # Networking Configuration
   networking = {
-    hostName = "nixos"; # Define your hostname.
-    networkmanager.enable = true; # Enable network manager
+    hostName = "nixos";
+    networkmanager.enable = true;
   };
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1"; # https://wiki.nixos.org/wiki/Wayland#Electron_and_Chromium ; also see https://github.com/NixOS/nixpkgs/issues/291051
 
-  # Localization and Time
   time.timeZone = "Europe/Paris";
   i18n.defaultLocale = "en_GB.UTF-8";
   i18n.extraLocales = [
@@ -54,7 +46,7 @@
     "fr_FR.UTF-8/UTF-8"
   ];
 
-  console.keyMap = "fr"; # Configure console keymap
+  console.keyMap = "fr";
 
   services = {
 
@@ -100,7 +92,6 @@
       '';
     };
 
-    # Sound with PipeWire (Pulseaudio explicitly disabled)
     pulseaudio.enable = false;
     pipewire = {
       enable = true;
@@ -136,7 +127,7 @@
 
   security.rtkit.enable = true;
 
-  nixpkgs.config.allowUnfree = true; # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
 
   /*
     # Not needed since declarative-flatpak and nix-flatpak handles this
@@ -176,7 +167,6 @@
 
   virtualisation.waydroid.enable = true;
 
-  # User Configuration
   users.users.malix = {
     isNormalUser = true;
     description = "Malix";
@@ -193,7 +183,7 @@
     ];
   };
 
-  system.rebuild.enableNg = true;
+  system.rebuild.enableNg = true; # default in 25.11
 
   system.stateVersion = "24.11"; # NEVER MUTATE
 }
