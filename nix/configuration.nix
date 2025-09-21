@@ -14,6 +14,13 @@
     experimental-features = [
       "nix-command"
       "flakes"
+      "ca-derivations"
+      "cgroups"
+      "git-hashing"
+      "no-url-literals"
+      "local-overlay-store"
+      "pipe-operators"
+      "verified-fetches"
     ];
     substituters = [
       "https://cache.nixos.org/" # don't know if this one is included by default already
