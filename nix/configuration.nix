@@ -140,6 +140,12 @@
     package = pkgs.gnomeExtensions.gsconnect;
   };
 
+  qt = {
+    enable = true;
+    platformTheme = "gnome";
+    style = "adwaita-dark";
+  };
+
   fonts.packages = with pkgs; [
     noto-fonts-emoji
     nerd-fonts.fira-code
