@@ -10,8 +10,8 @@
 
     fh.url = "github:DeterminateSystems/fh";
 
-    declarative-flatpak.url = "github:in-a-dil-emma/declarative-flatpak/stable-v3";
-    # nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
+    declarative-flatpak.url = "github:in-a-dil-emma/declarative-flatpak/v3.1.0";
+    # nix-flatpak.url = "github:gmodena/nix-flatpak";
 
     mcp-nixos.url = "github:utensils/mcp-nixos";
   };
