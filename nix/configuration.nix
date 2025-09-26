@@ -100,11 +100,11 @@
       ];
       overrides = {
         "org.vinegarhq.Sober" = {
-          Context.filesystems = [
+          filesystems = [
             "xdg-run/app/com.discordapp.Discord:create"
             "xdg-run/discord-ipc-0"
           ];
-          Context.devices = [
+          devices = [
             "input"
           ];
         };

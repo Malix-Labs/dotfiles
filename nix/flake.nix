@@ -56,7 +56,7 @@
           nixos-hardware.nixosModules.lenovo-legion-15ach6h # https://github.com/NixOS/nixos-hardware/tree/master/lenovo/legion/15ach6h
           ./nixos-hardware-override.nix
 
-          declarative-flatpak.nixosModule
+          declarative-flatpak.nixosModules.default
           # nix-flatpak.nixosModules.nix-flatpak
         ];
       };
