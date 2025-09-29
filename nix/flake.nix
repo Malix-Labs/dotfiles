@@ -14,6 +14,8 @@
     # nix-flatpak.url = "github:gmodena/nix-flatpak";
 
     mcp-nixos.url = "github:utensils/mcp-nixos";
+
+    l5p-keyboard-rgb.url = "github:4JX/L5P-Keyboard-RGB";
   };
 
   outputs =
@@ -29,6 +31,7 @@
 
       fh,
       mcp-nixos,
+      l5p-keyboard-rgb,
 
       declarative-flatpak,
       # nix-flatpak,
@@ -45,7 +48,12 @@
       nixosConfigurations.nixos = nixpkgs-stable.lib.nixosSystem {
         inherit system;
         specialArgs = {
-          inherit mcp-nixos pkgs-unstable fh;
+          inherit
+            mcp-nixos
+            pkgs-unstable
+            fh
+            l5p-keyboard-rgb
+            ;
         };
         modules = [
           determinate.nixosModules.default
