@@ -104,13 +104,11 @@
             "xdg-run/app/com.discordapp.Discord:create"
             "xdg-run/discord-ipc-0"
           ];
+          devices = [
+            "input"
+          ];
         };
       };
-
-      # Workaround for unsupported overrides (see https://github.com/in-a-dil-emma/declarative-flatpak/issues/42)
-      preSwitchCommand = ''
-        flatpak override --user --device=input org.vinegarhq.Sober
-      '';
     };
 
     pulseaudio.enable = false;
