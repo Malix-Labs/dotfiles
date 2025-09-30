@@ -71,7 +71,6 @@
 
   services = {
 
-    # DEPRECATED IN 25.11
     xserver = {
       enable = true;
       displayManager.gdm.enable = true;
@@ -81,12 +80,6 @@
         variant = "";
       };
     };
-
-    /*
-      # TO REPLACE XSERVER IN 25.11
-      displayManager.gdm.enable = true;
-      desktopManager.gnome.enable = true;
-    */
 
     printing.enable = true;
 
@@ -154,17 +147,6 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  /*
-    # Not needed since declarative-flatpak and nix-flatpak handles this
-    systemd.services.flatpak-repo = {
-      wantedBy = [ "multi-user.target" ];
-      path = [ pkgs.flatpak ];
-      script = ''
-        flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-      '';
-    };
-  */
-
   environment.systemPackages = with pkgs; [
     ghostty
 
@@ -208,7 +190,7 @@
     ];
   };
 
-  system.rebuild.enableNg = true; # default in 25.11
+  system.rebuild.enableNg = true;
 
   system.stateVersion = "24.11"; # NEVER MUTATE
 }

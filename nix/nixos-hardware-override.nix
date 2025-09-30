@@ -4,6 +4,7 @@
   config,
   lib,
   pkgs,
+  l5p-keyboard-rgb,
   ...
 }:
 
@@ -15,5 +16,8 @@
 
   # Add Lenovo Legion kernel module and userspace utility
   boot.extraModulePackages = [ config.boot.kernelPackages.lenovo-legion-module ];
-  environment.systemPackages = [ pkgs.lenovo-legion ];
+  environment.systemPackages = [
+    pkgs.lenovo-legion
+    l5p-keyboard-rgb.packages.${pkgs.system}.default
+  ];
 }
