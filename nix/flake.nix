@@ -10,7 +10,7 @@
 
     fh.url = "github:DeterminateSystems/fh";
 
-    declarative-flatpak.url = "github:in-a-dil-emma/declarative-flatpak/v3.1.0";
+    declarative-flatpak.url = "github:in-a-dil-emma/declarative-flatpak/v4.0.1";
     # nix-flatpak.url = "github:gmodena/nix-flatpak";
 
     mcp-nixos.url = "github:utensils/mcp-nixos";
@@ -64,7 +64,7 @@
           nixos-hardware.nixosModules.lenovo-legion-15ach6h # https://github.com/NixOS/nixos-hardware/tree/master/lenovo/legion/15ach6h
           ./nixos-hardware-override.nix
 
-          declarative-flatpak.nixosModule
+          declarative-flatpak.nixosModules.default
           # nix-flatpak.nixosModules.nix-flatpak
         ];
       };
