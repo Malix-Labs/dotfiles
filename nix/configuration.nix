@@ -71,7 +71,6 @@
 
   services = {
 
-    # DEPRECATED IN 25.11
     xserver = {
       enable = true;
       displayManager.gdm.enable = true;
@@ -81,12 +80,6 @@
         variant = "";
       };
     };
-
-    /*
-      # TO REPLACE XSERVER IN 25.11
-      displayManager.gdm.enable = true;
-      desktopManager.gnome.enable = true;
-    */
 
     printing.enable = true;
 
@@ -210,7 +203,7 @@
     ];
   };
 
-  system.rebuild.enableNg = true; # default in 25.11
+  system.rebuild.enableNg = true;
 
   system.stateVersion = "24.11"; # NEVER MUTATE
 }
