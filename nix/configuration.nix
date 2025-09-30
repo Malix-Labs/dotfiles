@@ -198,7 +198,5 @@
     ];
   };
 
-  system.rebuild.enableNg = true;
-
   system.stateVersion = "24.11"; # NEVER MUTATE
 }
