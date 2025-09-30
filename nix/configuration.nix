@@ -49,7 +49,6 @@
       };
       efi.canTouchEfiVariables = true;
     };
-    # initrd.luks.devices.cryptroot.device = "/dev/disk/by-uuid/UUID-OF-SDA2"; # TODO: see https://wiki.nixos.org/wiki/Full_Disk_Encryption#Enter_password_on_Boot to continue setup
   };
 
   networking = {
