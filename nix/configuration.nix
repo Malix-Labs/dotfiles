@@ -177,7 +177,15 @@
     protonvpn-gui
   ];
 
-  virtualisation.waydroid.enable = true;
+  virtualisation = {
+    containers.enable = true;
+    podman = {
+      enable = true;
+      dockerCompat = true;
+      defaultNetwork.settings.dns_enabled = true; # Required for containers under podman-compose to be able to talk to each other. See https://wiki.nixos.org/wiki/Podman
+    };
+    waydroid.enable = true;
+  };
 
   users.users.malix = {
     isNormalUser = true;
@@ -185,6 +193,7 @@
     extraGroups = [
       "networkmanager"
       "wheel"
+      "podman"
     ];
     packages = with pkgs; [
       gh
