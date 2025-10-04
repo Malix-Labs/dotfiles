@@ -92,11 +92,11 @@
       ];
       overrides = {
         "org.vinegarhq.Sober" = {
-          filesystems = [
-            "xdg-run/pipewire-0"
-            "xdg-run/app/com.discordapp.Discord:create"
-            "xdg-run/discord-ipc-0"
-          ];
+          # filesystems = [
+          #   "xdg-run/pipewire-0"
+          #   "xdg-run/app/com.discordapp.Discord:create"
+          #   "xdg-run/discord-ipc-0"
+          # ];
           environment = {
             "SDL_AUDIO_DRIVER" = "pipewire";
           };
