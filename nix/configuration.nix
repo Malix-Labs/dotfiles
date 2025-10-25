@@ -201,6 +201,7 @@
       pkgs-unstable.zed-editor.fhs
       vscode.fhs
       gitkraken
+      pkgs-unstable.github-copilot-cli
     ];
   };
 
