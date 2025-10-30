@@ -264,6 +264,27 @@
         "url": "https://flakehub.com/f/cachix/git-hooks.nix/0.1.941"
       }
     },
+    "home-manager": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-stable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1758463745,
+        "narHash": "sha256-uhzsV0Q0I9j2y/rfweWeGif5AWe0MGrgZ/3TjpDYdGA=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "3b955f5f0a942f9f60cdc9cacb7844335d0f21c3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "ref": "release-25.05",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
     "l5p-keyboard-rgb": {
       "inputs": {
         "crane": "crane_2",
@@ -452,6 +473,7 @@
         "declarative-flatpak": "declarative-flatpak",
         "determinate": "determinate",
         "fh": "fh",
+        "home-manager": "home-manager",
         "l5p-keyboard-rgb": "l5p-keyboard-rgb",
         "mcp-nixos": "mcp-nixos",
         "nixos-hardware": "nixos-hardware",

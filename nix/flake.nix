@@ -14,6 +14,11 @@
     declarative-flatpak.url = "github:in-a-dil-emma/declarative-flatpak/v4.1.1";
     # nix-flatpak.url = "github:gmodena/nix-flatpak";
 
+    home-manager = {
+      url = "github:nix-community/home-manager/release-25.05";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
+
     fh = {
       url = "github:DeterminateSystems/fh";
       inputs.nixpkgs.follows = "determinate/nixpkgs";
@@ -35,6 +40,9 @@
       nixpkgs-unstable,
 
       nixos-hardware,
+
+      home-manager,
+
       l5p-keyboard-rgb,
 
       declarative-flatpak,
@@ -71,6 +79,8 @@
           ./hardware-configuration.nix
           nixos-hardware.nixosModules.lenovo-legion-15ach6h # https://github.com/NixOS/nixos-hardware/tree/master/lenovo/legion/15ach6h
           ./nixos-hardware-override.nix
+
+          home-manager.nixosModules.default
 
           declarative-flatpak.nixosModules.default
           # nix-flatpak.nixosModules.nix-flatpak
