@@ -13,7 +13,7 @@
       inputs.nixpkgs.follows = "determinate/nixpkgs";
     };
 
-    declarative-flatpak.url = "github:in-a-dil-emma/declarative-flatpak/v4.0.1";
+    declarative-flatpak.url = "github:in-a-dil-emma/declarative-flatpak/v4.1.0";
     # nix-flatpak.url = "github:gmodena/nix-flatpak";
 
     mcp-nixos = {
