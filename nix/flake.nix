@@ -74,7 +74,7 @@
           ./nixos-hardware-override.nix
 
           declarative-flatpak.nixosModules.default
-          # nix-flatpak.nixosModules.nix-flatpak
+          # nix-flatpak.nixosModules.default
         ];
       };
     };
