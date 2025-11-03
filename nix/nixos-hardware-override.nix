@@ -1,4 +1,4 @@
-# Lenovo Legion 15ACH6H of Malix
+# Hardware Overrides for Lenovo Legion 15ACH6H
 
 {
   config,
@@ -7,10 +7,8 @@
   l5p-keyboard-rgb,
   ...
 }:
-
 {
-  # See https://github.com/NixOS/nixos-hardware/issues/1388
-  hardware.nvidia.prime.amdgpuBusId = "PCI:5:0:0";
+  hardware.nvidia.prime.amdgpuBusId = "PCI:5:0:0"; # See https://github.com/NixOS/nixos-hardware/issues/1388
 
   # Required until NixOS 25.11 is released OR https://github.com/NixOS/nixpkgs/issues/429624 gets fixed
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.mkDriver {

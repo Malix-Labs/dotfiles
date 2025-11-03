@@ -1,4 +1,3 @@
-# /etc/nixos/flake.nix
 {
   inputs = {
     determinate.url = "github:DeterminateSystems/determinate";
