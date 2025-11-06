@@ -8,7 +8,6 @@
   fh,
   ...
 }:
-
 {
   nix.settings = {
     experimental-features = [
