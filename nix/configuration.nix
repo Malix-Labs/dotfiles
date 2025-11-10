@@ -130,9 +130,12 @@
     };
   };
 
-  programs.kdeconnect = {
-    enable = true;
-    package = pkgs.gnomeExtensions.gsconnect;
+  programs = {
+    bandwhich.enable = true;
+    kdeconnect = {
+      enable = true;
+      package = pkgs.gnomeExtensions.gsconnect;
+    };
   };
 
   qt = {
