@@ -200,8 +200,8 @@
     packages = with pkgs; [
       gh
       vesktop
-      pkgs-unstable.zed-editor.fhs
-      vscode.fhs
+      pkgs-unstable.zed-editor
+      vscode
       gitkraken
       pkgs-unstable.github-copilot-cli
     ];
