@@ -152,11 +152,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1762981433,
-        "narHash": "sha256-Sx1Ig8SFCUMkVhPpSK0K3s1OhjVPOduPSuy8Ia9+uK4=",
+        "lastModified": 1763350820,
+        "narHash": "sha256-9h9+oQjXKVyA4jmxJMq7lwspEkbDJWRJaL2DMK6dbRs=",
         "owner": "DeterminateSystems",
         "repo": "fh",
-        "rev": "1d1baa28d067596f7f7c2768a6b5bc66b4a01586",
+        "rev": "0ce7e0bd9693425a3b88e07c37d7869f1d545d28",
         "type": "github"
       },
       "original": {
@@ -406,11 +406,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1762977756,
-        "narHash": "sha256-ofLW/pWU9HuZO43hK0ze2uTITgG5NWUws6ePJrazSlM=",
-        "rev": "c5ae371f1a6a7fd27823bc500d9390b38c05fa55",
+        "lastModified": 1763283776,
+        "narHash": "sha256-q3IHets/BZS0GVc6FtV8xqWKSmYeh3ahVVdRMTQWXI8=",
+        "rev": "50a96edd8d0db6cc8db57dab6bb6d6ee1f3dc49a",
         "type": "tarball",
-        "url": "https://releases.nixos.org/nixos/unstable/nixos-25.11pre895122.c5ae371f1a6a/nixexprs.tar.xz"
+        "url": "https://releases.nixos.org/nixos/unstable/nixos-25.11pre896953.50a96edd8d0d/nixexprs.tar.xz"
       },
       "original": {
         "type": "tarball",
