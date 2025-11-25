@@ -69,15 +69,11 @@
 
   services = {
 
-    xserver = {
+    displayManager.sddm = {
       enable = true;
-      displayManager.gdm.enable = true;
-      desktopManager.gnome.enable = true;
-      xkb = {
-        layout = "fr";
-        variant = "";
-      };
+      wayland.enable = true;
     };
+    desktopManager.plasma6.enable = true;
 
     printing.enable = true;
 
@@ -132,16 +128,7 @@
 
   programs = {
     bandwhich.enable = true;
-    kdeconnect = {
-      enable = true;
-      package = pkgs.gnomeExtensions.gsconnect;
-    };
-  };
-
-  qt = {
-    enable = true;
-    platformTheme = "gnome";
-    style = "adwaita-dark";
+    kdeconnect.enable = true;
   };
 
   fonts.packages = with pkgs; [
