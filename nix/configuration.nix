@@ -126,6 +126,8 @@
     };
   };
 
+  hardware.bluetooth.enable = true;
+
   programs = {
     bandwhich.enable = true;
     kdeconnect.enable = true;
