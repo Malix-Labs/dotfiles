@@ -159,7 +159,6 @@
     fh.packages.${pkgs.system}.default
     mcp-nixos.packages.${pkgs.system}.default
 
-    mission-center
     audacity
 
     google-chrome
