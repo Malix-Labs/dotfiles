@@ -192,6 +192,8 @@
       vscode
       gitkraken
       pkgs-unstable.github-copilot-cli
+
+      simplex-chat-desktop
     ];
   };
 
