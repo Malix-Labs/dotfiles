@@ -2,7 +2,7 @@
   inputs = {
     determinate.url = "github:DeterminateSystems/determinate";
 
-    nixpkgs-stable.url = "https://channels.nixos.org/nixos-25.05/nixexprs.tar.xz";
+    nixpkgs-stable.url = "https://channels.nixos.org/nixos-25.11/nixexprs.tar.xz";
     nixpkgs-unstable.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware";
