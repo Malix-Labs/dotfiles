@@ -133,9 +133,9 @@
   };
 
   fonts.packages = with pkgs; [
+    nerd-fonts.noto
     noto-fonts-color-emoji
     nerd-fonts.fira-code
-    nerd-fonts.noto
   ];
 
   security.rtkit.enable = true;
