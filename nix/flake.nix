@@ -6,24 +6,23 @@
     nixpkgs-unstable.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware";
+    l5p-keyboard-rgb = {
+      url = "github:4JX/L5P-Keyboard-RGB";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
+    declarative-flatpak.url = "github:in-a-dil-emma/declarative-flatpak/v4.1.1";
+    # nix-flatpak.url = "github:gmodena/nix-flatpak";
 
     fh = {
       url = "github:DeterminateSystems/fh";
       inputs.nixpkgs.follows = "determinate/nixpkgs";
     };
-
-    declarative-flatpak.url = "github:in-a-dil-emma/declarative-flatpak/v4.1.0";
-    # nix-flatpak.url = "github:gmodena/nix-flatpak";
-
     mcp-nixos = {
       url = "github:utensils/mcp-nixos";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
-    l5p-keyboard-rgb = {
-      url = "github:4JX/L5P-Keyboard-RGB";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
   };
 
   outputs =
@@ -36,13 +35,14 @@
       nixpkgs-unstable,
 
       nixos-hardware,
-
-      fh,
-      mcp-nixos,
       l5p-keyboard-rgb,
 
       declarative-flatpak,
       # nix-flatpak,
+
+      fh,
+      mcp-nixos,
+
       ...
     }@inputs:
     let

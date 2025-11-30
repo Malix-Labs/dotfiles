@@ -8,7 +8,6 @@
   fh,
   ...
 }:
-
 {
   nix.settings = {
     experimental-features = [
@@ -70,8 +69,11 @@
 
   services = {
 
-    displayManager.gdm.enable = true;
-    desktopManager.gnome.enable = true;
+    displayManager.sddm = {
+      enable = true;
+      wayland.enable = true;
+    };
+    desktopManager.plasma6.enable = true;
 
     printing.enable = true;
 
@@ -124,15 +126,11 @@
     };
   };
 
-  programs.kdeconnect = {
-    enable = true;
-    package = pkgs.gnomeExtensions.gsconnect;
-  };
+  hardware.bluetooth.enable = true;
 
-  qt = {
-    enable = true;
-    platformTheme = "gnome";
-    style = "adwaita-dark";
+  programs = {
+    bandwhich.enable = true;
+    kdeconnect.enable = true;
   };
 
   fonts.packages = with pkgs; [
@@ -161,7 +159,6 @@
     fh.packages.${pkgs.system}.default
     mcp-nixos.packages.${pkgs.system}.default
 
-    mission-center
     audacity
 
     google-chrome
@@ -191,10 +188,12 @@
     packages = with pkgs; [
       gh
       vesktop
-      pkgs-unstable.zed-editor.fhs
-      vscode.fhs
+      pkgs-unstable.zed-editor
+      vscode
       gitkraken
       pkgs-unstable.github-copilot-cli
+
+      simplex-chat-desktop
     ];
   };
 
