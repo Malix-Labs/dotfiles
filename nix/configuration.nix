@@ -104,7 +104,6 @@
       '';
     };
 
-    pulseaudio.enable = false;
     pipewire = {
       enable = true;
       alsa = {
@@ -196,8 +195,6 @@
       simplex-chat-desktop
     ];
   };
-
-  system.rebuild.enableNg = true;
 
   system.stateVersion = "24.11"; # NEVER MUTATE
 }
