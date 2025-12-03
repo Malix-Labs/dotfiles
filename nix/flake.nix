@@ -81,12 +81,6 @@
           ./nixos-hardware-override.nix
 
           home-manager.nixosModules.default
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-            };
-          }
 
           declarative-flatpak.nixosModules.default
           # nix-flatpak.nixosModules.nix-flatpak

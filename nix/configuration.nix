@@ -176,6 +176,11 @@
     waydroid.enable = true;
   };
 
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+  };
+
   users.users.malix = {
     isNormalUser = true;
     description = "Malix";
