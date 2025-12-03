@@ -179,6 +179,7 @@
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
+    users.malix = ./home.nix;
   };
 
   users.users.malix = {
