@@ -59,18 +59,14 @@
         inherit system;
         config.allowUnfree = true;
       };
+
+      specialArgs = inputs // {
+        inherit pkgs-unstable;
+      };
     in
     {
       nixosConfigurations.nixos = nixpkgs-stable.lib.nixosSystem {
-        inherit system;
-        specialArgs = {
-          inherit
-            mcp-nixos
-            pkgs-unstable
-            fh
-            l5p-keyboard-rgb
-            ;
-        };
+        inherit system specialArgs;
         modules = [
           determinate.nixosModules.default
 
@@ -81,9 +77,7 @@
           ./nixos-hardware-override.nix
 
           home-manager.nixosModules.default
-
-          declarative-flatpak.homeModules.default
-          # nix-flatpak.homeManagerModules.nix-flatpak
+          { home-manager.extraSpecialArgs = specialArgs; }
         ];
       };
     };

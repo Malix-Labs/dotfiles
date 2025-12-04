@@ -1,9 +1,14 @@
 {
   pkgs,
   pkgs-unstable,
+  declarative-flatpak,
   ...
 }:
 {
+  imports = [
+    declarative-flatpak.homeModules.default
+  ];
+
   home = {
     username = "malix";
     homeDirectory = "/home/malix";
