@@ -70,11 +70,7 @@
         modules = [
           determinate.nixosModules.default
 
-          ./configuration.nix
-
-          ./hardware-configuration.nix
-          nixos-hardware.nixosModules.lenovo-legion-15ach6h # https://github.com/NixOS/nixos-hardware/tree/master/lenovo/legion/15ach6h
-          ./nixos-hardware-override.nix
+          ./configuration-modular.nix
 
           home-manager.nixosModules.default
           { home-manager.extraSpecialArgs = specialArgs; }
