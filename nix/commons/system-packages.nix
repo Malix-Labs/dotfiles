@@ -13,7 +13,7 @@
     git
     fastfetch
     wl-clipboard-rs
-    # clipboard-jh # broken for Wayland, see https://github.com/Slackadays/Clipboard/issues/171
+    # TODO: Re-enable clipboard-jh when Wayland support is fixed, see https://github.com/Slackadays/Clipboard/issues/171
 
     nixd
     nixfmt-rfc-style
