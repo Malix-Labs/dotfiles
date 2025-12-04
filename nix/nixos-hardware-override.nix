@@ -8,6 +8,10 @@
   ...
 }:
 {
+  imports = [
+    ./patch/linux-6.18_nvidia-open.nix
+  ];
+
   hardware.nvidia.prime.amdgpuBusId = "PCI:5:0:0"; # See https://github.com/NixOS/nixos-hardware/issues/1388
 
   # Add Lenovo Legion kernel module and userspace utility
