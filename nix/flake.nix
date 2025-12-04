@@ -14,6 +14,11 @@
     declarative-flatpak.url = "github:in-a-dil-emma/declarative-flatpak/v4.1.1";
     # nix-flatpak.url = "github:gmodena/nix-flatpak";
 
+    home-manager = {
+      url = "github:nix-community/home-manager/release-25.11";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
+
     fh = {
       url = "github:DeterminateSystems/fh";
       inputs.nixpkgs.follows = "determinate/nixpkgs";
@@ -35,6 +40,9 @@
       nixpkgs-unstable,
 
       nixos-hardware,
+
+      home-manager,
+
       l5p-keyboard-rgb,
 
       declarative-flatpak,
@@ -51,18 +59,14 @@
         inherit system;
         config.allowUnfree = true;
       };
+
+      specialArgs = inputs // {
+        inherit pkgs-unstable;
+      };
     in
     {
       nixosConfigurations.nixos = nixpkgs-stable.lib.nixosSystem {
-        inherit system;
-        specialArgs = {
-          inherit
-            mcp-nixos
-            pkgs-unstable
-            fh
-            l5p-keyboard-rgb
-            ;
-        };
+        inherit system specialArgs;
         modules = [
           determinate.nixosModules.default
 
@@ -72,8 +76,8 @@
           nixos-hardware.nixosModules.lenovo-legion-15ach6h # https://github.com/NixOS/nixos-hardware/tree/master/lenovo/legion/15ach6h
           ./nixos-hardware-override.nix
 
-          declarative-flatpak.nixosModules.default
-          # nix-flatpak.nixosModules.nix-flatpak
+          home-manager.nixosModules.default
+          { home-manager.extraSpecialArgs = specialArgs; }
         ];
       };
     };
