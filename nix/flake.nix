@@ -82,8 +82,8 @@
 
           home-manager.nixosModules.default
 
-          declarative-flatpak.nixosModules.default
-          # nix-flatpak.nixosModules.nix-flatpak
+          declarative-flatpak.homeModules.default
+          # nix-flatpak.homeManagerModules.nix-flatpak
         ];
       };
     };

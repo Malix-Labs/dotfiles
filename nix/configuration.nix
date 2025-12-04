@@ -3,7 +3,6 @@
   lib,
   pkgs,
   pkgs-unstable,
-  declarative-flatpak,
   mcp-nixos,
   fh,
   ...
@@ -77,33 +76,6 @@
 
     printing.enable = true;
 
-    flatpak = {
-      enable = true;
-      remotes = {
-        "flathub" = "https://dl.flathub.org/repo/flathub.flatpakrepo";
-      };
-      packages = [
-        "flathub:app/org.vinegarhq.Sober//stable"
-      ];
-      overrides = {
-        "org.vinegarhq.Sober" = {
-          Context.filesystems = [
-            "xdg-run/pipewire-0"
-            "xdg-run/app/com.discordapp.Discord:create"
-            "xdg-run/discord-ipc-0"
-          ];
-          environment = {
-            "SDL_AUDIO_DRIVER" = "pipewire";
-          };
-        };
-      };
-
-      # Workaround for unsupported overrides (see https://github.com/in-a-dil-emma/declarative-flatpak/issues/42#issuecomment-3400500573)
-      preSwitchCommand = ''
-        flatpak override --device=input org.vinegarhq.Sober
-      '';
-    };
-
     pipewire = {
       enable = true;
       alsa = {
@@ -158,10 +130,6 @@
     fh.packages.${pkgs.system}.default
     mcp-nixos.packages.${pkgs.system}.default
 
-    audacity
-
-    google-chrome
-
     cloudflare-warp
     protonvpn-gui
   ];
@@ -189,16 +157,6 @@
       "networkmanager"
       "wheel"
       "podman"
-    ];
-    packages = with pkgs; [
-      gh
-      vesktop
-      pkgs-unstable.zed-editor
-      vscode
-      gitkraken
-      pkgs-unstable.github-copilot-cli
-
-      simplex-chat-desktop
     ];
   };
 
