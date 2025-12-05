@@ -23,14 +23,29 @@
       gitkraken
       github-copilot-cli
       simplex-chat-desktop
+      sequoia-sq # Sequoia OpenPGP implementation
     ];
   };
 
   programs = {
     home-manager.enable = true;
+    
+    gpg = {
+      enable = true;
+      settings = {
+        # Use Sequoia as the default backend when possible
+        # Note: Sequoia provides the 'sq' command-line tool for OpenPGP operations
+      };
+    };
   };
 
   services = {
+    gpg-agent = {
+      enable = true;
+      enableSshSupport = true;
+      pinentryPackage = pkgs.pinentry-qt;
+    };
+    
     flatpak = {
       enable = true;
       remotes = {
