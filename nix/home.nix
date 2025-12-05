@@ -32,10 +32,8 @@
     
     gpg = {
       enable = true;
-      settings = {
-        # GPG is configured to work alongside Sequoia
-        # Sequoia provides the 'sq' command-line tool for modern OpenPGP operations
-      };
+      # GPG is configured to work alongside Sequoia
+      # Sequoia provides the 'sq' command-line tool for modern OpenPGP operations
     };
   };
 
