@@ -66,7 +66,7 @@
     in
     {
       nixosConfigurations.nixos = nixpkgs-stable.lib.nixosSystem {
-        inherit system specialArgs;
+        inherit specialArgs;
         modules = [
           determinate.nixosModules.default
 
