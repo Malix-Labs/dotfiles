@@ -127,8 +127,8 @@
 
     nixd
     nixfmt-rfc-style
-    fh.packages.${pkgs.system}.default
-    mcp-nixos.packages.${pkgs.system}.default
+    fh.packages.${pkgs.stdenv.hostPlatform.system}.default
+    mcp-nixos.packages.${pkgs.stdenv.hostPlatform.system}.default
 
     cloudflare-warp
     protonvpn-gui

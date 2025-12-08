@@ -18,6 +18,6 @@
   boot.extraModulePackages = [ config.boot.kernelPackages.lenovo-legion-module ];
   environment.systemPackages = [
     pkgs.lenovo-legion
-    l5p-keyboard-rgb.packages.${pkgs.system}.default
+    l5p-keyboard-rgb.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 }
