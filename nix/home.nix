@@ -18,10 +18,10 @@
       audacity
       gh
       vesktop
-      pkgs-unstable.zed-editor
+      zed-editor
       vscode
       gitkraken
-      pkgs-unstable.github-copilot-cli
+      github-copilot-cli
       simplex-chat-desktop
     ];
   };
