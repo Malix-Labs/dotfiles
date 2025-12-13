@@ -53,31 +53,21 @@
 
       ...
     }@inputs:
-    let
-      system = "x86_64-linux";
-      pkgs-unstable = import nixpkgs-unstable {
-        inherit system;
-        config.allowUnfree = true;
-      };
-
-      specialArgs = inputs // {
-        inherit pkgs-unstable;
-      };
-    in
     {
       nixosConfigurations.nixos = nixpkgs-stable.lib.nixosSystem {
-        inherit specialArgs;
+        specialArgs = inputs;
         modules = [
           determinate.nixosModules.default
 
           ./configuration.nix
 
           ./hardware-configuration.nix
+          ./pkgs-lib.nix
           nixos-hardware.nixosModules.lenovo-legion-15ach6h # https://github.com/NixOS/nixos-hardware/tree/master/lenovo/legion/15ach6h
           ./nixos-hardware-override.nix
 
           home-manager.nixosModules.default
-          { home-manager.extraSpecialArgs = specialArgs; }
+          { home-manager.extraSpecialArgs = inputs; }
         ];
       };
     };
