@@ -31,28 +31,17 @@
   };
 
   outputs =
-    {
-      self,
+    inputs@{
+      nixpkgs-stable,
 
       determinate,
-
-      nixpkgs-stable,
-      nixpkgs-unstable,
 
       nixos-hardware,
 
       home-manager,
 
-      l5p-keyboard-rgb,
-
-      declarative-flatpak,
-      # nix-flatpak,
-
-      fh,
-      mcp-nixos,
-
       ...
-    }@inputs:
+    }:
     {
       nixosConfigurations.nixos = nixpkgs-stable.lib.nixosSystem {
         specialArgs = inputs;
