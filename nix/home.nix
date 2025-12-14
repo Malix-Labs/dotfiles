@@ -23,6 +23,8 @@
       gitkraken
       github-copilot-cli
       simplex-chat-desktop
+      sequoia-sq
+      sequoia-chameleon-gnupg
     ];
   };
 
