@@ -26,6 +26,7 @@ in
       gitkraken
       github-copilot-cli
       simplex-chat-desktop
+      sequoia-sq
     ];
   };
 
