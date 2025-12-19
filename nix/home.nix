@@ -30,6 +30,20 @@
 
   programs = {
     home-manager.enable = true;
+
+    nushell = {
+      enable = true;
+    };
+
+    carapace = {
+      enable = true;
+      enableNushellIntegration = true;
+    };
+
+    starship = {
+      enable = true;
+      enableNushellIntegration = true;
+    };
   };
 
   services = {
