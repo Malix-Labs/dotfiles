@@ -1,7 +1,9 @@
 {
   pkgs,
   pkgs-unstable,
+
   declarative-flatpak,
+
   ...
 }:
 {
