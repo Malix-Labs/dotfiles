@@ -116,6 +116,11 @@ in
   };
 
   services = {
+    gpg-agent = {
+      enable = true;
+      enableNushellIntegration = true;
+    };
+
     flatpak = {
       enable = true;
       remotes = {
