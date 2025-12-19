@@ -69,6 +69,22 @@ in
       enableNushellIntegration = true;
     };
 
+    git = {
+      enable = true;
+      settings = {
+        user = {
+          name = "Malix - Alix Brunet";
+          email = "alixbrunetcontact@gmail.com";
+        };
+      };
+      signing = {
+        signByDefault = true;
+        format = "openpgp";
+        signer = lib.getExe pkgs.sequoia-chameleon-gnupg;
+        key = "369E2AB995539B6F30AAC24C600394C79ED874E5";
+      };
+    };
+
     gh = {
       enable = true;
     };
