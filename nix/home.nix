@@ -25,7 +25,6 @@ in
       audacity
       gh
       vesktop
-      zed-editor
       vscode
       gitkraken
       github-copilot-cli
@@ -73,6 +72,10 @@ in
     ghostty = {
       enable = true;
       settings.command = nu;
+    };
+
+    zed-editor = {
+      enable = true;
     };
   };
 
