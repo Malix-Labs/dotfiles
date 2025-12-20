@@ -1,4 +1,6 @@
 {
+  lib,
+
   pkgs,
   pkgs-unstable,
 
@@ -6,6 +8,9 @@
 
   ...
 }:
+let
+  nu = lib.getExe pkgs.nushell;
+in
 {
   imports = [
     declarative-flatpak.homeModules.default
@@ -31,8 +36,30 @@
   programs = {
     home-manager.enable = true;
 
+    ghostty = {
+      enable = true;
+      settings.command = nu;
+    };
+
     nushell = {
       enable = true;
+    };
+
+    bash = {
+      enable = true;
+      initExtra = ''
+        if [[ $- == *i* ]] && \
+          [ -z "$BASH_EXECUTION_STRING" ] && \
+          [ "$TERM" != "dumb" ] && \
+          [[ ! "$(< /proc/$PPID/comm)" =~ ^nu(shell)?$ ]];
+        then
+          if shopt -q login_shell; then
+            exec ${nu} --login
+          else
+            exec ${nu}
+          fi
+        fi
+      '';
     };
 
     carapace = {
