@@ -23,8 +23,6 @@ in
     packages = with pkgs; [
       google-chrome
       audacity
-      gh
-      vesktop
       gitkraken
       github-copilot-cli
       simplex-chat-desktop
@@ -68,6 +66,10 @@ in
       enableNushellIntegration = true;
     };
 
+    gh = {
+      enable = true;
+    };
+
     helix = {
       enable = true;
     };
@@ -82,6 +84,10 @@ in
     };
 
     vscode = {
+      enable = true;
+    };
+
+    vesktop = {
       enable = true;
     };
   };
