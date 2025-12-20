@@ -43,6 +43,9 @@ in
 
     nushell = {
       enable = true;
+      settings = {
+        show_banner = false;
+      };
     };
 
     bash = {
