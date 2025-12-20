@@ -68,6 +68,10 @@ in
       enableNushellIntegration = true;
     };
 
+    helix = {
+      enable = true;
+    };
+
     ghostty = {
       enable = true;
       settings.command = nu;
