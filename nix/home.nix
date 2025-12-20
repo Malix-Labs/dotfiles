@@ -36,11 +36,6 @@ in
   programs = {
     home-manager.enable = true;
 
-    ghostty = {
-      enable = true;
-      settings.command = nu;
-    };
-
     nushell = {
       enable = true;
       settings = {
@@ -73,6 +68,11 @@ in
     starship = {
       enable = true;
       enableNushellIntegration = true;
+    };
+
+    ghostty = {
+      enable = true;
+      settings.command = nu;
     };
   };
 
