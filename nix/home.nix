@@ -25,7 +25,6 @@ in
       audacity
       gh
       vesktop
-      vscode
       gitkraken
       github-copilot-cli
       simplex-chat-desktop
@@ -75,6 +74,10 @@ in
     };
 
     zed-editor = {
+      enable = true;
+    };
+
+    vscode = {
       enable = true;
     };
   };
