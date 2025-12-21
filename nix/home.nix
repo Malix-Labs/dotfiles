@@ -70,6 +70,10 @@ in
       enable = true;
     };
 
+    gh-dash = {
+      enable = true;
+    };
+
     helix = {
       enable = true;
     };
