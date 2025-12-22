@@ -29,6 +29,7 @@ in
 
       sequoia-sq
       sequoia-chameleon-gnupg
+      gnupg # required until https://github.com/NixOS/nixpkgs/issues/473387 is fixed
     ];
   };
 
