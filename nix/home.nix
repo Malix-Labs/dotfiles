@@ -1,5 +1,6 @@
 {
   lib,
+  config,
 
   pkgs,
   pkgs-unstable,
@@ -10,6 +11,7 @@
 }:
 let
   nu = lib.getExe pkgs.nushell;
+  sshDirectory = "${config.home.homeDirectory}/.ssh";
 in
 {
   imports = [
@@ -21,7 +23,7 @@ in
     homeDirectory = "/home/malix";
     stateVersion = "25.11";
     activation.createSshSocketDir = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      mkdir --parents $HOME/.ssh/sockets
+      mkdir --parents ${sshDirectory}/sockets
     '';
     packages = with pkgs; [
       google-chrome
@@ -80,7 +82,7 @@ in
       signing = {
         signByDefault = true;
         format = "ssh";
-        key = "~/.ssh/id_ed25519.pub";
+        key = "${sshDirectory}/id_ed25519.pub";
       };
     };
 
@@ -89,11 +91,13 @@ in
       enableDefaultConfig = false;
       matchBlocks."*" = {
         addKeysToAgent = "yes";
-        identityFile = "~/.ssh/id_ed25519";
+        identityFile = [
+          "${sshDirectory}/id_ed25519"
+        ];
         identitiesOnly = true;
 
         controlMaster = "auto";
-        controlPath = "~/.ssh/sockets/%r@%n:%p";
+        controlPath = "${sshDirectory}/sockets/%r@%n:%p";
         controlPersist = "1h";
 
         serverAliveInterval = 60;
