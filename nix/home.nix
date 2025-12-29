@@ -1,5 +1,6 @@
 {
   lib,
+  config,
 
   pkgs,
   pkgs-unstable,
@@ -10,6 +11,7 @@
 }:
 let
   nu = lib.getExe pkgs.nushell;
+  sshDirectory = "${config.home.homeDirectory}/.ssh";
 in
 {
   imports = [
@@ -20,16 +22,15 @@ in
     username = "malix";
     homeDirectory = "/home/malix";
     stateVersion = "25.11";
+    activation.createSshSocketDir = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      mkdir --parents ${sshDirectory}/sockets
+    '';
     packages = with pkgs; [
       google-chrome
       audacity
       gitkraken
       github-copilot-cli
       simplex-chat-desktop
-
-      sequoia-sq
-      sequoia-chameleon-gnupg
-      gnupg # required until https://github.com/NixOS/nixpkgs/issues/473387 is fixed
     ];
   };
 
@@ -80,9 +81,30 @@ in
       };
       signing = {
         signByDefault = true;
-        format = "openpgp";
-        signer = lib.getExe pkgs.sequoia-chameleon-gnupg;
-        key = "369E2AB995539B6F30AAC24C600394C79ED874E5";
+        format = "ssh";
+        key = "${sshDirectory}/id_ed25519.pub";
+      };
+    };
+
+    ssh = {
+      enable = true;
+      enableDefaultConfig = false;
+      matchBlocks."*" = {
+        addKeysToAgent = "yes";
+        identityFile = [
+          "${sshDirectory}/id_ed25519"
+        ];
+        identitiesOnly = true;
+
+        controlMaster = "auto";
+        controlPath = "${sshDirectory}/sockets/%r@%n:%p";
+        controlPersist = "1h";
+
+        serverAliveInterval = 60;
+
+        hashKnownHosts = true;
+
+        setEnv.COLORTERM = "truecolor";
       };
     };
 
@@ -117,7 +139,7 @@ in
   };
 
   services = {
-    gpg-agent = {
+    ssh-agent = {
       enable = true;
       enableNushellIntegration = true;
     };
