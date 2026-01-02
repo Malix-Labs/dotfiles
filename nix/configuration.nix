@@ -117,25 +117,29 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  environment.systemPackages = with pkgs; [
-    ghostty
+  environment = {
+    systemPackages = with pkgs; [
+      ghostty
 
-    helix
+      helix
 
-    wget
-    git
-    fastfetch
-    wl-clipboard-rs
-    # clipboard-jh # broken for Wayland, see https://github.com/Slackadays/Clipboard/issues/171
+      wget
+      git
+      fastfetch
+      wl-clipboard-rs
+      # clipboard-jh # broken for Wayland, see https://github.com/Slackadays/Clipboard/issues/171
 
-    nixd
-    nixfmt-rfc-style
-    fh.packages.${pkgs.stdenv.hostPlatform.system}.default
-    mcp-nixos.packages.${pkgs.stdenv.hostPlatform.system}.default
+      nixd
+      nixfmt-rfc-style
+      fh.packages.${pkgs.stdenv.hostPlatform.system}.default
+      mcp-nixos.packages.${pkgs.stdenv.hostPlatform.system}.default
 
-    cloudflare-warp
-    protonvpn-gui
-  ];
+      cloudflare-warp
+      protonvpn-gui
+    ];
+
+    etc.nixos.source = "/home/malix/Repositories/Malix-Labs/dotfiles/nix"; # string and not path for direct symlink (see https://discourse.nixos.org/t/how-to-create-symlinks-in-nixos/73911/4?u=malix)
+  };
 
   virtualisation = {
     containers.enable = true;
