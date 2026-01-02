@@ -1,9 +1,15 @@
 {
   inputs = {
+
     determinate.url = "github:DeterminateSystems/determinate";
 
     nixpkgs-stable.url = "https://channels.nixos.org/nixos-25.11/nixexprs.tar.xz";
     nixpkgs-unstable.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz";
+
+    home-manager = {
+      url = "github:nix-community/home-manager/release-25.11";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
 
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     l5p-keyboard-rgb = {
@@ -13,11 +19,6 @@
 
     declarative-flatpak.url = "github:in-a-dil-emma/declarative-flatpak/v4.1.1";
     # nix-flatpak.url = "github:gmodena/nix-flatpak";
-
-    home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
-    };
 
     fh = {
       url = "github:DeterminateSystems/fh";
