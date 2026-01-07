@@ -5,6 +5,6 @@
 }:
 {
   _module.args.pkgs-unstable = import nixpkgs-unstable {
-    hostPlatform = config.nixpkgs.hostPlatform;
+    inherit (config.nixpkgs) hostPlatform config;
   };
 }
