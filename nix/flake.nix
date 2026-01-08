@@ -14,7 +14,8 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     l5p-keyboard-rgb = {
       url = "github:4JX/L5P-Keyboard-RGB";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      # inputs.nixpkgs.follows = "nixpkgs-unstable"; # Required until https://github.com/4JX/L5P-Keyboard-RGB/issues/249 is fixed
+      inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small"; # Required until https://github.com/4JX/L5P-Keyboard-RGB/issues/249 is fixed
     };
 
     declarative-flatpak.url = "github:in-a-dil-emma/declarative-flatpak/v4.1.3";
