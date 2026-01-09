@@ -1,10 +1,13 @@
 {
   inputs = {
 
-    determinate.url = "github:DeterminateSystems/determinate";
-
     nixpkgs-stable.url = "https://channels.nixos.org/nixos-25.11/nixexprs.tar.xz";
     nixpkgs-unstable.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz";
+
+    determinate = {
+      url = "github:DeterminateSystems/determinate";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
 
     home-manager = {
       url = "github:nix-community/home-manager/release-25.11";
@@ -22,7 +25,7 @@
 
     fh = {
       url = "github:DeterminateSystems/fh";
-      inputs.nixpkgs.follows = "determinate/nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     mcp-nixos = {
       url = "github:utensils/mcp-nixos";

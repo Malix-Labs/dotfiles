@@ -5,7 +5,6 @@
   pkgs,
   pkgs-unstable,
 
-  nixpkgs-stable,
   declarative-flatpak,
 
   ...
@@ -18,8 +17,6 @@ in
   imports = [
     declarative-flatpak.homeModules.default
   ];
-
-  nix.registry.nixpkgs.flake = nixpkgs-stable; # Override determinate
 
   home = {
     username = "malix";
