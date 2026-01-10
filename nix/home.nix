@@ -118,6 +118,7 @@ in
 
     helix = {
       enable = true;
+      defaultEditor = true;
     };
 
     ghostty = {
