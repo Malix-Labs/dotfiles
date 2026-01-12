@@ -4,6 +4,7 @@
   pkgs,
   pkgs-unstable,
 
+  nixpkgs-chosen,
   nixpkgs-unstable,
   nixpkgs-stable,
 
@@ -14,7 +15,7 @@
 {
   nix = {
     registry = {
-      nixpkgs = lib.mkForce { flake = pkgs.path; }; # Override determinate
+      nixpkgs = lib.mkForce { flake = nixpkgs-chosen; }; # Override determinate
       nixpkgs-stable.flake = nixpkgs-stable;
       nixpkgs-unstable.flake = nixpkgs-unstable;
     };

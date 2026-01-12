@@ -46,9 +46,15 @@
 
       ...
     }:
+    let
+      nixpkgs-chosen = nixpkgs-stable;
+      specialArgs = inputs // {
+        inherit nixpkgs-chosen;
+      };
+    in
     {
-      nixosConfigurations.nixos = nixpkgs-stable.lib.nixosSystem {
-        specialArgs = inputs;
+      nixosConfigurations.nixos = nixpkgs-chosen.lib.nixosSystem {
+        inherit specialArgs;
         modules = [
           determinate.nixosModules.default
 
@@ -60,7 +66,7 @@
           ./nixos-hardware-override.nix
 
           home-manager.nixosModules.default
-          { home-manager.extraSpecialArgs = inputs; }
+          { home-manager.extraSpecialArgs = specialArgs; }
         ];
       };
     };
