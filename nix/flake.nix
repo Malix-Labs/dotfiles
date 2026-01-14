@@ -42,6 +42,8 @@
       "https://hyprland.cachix.org/"
 
       "https://install.determinate.systems"
+
+      "https://zed-industries.cachix.org"
     ];
     extra-trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" # don't know if this one is included by default already
@@ -50,6 +52,8 @@
       "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
 
       "cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM="
+
+      "zed-industries.cachix.org-1:0M75Cfq98ss87l5E04hL8L98qD+acm2+q+V9aD39t2E="
     ];
   };
 
