@@ -18,6 +18,14 @@
       nixpkgs = lib.mkForce { flake = nixpkgs-chosen; }; # Override determinate
       nixpkgs-stable.flake = nixpkgs-stable;
       nixpkgs-unstable.flake = nixpkgs-unstable;
+      nixpkgs-stable-latest.to = {
+        type = "tarball";
+        url = "https://channels.nixos.org/nixos-25.11/nixexprs.tar.xz";
+      };
+      nixpkgs-unstable-latest.to = {
+        type = "tarball";
+        url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz";
+      };
     };
     settings = {
       experimental-features = [
