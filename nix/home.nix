@@ -15,6 +15,7 @@ let
 in
 {
   imports = [
+    ./pkgs-lib.nix
     declarative-flatpak.homeModules.default
   ];
 
@@ -128,6 +129,7 @@ in
 
     zed-editor = {
       enable = true;
+      package = pkgs-unstable.zed-editor;
     };
 
     vscode = {
