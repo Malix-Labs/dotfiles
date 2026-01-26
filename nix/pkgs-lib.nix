@@ -1,10 +1,11 @@
 {
-  config,
+  pkgs,
   nixpkgs-unstable,
   ...
 }:
 {
   _module.args.pkgs-unstable = import nixpkgs-unstable {
-    inherit (config.nixpkgs) hostPlatform config;
+    inherit (pkgs.stdenv.hostPlatform) system;
+    inherit (pkgs) config;
   };
 }
