@@ -62,6 +62,17 @@ in
       '';
     };
 
+    nix-your-shell = {
+      enable = true;
+      enableNushellIntegration = true;
+    };
+
+    direnv = {
+      enable = true;
+      nix-direnv.enable = true;
+      enableNushellIntegration = true;
+    };
+
     carapace = {
       enable = true;
       enableNushellIntegration = true;
