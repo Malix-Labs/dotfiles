@@ -27,7 +27,6 @@ in
       mkdir --parents ${sshDirectory}/sockets
     '';
     packages = with pkgs; [
-      google-chrome
       audacity
       gitkraken
       github-copilot-cli
@@ -145,6 +144,11 @@ in
 
     vscode = {
       enable = true;
+    };
+
+    chromium = {
+      enable = true;
+      package = pkgs.google-chrome;
     };
 
     vesktop = {
