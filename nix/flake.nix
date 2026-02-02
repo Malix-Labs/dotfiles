@@ -20,7 +20,7 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
-    declarative-flatpak.url = "github:in-a-dil-emma/declarative-flatpak/v4.1.3";
+    declarative-flatpak.url = "github:in-a-dil-emma/declarative-flatpak/v4.1.6";
     # nix-flatpak.url = "github:gmodena/nix-flatpak";
 
     fh = {
