@@ -13,6 +13,10 @@
   ...
 }:
 {
+  imports = [
+    ./gaming.nix
+  ];
+
   nix = {
     registry = {
       nixpkgs = lib.mkForce { flake = nixpkgs-chosen; }; # Override determinate
