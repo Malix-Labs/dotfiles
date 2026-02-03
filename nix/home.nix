@@ -17,6 +17,7 @@ in
   imports = [
     ./pkgs-lib.nix
     declarative-flatpak.homeModules.default
+    ./gaming-user.nix
   ];
 
   home = {
