@@ -5,6 +5,12 @@
 
 {
   home.packages = with pkgs; [
-    heroic
+    (heroic.override {
+      extraPkgs =
+        pkgs': with pkgs'; [
+          gamescope
+          gamemode
+        ];
+    })
   ];
 }

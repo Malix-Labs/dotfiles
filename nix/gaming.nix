@@ -11,6 +11,8 @@
       protontricks.enable = true;
       extest.enable = true;
       extraCompatPackages = [ pkgs.proton-ge-bin ];
+      remotePlay.openFirewall = true;
+      localNetworkGameTransfers.openFirewall = true;
     };
 
     gamescope = {
@@ -20,4 +22,8 @@
 
     gamemode.enable = true;
   };
+
+  environment.systemPackages = [
+    pkgs.gamescope-wsi
+  ];
 }
