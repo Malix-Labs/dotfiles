@@ -3,6 +3,9 @@
   ...
 }:
 
+let
+  steamCompatDirectory = "/usr/share/steam/compatibilitytools.d";
+in
 {
   programs = {
     steam = {
@@ -10,7 +13,7 @@
       gamescopeSession.enable = true;
       protontricks.enable = true;
       extest.enable = true;
-      extraCompatPackages = [ pkgs.proton-ge-bin ];
+      extraCompatPackages = with pkgs; [ proton-ge-bin ];
       remotePlay.openFirewall = true;
       localNetworkGameTransfers.openFirewall = true;
     };
@@ -22,6 +25,11 @@
 
     gamemode.enable = true;
   };
+
+  # So that Proton can be discovered by other tools
+  systemd.tmpfiles.rules = [
+    "L+ ${steamCompatDirectory}/GE-Proton - - - - ${pkgs.proton-ge-bin.steamcompattool}"
+  ];
 
   environment.systemPackages = [
     pkgs.gamescope-wsi
