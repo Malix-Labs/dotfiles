@@ -30,6 +30,7 @@
         type = "tarball";
         url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz";
       };
+      # templates # gets shortcutted by determinate nix ; see https://github.com/DeterminateSystems/nix-src/issues/339
     };
     settings = {
       experimental-features = [
