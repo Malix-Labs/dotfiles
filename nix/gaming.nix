@@ -31,7 +31,7 @@ in
     "L+ ${steamCompatDirectory}/GE-Proton - - - - ${pkgs.proton-ge-bin.steamcompattool}"
   ];
 
-  environment.systemPackages = [
-    pkgs.gamescope-wsi
+  environment.systemPackages = with pkgs; [
+    gamescope-wsi
   ];
 }
