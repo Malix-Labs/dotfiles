@@ -14,6 +14,11 @@
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
+    cachyos-kernel = {
+      url = "github:xddxdd/nix-cachyos-kernel/release";
+      # inputs.nixpkgs.follows # shoudln't be set, see https://github.com/xddxdd/nix-cachyos-kernel#how-to-use-kernels
+    };
+
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     l5p-keyboard-rgb = {
       url = "github:4JX/L5P-Keyboard-RGB";

@@ -8,6 +8,8 @@
   nixpkgs-unstable,
   nixpkgs-stable,
 
+  cachyos-kernel,
+
   mcp-nixos,
   fh,
   ...
@@ -48,7 +50,8 @@
   };
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages =
+      cachyos-kernel.legacyPackages.${pkgs.stdenv.hostPlatform.system}.linuxPackages-cachyos-latest-lto-x86_64-v3;
     loader = {
       systemd-boot = {
         enable = true;
