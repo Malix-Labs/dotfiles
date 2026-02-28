@@ -152,6 +152,9 @@ in
     chromium = {
       enable = true;
       package = pkgs.google-chrome;
+      nativeMessagingHosts = with pkgs; [
+        kdePackages.plasma-browser-integration
+      ];
     };
 
     vesktop = {
