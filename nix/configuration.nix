@@ -84,7 +84,10 @@
       enable = true;
       wayland.enable = true;
     };
-    desktopManager.plasma6.enable = true;
+    desktopManager.plasma6 = {
+      enable = true;
+      enableQt5Integration = false;
+    };
 
     printing.enable = true;
 
