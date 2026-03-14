@@ -113,6 +113,7 @@
 
     flatpak.enable = true;
 
+    ratbagd.enable = true;
   };
 
   hardware.bluetooth.enable = true;
@@ -148,6 +149,8 @@
       nixfmt-rfc-style
       fh.packages.${pkgs.stdenv.hostPlatform.system}.default
       mcp-nixos.packages.${pkgs.stdenv.hostPlatform.system}.default
+
+      piper
 
       cloudflare-warp
       protonvpn-gui
