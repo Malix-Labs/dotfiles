@@ -37,6 +37,11 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
+    nix-gaming-edge = {
+      url = "github:powerofthe69/nix-gaming-edge";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
   };
 
   nixConfig = {

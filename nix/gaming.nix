@@ -1,5 +1,6 @@
 {
   pkgs,
+  nix-gaming-edge,
   ...
 }:
 
@@ -13,7 +14,10 @@ in
       gamescopeSession.enable = true;
       protontricks.enable = true;
       extest.enable = true;
-      extraCompatPackages = with pkgs; [ proton-ge-bin ];
+      extraCompatPackages = with pkgs; [
+        nix-gaming-edge.packages.${pkgs.stdenv.hostPlatform.system}.proton-cachyos-x86_64-v3
+        proton-ge-bin
+      ];
       remotePlay.openFirewall = true;
       localNetworkGameTransfers.openFirewall = true;
     };
@@ -29,6 +33,9 @@ in
   # So that Proton can be discovered by other tools
   systemd.tmpfiles.rules = [
     "L+ ${steamCompatDirectory}/GE-Proton - - - - ${pkgs.proton-ge-bin.steamcompattool}"
+    "L+ ${steamCompatDirectory}/Proton-CachyOS-SLR - - - - ${
+      nix-gaming-edge.packages.${pkgs.stdenv.hostPlatform.system}.proton-cachyos-x86_64-v3.steamcompattool
+    }"
   ];
 
   environment.systemPackages = with pkgs; [
