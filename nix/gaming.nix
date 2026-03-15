@@ -27,7 +27,7 @@ in
     };
 
     gamescope = {
-      enable = true; # implicitely enabled by `steam.gamescopeSession.enable`, but required to set other options
+      enable = true; # implicitly enabled by `steam.gamescopeSession.enable`, but required to set other options
       capSysNice = true;
     };
 
