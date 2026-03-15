@@ -8,7 +8,7 @@
 let
   mkSteamCompatRule =
     tool:
-    "L+ /usr/share/steam/compatibilitytools.d/${lib.getName tool} - - - - ${tool.steamcompattool}";
+    "L+ %h/.local/share/Steam/compatibilitytools.d/${lib.getName tool} - - - - ${tool.steamcompattool}";
   steamCompatTools = with pkgs; [
     proton-ge-bin
     nix-gaming-edge.packages.${pkgs.stdenv.hostPlatform.system}.proton-cachyos-x86_64-v3
@@ -35,7 +35,7 @@ in
   };
 
   # So that Proton can be discovered by other tools
-  systemd.tmpfiles.rules = map mkSteamCompatRule steamCompatTools;
+  systemd.user.tmpfiles.rules = map mkSteamCompatRule steamCompatTools;
 
   environment.systemPackages = with pkgs; [
     gamescope-wsi
