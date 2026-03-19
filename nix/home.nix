@@ -198,7 +198,7 @@ in
               "input"
             ];
           };
-          environment = {
+          Environment = {
             "SDL_AUDIO_DRIVER" = "pipewire";
           };
         };
