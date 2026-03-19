@@ -188,21 +188,21 @@ in
       ];
       overrides = {
         "org.vinegarhq.Sober" = {
-          Context.filesystems = [
-            "xdg-run/pipewire-0"
-            "xdg-run/app/com.discordapp.Discord:create"
-            "xdg-run/discord-ipc-0"
-          ];
+          Context = {
+            filesystems = [
+              "xdg-run/pipewire-0"
+              "xdg-run/app/com.discordapp.Discord:create"
+              "xdg-run/discord-ipc-0"
+            ];
+            devices = [
+              "input"
+            ];
+          };
           environment = {
             "SDL_AUDIO_DRIVER" = "pipewire";
           };
         };
       };
-
-      # Workaround for unsupported overrides (see https://github.com/in-a-dil-emma/declarative-flatpak/issues/42#issuecomment-3400500573)
-      preSwitchCommand = ''
-        flatpak override --device=input org.vinegarhq.Sober
-      '';
     };
   };
 }
