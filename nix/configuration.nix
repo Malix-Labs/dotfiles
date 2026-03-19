@@ -119,6 +119,7 @@
   hardware.bluetooth.enable = true;
 
   programs = {
+    nix-ld.enable = true;
     bandwhich.enable = true;
     kdeconnect.enable = true;
   };
