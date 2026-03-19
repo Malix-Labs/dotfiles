@@ -85,7 +85,7 @@
 
           ./hardware-configuration.nix
           ./pkgs-lib.nix
-          nixos-hardware.nixosModules.lenovo-legion-15ach6h # https://github.com/NixOS/nixos-hardware/tree/master/lenovo/legion/15ach6h
+          nixos-hardware.nixosModules.lenovo-legion-15ach6h-hybrid # https://github.com/NixOS/nixos-hardware/tree/master/lenovo/legion/15ach6h
           ./nixos-hardware-override.nix
 
           home-manager.nixosModules.default
