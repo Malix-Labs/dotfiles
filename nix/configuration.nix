@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  hostName,
   pkgs,
   pkgs-unstable,
 
@@ -66,7 +67,7 @@
   zramSwap.enable = true;
 
   networking = {
-    hostName = "nixos";
+    inherit hostName;
     networkmanager.enable = true;
   };
 

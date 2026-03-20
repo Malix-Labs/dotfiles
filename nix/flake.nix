@@ -71,12 +71,13 @@
     }:
     let
       nixpkgs-chosen = nixpkgs-stable;
+      hostName = "malix-legion-nixos";
       specialArgs = inputs // {
-        inherit nixpkgs-chosen;
+        inherit nixpkgs-chosen hostName;
       };
     in
     {
-      nixosConfigurations.nixos = nixpkgs-chosen.lib.nixosSystem {
+      nixosConfigurations.${hostName} = nixpkgs-chosen.lib.nixosSystem {
         inherit specialArgs;
         modules = [
           determinate.nixosModules.default
