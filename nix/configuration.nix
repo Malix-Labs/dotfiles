@@ -59,7 +59,11 @@
       };
       efi.canTouchEfiVariables = true;
     };
+    tmp.useTmpfs = true;
+    kernel.sysctl."vm.swappiness" = 100;
   };
+
+  zramSwap.enable = true;
 
   networking = {
     hostName = "nixos";
