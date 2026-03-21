@@ -122,13 +122,9 @@ in
       };
     };
 
-    gh = {
-      enable = true;
-    };
+    gh.enable = true;
 
-    gh-dash = {
-      enable = true;
-    };
+    gh-dash.enable = true;
 
     helix = {
       enable = true;
@@ -145,9 +141,7 @@ in
       package = pkgs-unstable.zed-editor;
     };
 
-    vscode = {
-      enable = true;
-    };
+    vscode.enable = true;
 
     chromium = {
       enable = true;
@@ -157,9 +151,7 @@ in
       ];
     };
 
-    vesktop = {
-      enable = true;
-    };
+    vesktop.enable = true;
   };
 
   services = {
