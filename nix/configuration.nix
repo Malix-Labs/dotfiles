@@ -152,6 +152,7 @@
       # clipboard-jh # broken for Wayland, see https://github.com/Slackadays/Clipboard/issues/171
 
       nixd
+      nil
       nixfmt
       fh.packages.${pkgs.stdenv.hostPlatform.system}.default
       mcp-nixos.packages.${pkgs.stdenv.hostPlatform.system}.default
