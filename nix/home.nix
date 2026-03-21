@@ -74,26 +74,16 @@ in
       '';
     };
 
-    nix-your-shell = {
-      enable = true;
-      enableNushellIntegration = true;
-    };
+    nix-your-shell.enable = true;
 
     direnv = {
       enable = true;
       nix-direnv.enable = true;
-      enableNushellIntegration = true;
     };
 
-    carapace = {
-      enable = true;
-      enableNushellIntegration = true;
-    };
+    carapace.enable = true;
 
-    starship = {
-      enable = true;
-      enableNushellIntegration = true;
-    };
+    starship.enable = true;
 
     git = {
       enable = true;
@@ -173,10 +163,7 @@ in
   };
 
   services = {
-    ssh-agent = {
-      enable = true;
-      enableNushellIntegration = true;
-    };
+    ssh-agent.enable = true;
 
     flatpak = {
       enable = true;
