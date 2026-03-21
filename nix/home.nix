@@ -74,7 +74,20 @@ in
       '';
     };
 
-    nix-your-shell.enable = true;
+    nix-your-shell = {
+      enable = true;
+      package = pkgs-unstable.nix-your-shell.overrideAttrs (
+        finalAttrs: _: {
+          version = "${finalAttrs.src.owner}/${finalAttrs.src.repo}";
+          src = pkgs.fetchFromGitHub {
+            owner = "Malix-Labs";
+            repo = "nix-your-shell";
+            rev = "fix-nushell-completions";
+            hash = "sha256-YBnfByywQY/oR6GahGnao1TIWLHxTZAsnMAuh8RmCw0=";
+          };
+        }
+      );
+    };
 
     direnv = {
       enable = true;
