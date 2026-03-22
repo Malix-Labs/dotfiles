@@ -159,12 +159,12 @@ in
       package = pkgs-unstable.vscode;
     };
 
-    chromium = {
+    google-chrome = {
       enable = true;
-      package = pkgs.google-chrome;
-      nativeMessagingHosts = with pkgs; [
-        kdePackages.plasma-browser-integration
-      ];
+      plasmaSupport = true; # not default yet (see https://github.com/nix-community/home-manager/issues/8949)
+      # nativeMessagingHosts = with pkgs; [ # extensions doesn't work with proprietary chrome (see https://github.com/nix-community/home-manager/issues/1383)
+      #   kdePackages.plasma-browser-integration
+      # ];
     };
 
     vesktop.enable = true;
