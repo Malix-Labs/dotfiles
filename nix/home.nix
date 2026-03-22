@@ -154,7 +154,10 @@ in
       package = pkgs-unstable.zed-editor;
     };
 
-    vscode.enable = true;
+    vscode = {
+      enable = true;
+      package = pkgs-unstable.vscode;
+    };
 
     chromium = {
       enable = true;
