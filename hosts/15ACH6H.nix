@@ -1,0 +1,3 @@
+{
+  cpuMicroarchLevel = 3;
+}
