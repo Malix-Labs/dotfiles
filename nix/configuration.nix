@@ -86,10 +86,7 @@
   services = {
 
     displayManager.plasma-login-manager.enable = true;
-    desktopManager.plasma6 = {
-      enable = true;
-      enableQt5Integration = false;
-    };
+    desktopManager.plasma6.enable = true;
 
     printing.enable = true;
 
