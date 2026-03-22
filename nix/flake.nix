@@ -10,8 +10,8 @@
     };
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     cachyos-kernel = {
@@ -59,7 +59,7 @@
 
   outputs =
     inputs@{
-      nixpkgs-stable,
+      nixpkgs-unstable,
 
       determinate,
 
@@ -70,7 +70,7 @@
       ...
     }:
     let
-      nixpkgs-chosen = nixpkgs-stable;
+      nixpkgs-chosen = nixpkgs-unstable;
       hostName = "malix-legion-nixos";
       specialArgs = inputs // {
         inherit nixpkgs-chosen hostName;
