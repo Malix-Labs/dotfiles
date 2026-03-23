@@ -23,7 +23,7 @@ in
   home = {
     username = "malix";
     homeDirectory = "/home/malix";
-    stateVersion = "25.11";
+    stateVersion = "25.11"; # NEVER MUTATE
     activation.createSshSocketDir = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       mkdir --parents ${sshDirectory}/sockets
     '';
