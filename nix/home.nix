@@ -10,6 +10,9 @@
   ...
 }:
 let
+  dotfilesDir = "${config.home.homeDirectory}/Repositories/Malix-Labs/dotfiles";
+  symlinksDir = "${dotfilesDir}/symlinks";
+
   nu = lib.getExe pkgs.nushell;
   sshDirectory = "${config.home.homeDirectory}/.ssh";
 in
@@ -47,7 +50,7 @@ in
         extraArgs = "--keep-since 2w --keep 10 --optimise";
         dates = "daily";
       };
-      flake = "${config.home.homeDirectory}/Repositories/Malix-Labs/dotfiles/nix";
+      flake = "${dotfilesDir}/nix";
     };
 
     nushell = {
