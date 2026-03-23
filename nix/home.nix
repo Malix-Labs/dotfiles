@@ -40,6 +40,10 @@ in
     ];
   };
 
+  xdg.configFile = {
+    "zed".source = config.lib.file.mkOutOfStoreSymlink "${symlinksDir}/zed";
+  };
+
   programs = {
     home-manager.enable = true;
 

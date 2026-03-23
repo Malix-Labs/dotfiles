@@ -1,0 +1,388 @@
+{
+	"redact_private_values": true,
+	"always_treat_brackets_as_autoclosed": true,
+	"auto_signature_help": true,
+	"show_signature_help_after_edits": true,
+	"icon_theme": "Catppuccin Frappé",
+	"hard_tabs": true,
+	"tab_size": 2,
+	"helix_mode": true,
+	"audio": {
+		"experimental.auto_microphone_volume": true,
+		"experimental.rodio_audio": true,
+	},
+	"calls": {
+		"mute_on_join": true,
+	},
+	"terminal": {
+		"copy_on_select": true,
+	},
+	"use_system_window_tabs": true,
+	"preview_tabs": {
+		"enable_preview_from_file_finder": true,
+	},
+	"tab_bar": {
+		"show_nav_history_buttons": false,
+	},
+	"tabs": {
+		"show_diagnostics": "all",
+		"close_position": "left",
+		"file_icons": true,
+		"git_status": true,
+	},
+	"title_bar": {
+		"show_branch_icon": true,
+	},
+	"close_on_file_delete": true,
+	"use_smartcase_search": true,
+	"extend_comment_on_newline": false,
+	"indent_guides": {
+		"coloring": "indent_aware",
+		"active_line_width": 2,
+	},
+	"soft_wrap": "editor_width",
+	"preferred_line_length": 120,
+	"scrollbar": {
+		"axes": {
+			"vertical": false,
+		},
+	},
+	"minimap": {
+		"display_in": "all_editors",
+		"show": "auto",
+	},
+	"drag_and_drop_selection": {
+		"delay": 150,
+	},
+	"hover_popover_delay": 150,
+	"autoscroll_on_clicks": true,
+	"sticky_scroll": {
+		"enabled": true,
+	},
+	"auto_update": false,
+	"restore_on_startup": "last_workspace",
+	"diagnostics": {
+		"inline": {
+			"enabled": true,
+		},
+	},
+	"inlay_hints": {
+		"enabled": true,
+	},
+	"toolbar": {
+		"code_actions": true,
+	},
+	"git": {
+		"inline_blame": {
+			"show_commit_summary": true,
+		},
+	},
+	"theme": {
+		"mode": "system",
+		"light": "Ayu Light",
+		"dark": "GitHub Dark",
+	},
+	"relative_line_numbers": "enabled",
+	"autosave": "on_window_change",
+	"buffer_font_family": "FiraCode Nerd Font",
+	"git_panel": {
+		"tree_view": true,
+		"status_style": "label_color",
+		"dock": "right",
+	},
+	"context_servers": {
+		"mcp-server-github": {
+   "enabled": true,
+   "remote": false,
+   "settings": {
+    "github_personal_access_token": "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"
+   }
+  },
+  "mcp-server-gitlab": {
+   "enabled": false,
+			"settings": {
+				"gitlab_personal_access_token": "glpat-mk4Tsc4orSf0t9tEI0kB8m86MQp1OmExbDNlCw.01.121gi3da1",
+			},
+		},
+		"mcp-server-context7": {
+   "enabled": true,
+			"settings": {
+				"context7_api_key": "ctx7sk-80554557-da4f-48a1-b98c-aaa6f634fd85",
+			},
+		},
+		"nixos": {
+   "enabled": true,
+			"command": "nix",
+			"args": ["run", "github:utensils/mcp-nixos", "--"],
+		},
+	},
+	"agent": {
+		"favorite_models": [
+   {
+    "provider": "copilot_chat",
+    "model": "gemini-3-flash-preview"
+   },
+   {
+    "provider": "copilot_chat",
+    "model": "oswe-vscode-prime"
+   },
+   {
+    "provider": "copilot_chat",
+    "model": "claude-opus-4.6"
+   },
+   {
+    "provider": "copilot_chat",
+    "model": "gpt-5.3-codex"
+   },
+   {
+    "provider": "copilot_chat",
+    "model": "gpt-5-mini"
+   },
+   {
+    "provider": "copilot_chat",
+    "model": "gpt-5.2-codex"
+   },
+   {
+    "provider": "copilot_chat",
+    "model": "claude-sonnet-4.6"
+   },
+   {
+    "provider": "copilot_chat",
+    "model": "gemini-3.1-pro-preview"
+   }
+  ],
+		"inline_assistant_model": {
+			"provider": "copilot_chat",
+			"model": "oswe-vscode-prime",
+		},
+		"use_modifier_to_send": true,
+		"play_sound_when_agent_done": true,
+		"always_allow_tool_actions": true,
+		"profiles": {
+			"write": {
+				"name": "Write",
+				"tools": {
+					"copy_path": true,
+					"create_directory": true,
+					"delete_path": true,
+					"diagnostics": true,
+					"edit_file": true,
+					"fetch": true,
+					"list_directory": true,
+					"project_notifications": false,
+					"move_path": true,
+					"now": true,
+					"find_path": true,
+					"read_file": true,
+					"restore_file_from_disk": true,
+					"save_file": true,
+					"open": true,
+					"grep": true,
+					"subagent": true,
+					"terminal": true,
+					"thinking": true,
+					"web_search": true,
+				},
+				"enable_all_context_servers": true,
+				"context_servers": {
+					"mcp-server-github": {
+						"tools": {
+							"sub_issue_write": false,
+       "add_comment_to_pending_review": false,
+       "add_issue_comment": false,
+       "assign_copilot_to_issue": true,
+       "create_branch": true,
+       "issue_write": false,
+       "update_pull_request_branch": false,
+							"update_pull_request": false,
+							"pull_request_review_write": false,
+							"merge_pull_request": false,
+							"create_pull_request": false,
+						},
+					},
+				},
+			},
+			"built-in-tools-only": {
+				"default_model": {
+					"provider": "copilot_chat",
+					"model": "oswe-vscode-prime",
+				},
+				"name": "Built-in Tools Only",
+				"tools": {
+					"save_file": true,
+					"restore_file_from_disk": true,
+					"terminal": true,
+					"now": true,
+					"open": true,
+					"read_file": true,
+					"thinking": true,
+					"move_path": true,
+					"list_directory": true,
+					"fetch": true,
+					"grep": true,
+					"find_path": true,
+					"edit_file": true,
+					"delete_path": true,
+					"diagnostics": true,
+					"create_directory": true,
+					"copy_path": true,
+				},
+				"enable_all_context_servers": false,
+				"context_servers": {
+					"mcp-server-github": {
+						"tools": {
+							"list_commits": false,
+						},
+					},
+				},
+			},
+			"minimal": {
+				"name": "Minimal",
+				"tools": {
+					"diagnostics": false,
+     "find_path": false,
+     "grep": false,
+     "read_file": false,
+     "thinking": true,
+					"fetch": true,
+				},
+				"enable_all_context_servers": false,
+				"context_servers": {},
+			},
+			"ask": {
+				"name": "Read-Only",
+				"tools": {
+					"restore_file_from_disk": false,
+					"save_file": false,
+					"copy_path": true,
+					"thinking": true,
+					"terminal": true,
+					"read_file": true,
+					"open": true,
+					"now": true,
+					"list_directory": true,
+					"move_path": false,
+					"grep": true,
+					"find_path": true,
+					"fetch": true,
+					"diagnostics": true,
+				},
+				"enable_all_context_servers": false,
+				"context_servers": {
+					"mcp-server-gitlab": {
+						"tools": {
+							"verify_namespace": true,
+							"mr_discussions": true,
+							"my_issues": true,
+							"search_repositories": true,
+							"list_draft_notes": true,
+							"list_events": true,
+							"list_group_iterations": true,
+							"list_issue_discussions": true,
+							"list_group_projects": true,
+							"list_issue_links": true,
+							"list_issues": true,
+							"list_labels": true,
+							"list_merge_request_diffs": true,
+							"list_merge_requests": true,
+							"list_namespaces": true,
+							"list_project_members": true,
+							"list_projects": true,
+							"list_releases": true,
+							"list_commits": true,
+							"get_issue": true,
+							"get_issue_link": true,
+							"get_label": true,
+							"get_merge_request": true,
+							"get_merge_request_diffs": true,
+							"get_merge_request_note": true,
+							"get_merge_request_notes": true,
+							"get_project": true,
+							"get_namespace": true,
+							"get_project_events": true,
+							"get_release": true,
+							"get_repository_tree": true,
+							"get_users": true,
+							"get_commit_diff": true,
+							"get_draft_note": true,
+							"get_file_contents": true,
+							"get_commit": true,
+							"get_branch_diffs": true,
+						},
+					},
+					"nixos": {
+						"tools": {
+							"nix": true,
+       "nix_versions": true,
+       "nixos_stats": true,
+							"nixos_search": true,
+							"nixos_info": true,
+							"nixos_flakes_stats": true,
+							"nixos_flakes_search": true,
+							"nixos_channels": true,
+							"nixhub_package_versions": true,
+							"nixhub_find_version": true,
+							"home_manager_stats": true,
+							"home_manager_search": true,
+							"home_manager_options_by_prefix": true,
+							"home_manager_list_options": true,
+							"home_manager_info": true,
+							"darwin_stats": true,
+							"darwin_search": true,
+							"darwin_options_by_prefix": true,
+							"darwin_list_options": true,
+							"darwin_info": true,
+						},
+					},
+					"mcp-server-github": {
+						"tools": {
+							"search_users": true,
+							"search_repositories": true,
+							"search_pull_requests": true,
+							"search_issues": true,
+							"search_code": true,
+							"pull_request_read": true,
+							"list_pull_requests": true,
+							"list_releases": true,
+							"list_tags": true,
+							"list_issues": true,
+							"list_issue_types": true,
+							"list_commits": true,
+							"list_branches": true,
+							"issue_read": true,
+							"get_teams": true,
+							"get_team_members": true,
+							"get_tag": true,
+							"get_release_by_tag": true,
+							"get_commit": true,
+							"get_file_contents": true,
+							"get_label": true,
+							"get_latest_release": true,
+							"get_me": true,
+						},
+					},
+					"mcp-server-context7": {
+						"tools": {
+							"query-docs": true,
+       "resolve-library-id": true,
+							"get-library-docs": true,
+						},
+					},
+				},
+			},
+		},
+		"default_profile": "write",
+		"default_model": {
+			"provider": "copilot_chat",
+			"model": "gpt-5.2-codex",
+		},
+		"dock": "left",
+	},
+	"project_panel": {
+		"hide_root": true,
+		"dock": "right",
+	},
+	"outline_panel": {
+		"dock": "right",
+	},
+}
