@@ -74,12 +74,25 @@
   environment.sessionVariables.NIXOS_OZONE_WL = "1"; # https://wiki.nixos.org/wiki/Wayland#Electron_and_Chromium ; also see https://github.com/NixOS/nixpkgs/issues/291051
 
   time.timeZone = "Europe/Paris";
-  i18n.defaultLocale = "en_GB.UTF-8";
-  i18n.extraLocales = [
-    "en_US.UTF-8/UTF-8"
-    "fr_CH.UTF-8/UTF-8"
-    "fr_FR.UTF-8/UTF-8"
-  ];
+  i18n = {
+    extraLocaleSettings = {
+      LANGUAGE = "en:fr";
+
+      LC_ADDRESS = "fr_CH.UTF-8";
+      LC_IDENTIFICATION = "fr_CH.UTF-8";
+      LC_MEASUREMENT = "fr_CH.UTF-8";
+      LC_MONETARY = "fr_CH.UTF-8";
+      LC_NAME = "fr_CH.UTF-8";
+      LC_NUMERIC = "fr_CH.UTF-8";
+      LC_PAPER = "fr_CH.UTF-8";
+      LC_TELEPHONE = "fr_CH.UTF-8";
+      LC_TIME = "fr_CH.UTF-8";
+    };
+    extraLocales = [
+      "fr_FR.UTF-8/UTF-8"
+      "en_GB.UTF-8/UTF-8"
+    ];
+  };
 
   console.keyMap = "fr";
 
