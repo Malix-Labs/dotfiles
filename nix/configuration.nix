@@ -47,6 +47,10 @@
         "pipe-operators"
         "verified-fetches"
       ];
+      trusted-users = [
+        "root"
+        "@wheel"
+      ];
     };
   };
 
