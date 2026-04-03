@@ -167,7 +167,7 @@
       piper
 
       cloudflare-warp
-      protonvpn-gui
+      proton-vpn
     ];
 
     etc.nixos.source = "/home/malix/Repositories/Malix-Labs/dotfiles/nix"; # string and not path for direct symlink (see https://discourse.nixos.org/t/how-to-create-symlinks-in-nixos/73911/4?u=malix)
