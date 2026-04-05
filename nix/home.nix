@@ -99,6 +99,43 @@ in
           name = "Malix - Alix Brunet";
           email = "alixbrunetcontact@gmail.com";
         };
+        core.fsmonitor = true;
+        feature.manyFiles = true;
+        checkout = {
+          workers = 0;
+          thresholdForParallelism = 500;
+        };
+        pull.rebase = "merges";
+        rebase = {
+          rebaseMerges = true;
+          autoSquash = true;
+          autoStash = true;
+          missingCommitsCheck = "error";
+        };
+        merge.autoStash = true;
+        rerere = {
+          enabled = true;
+          autoUpdate = true;
+        };
+        push = {
+          autoSetupRemote = true;
+          useForceIfIncludes = true;
+        };
+        diff = {
+          algorithm = "histogram";
+          colorMoved = "dimmed-zebra";
+          colorMovedWS = "allow-indentation-change";
+          renames = "copies";
+        };
+        commit.verbose = 2;
+        fetch = {
+          all = true;
+          prune = true;
+          pruneTags = true;
+        };
+        column.ui = "auto dense";
+        maintenance.strategy = "geometric";
+        aliases."pf" = "push --force-with-lease";
       };
       signing = {
         signByDefault = true;
