@@ -145,6 +145,29 @@ in
                 git merge "$commit" || return
               done;
             }; f'';
+          "cmerge" = ''
+            !f() {
+              [ $# -eq 1 ] || { echo "usage: git cmerge <target>" >&2; return 2; }
+
+              if git merge-tree --write-tree HEAD "$1" >/dev/null; then
+                exec git merge "$1" --no-edit
+              fi
+
+              last_clean=
+              commits=$(git rev-list --reverse --topo-order HEAD.."$1") || return
+              for commit in $commits; do
+                if ! git merge-tree --write-tree HEAD "$commit" >/dev/null; then
+                  if [ -n "$last_clean" ]; then
+                    git merge "$last_clean" --no-edit || return
+                  fi
+                  exec git merge "$commit"
+                fi
+                last_clean="$commit"
+              done
+              if [ -n "$last_clean" ]; then
+                exec git merge "$last_clean" --no-edit
+              fi
+            }; f'';
         };
       };
       signing = {
