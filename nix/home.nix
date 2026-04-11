@@ -135,7 +135,17 @@ in
         };
         column.ui = "auto dense";
         maintenance.strategy = "geometric";
-        aliases."pf" = "push --force-with-lease";
+        aliases = {
+          "pf" = "push --force-with-lease";
+          "imerge" = ''
+            !f() {
+              [ $# -eq 1 ] || { echo "usage: git imerge <target>" >&2; return 2; }
+              commits=$(git rev-list --reverse --topo-order HEAD.."$1") || return
+              for commit in $commits; do
+                git merge "$commit" || return
+              done;
+            }; f'';
+        };
       };
       signing = {
         signByDefault = true;
