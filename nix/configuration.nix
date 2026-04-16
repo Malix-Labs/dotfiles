@@ -133,8 +133,9 @@
 
   programs = {
     nix-ld.enable = true;
-    bandwhich.enable = true;
+    partition-manager.enable = true;
     kdeconnect.enable = true;
+    bandwhich.enable = true;
   };
 
   fonts.packages = with pkgs; [
