@@ -66,6 +66,7 @@
     };
     tmp.useTmpfs = true;
     kernel.sysctl."vm.swappiness" = 100;
+    supportedFilesystems.exfat = true;
   };
 
   zramSwap.enable = true;
