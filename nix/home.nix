@@ -168,6 +168,9 @@ in
                 exec git merge "$last_clean" --no-edit
               fi
             }; f'';
+          # "template" = ''
+          #
+          # '';
         };
       };
       signing = {
@@ -234,7 +237,7 @@ in
     google-chrome = {
       enable = true;
       plasmaSupport = true; # not default yet (see https://github.com/nix-community/home-manager/issues/8949)
-      # nativeMessagingHosts = with pkgs; [ # extensions doesn't work with proprietary chrome (see https://github.com/nix-community/home-manager/issues/1383)
+      # nativeMessagingHosts = with pkgs; [ # not working for proprietary chrome (see https://github.com/nix-community/home-manager/issues/9117)
       #   kdePackages.plasma-browser-integration
       # ];
     };
