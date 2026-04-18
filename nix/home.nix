@@ -41,7 +41,7 @@ in
   };
 
   xdg.configFile = {
-    "zed".source = config.lib.file.mkOutOfStoreSymlink "${symlinksDir}/zed"; # has a bug (see https://github.com/zed-industries/zed/issues/48729)
+    "zed".source = config.lib.file.mkOutOfStoreSymlink "${symlinksDir}/zed"; # bugged (see https://github.com/zed-industries/zed/issues/48729)
   };
 
   programs = {
