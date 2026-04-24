@@ -135,7 +135,6 @@ in
           pruneTags = true;
         };
         column.ui = "auto dense";
-        maintenance.strategy = "geometric";
         aliases = {
           "pf" = "push --force-with-lease";
           "imerge" = ''
