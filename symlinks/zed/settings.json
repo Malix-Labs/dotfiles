@@ -1,4 +1,7 @@
 {
+	"edit_predictions": {
+		"provider": "copilot",
+	},
 	"redact_private_values": true,
 	"always_treat_brackets_as_autoclosed": true,
 	"auto_signature_help": true,
