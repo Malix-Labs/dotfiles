@@ -171,6 +171,69 @@ in
           # "template" = ''
           #
           # '';
+          "ignore" = ''
+            !f() {
+              alts="nix-direnv nix js"
+
+              usage() {
+                echo "usage: git ignore nix-direnv|nix|js [--local|--exclude|--global]" >&2
+              }
+
+              fail() {
+                usage
+                return 2
+              }
+
+              target_for() {
+                case "$1" in
+                  -l|--local) printf '%s\n' .gitignore ;;
+                  -e|--exclude) printf '%s\n' .git/info/exclude ;;
+                  -g|--global) printf '%s\n' "${config.home.homeDirectory}/.gitignore_global" ;;
+                  *) return 1 ;;
+                esac
+              }
+
+              patterns_for() {
+                case "$1" in
+                  nix-direnv) printf '%s\n' '.direnv/' '.envrc' ;;
+                  nix) printf '%s\n' 'flake.nix' 'flake.lock' 'default.nix' 'shell.nix' ;;
+                  js) printf '%s\n' 'node_modules/' 'dist/' ;;
+                  *) return 1 ;;
+                esac
+              }
+
+              case "${"1:-"}" in
+                -h|--help) usage; return 0 ;;
+              esac
+
+              case "${"1:-"}" in
+                -l|--local|-e|--exclude|-g|--global)
+                  flag=$1
+                  alt=${"2:-"}
+                  [ -n "$alt" ] || fail
+                  ;;
+                *)
+                  alt=$1
+                  flag=${"2:-"}
+                  [ -n "$alt" ] || fail
+                  ;;
+              esac
+
+              [ -z "${"3:-"}" ] || fail
+
+              file=$(target_for "$flag") || fail
+              patterns=$(patterns_for "$alt") || fail
+
+              [ -e "$file" ] || : > "$file"
+
+              while IFS= read -r pattern; do
+                [ -n "$pattern" ] || continue
+                grep -Fxq "$pattern" "$file" || printf '%s\n' "$pattern" >> "$file"
+              done <<EOF
+              $patterns
+              EOF
+            }; f
+          '';
         };
       };
       signing = {
