@@ -237,9 +237,6 @@ in
     google-chrome = {
       enable = true;
       plasmaSupport = true; # not default yet (see https://github.com/nix-community/home-manager/issues/8949)
-      # nativeMessagingHosts = with pkgs; [ # not working for proprietary chrome (see https://github.com/nix-community/home-manager/issues/9117)
-      #   kdePackages.plasma-browser-integration
-      # ];
     };
 
     vesktop.enable = true;
