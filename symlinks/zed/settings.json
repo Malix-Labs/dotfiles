@@ -26,9 +26,6 @@
   "hard_tabs": true,
   "tab_size": 2,
   "helix_mode": true,
-  "audio": {
-    "experimental.auto_microphone_volume": true,
-  },
   "calls": {
     "mute_on_join": true,
   },
