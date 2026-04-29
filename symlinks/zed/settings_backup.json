@@ -1,4 +1,23 @@
 {
+	"agent_servers": {
+		"gemini": {
+			"type": "registry",
+			"default_mode": "autoEdit",
+		},
+		"github-copilot-cli": {
+			"type": "registry",
+			"default_config_options": {
+				"allow_all": "on",
+				"model": "auto",
+			},
+			"favorite_config_option_values": {
+				"model": ["auto", "gpt-5.3-codex", "gpt-5.4-mini", "gpt-5-mini"],
+			},
+		},
+	},
+	"edit_predictions": {
+		"provider": "copilot",
+	},
 	"redact_private_values": true,
 	"always_treat_brackets_as_autoclosed": true,
 	"auto_signature_help": true,
@@ -9,7 +28,6 @@
 	"helix_mode": true,
 	"audio": {
 		"experimental.auto_microphone_volume": true,
-		"experimental.rodio_audio": true,
 	},
 	"calls": {
 		"mute_on_join": true,
@@ -31,7 +49,7 @@
 		"git_status": true,
 	},
 	"title_bar": {
-		"show_branch_icon": true,
+		"show_branch_status_icon": true,
 	},
 	"close_on_file_delete": true,
 	"use_smartcase_search": true,
@@ -92,76 +110,71 @@
 	},
 	"context_servers": {
 		"mcp-server-github": {
-   "enabled": true,
-   "remote": false,
-   "settings": {
-    "github_personal_access_token": "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"
-   }
-  },
-  "mcp-server-gitlab": {
-   "enabled": false,
+			"enabled": true,
+			"remote": false,
+			"settings": {
+				"github_personal_access_token": "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",
+			},
+		},
+		"mcp-server-gitlab": {
+			"enabled": false,
 			"settings": {
 				"gitlab_personal_access_token": "glpat-mk4Tsc4orSf0t9tEI0kB8m86MQp1OmExbDNlCw.01.121gi3da1",
 			},
 		},
 		"mcp-server-context7": {
-   "enabled": true,
+			"enabled": true,
 			"settings": {
 				"context7_api_key": "ctx7sk-80554557-da4f-48a1-b98c-aaa6f634fd85",
 			},
 		},
 		"nixos": {
-   "enabled": true,
+			"enabled": true,
 			"command": "nix",
 			"args": ["run", "github:utensils/mcp-nixos", "--"],
 		},
 	},
 	"agent": {
 		"favorite_models": [
-   {
-    "provider": "copilot_chat",
-    "model": "gemini-3-flash-preview"
-   },
-   {
-    "provider": "copilot_chat",
-    "model": "oswe-vscode-prime"
-   },
-   {
-    "provider": "copilot_chat",
-    "model": "claude-opus-4.6"
-   },
-   {
-    "provider": "copilot_chat",
-    "model": "gpt-5.3-codex"
-   },
-   {
-    "provider": "copilot_chat",
-    "model": "gpt-5-mini"
-   },
-   {
-    "provider": "copilot_chat",
-    "model": "gpt-5.2-codex"
-   },
-   {
-    "provider": "copilot_chat",
-    "model": "claude-sonnet-4.6"
-   },
-   {
-    "provider": "copilot_chat",
-    "model": "gemini-3.1-pro-preview"
-   }
-  ],
+			{
+				"provider": "copilot_chat",
+				"model": "gpt-5.4-mini",
+				"enable_thinking": true,
+				"effort": "medium",
+			},
+			{
+				"provider": "copilot_chat",
+				"model": "gpt-5.2-codex",
+				"enable_thinking": true,
+				"effort": "medium",
+			},
+			{
+				"provider": "copilot_chat",
+				"model": "gemini-3.1-pro-preview",
+				"enable_thinking": true,
+				"effort": "medium",
+			},
+			{
+				"provider": "copilot_chat",
+				"model": "gpt-5-mini",
+				"enable_thinking": true,
+				"effort": "medium",
+			},
+		],
+		"tool_permissions": {
+			"default": "allow",
+		},
 		"inline_assistant_model": {
 			"provider": "copilot_chat",
-			"model": "oswe-vscode-prime",
+			"model": "gpt-5-mini",
 		},
 		"use_modifier_to_send": true,
-		"play_sound_when_agent_done": true,
-		"always_allow_tool_actions": true,
+		"play_sound_when_agent_done": "always",
 		"profiles": {
 			"write": {
 				"name": "Write",
 				"tools": {
+					"search_web": true,
 					"copy_path": true,
 					"create_directory": true,
 					"delete_path": true,
@@ -181,19 +194,18 @@
 					"subagent": true,
 					"terminal": true,
 					"thinking": true,
-					"web_search": true,
 				},
 				"enable_all_context_servers": true,
 				"context_servers": {
 					"mcp-server-github": {
 						"tools": {
 							"sub_issue_write": false,
-       "add_comment_to_pending_review": false,
-       "add_issue_comment": false,
-       "assign_copilot_to_issue": true,
-       "create_branch": true,
-       "issue_write": false,
-       "update_pull_request_branch": false,
+							"add_comment_to_pending_review": false,
+							"add_issue_comment": false,
+							"assign_copilot_to_issue": true,
+							"create_branch": true,
+							"issue_write": false,
+							"update_pull_request_branch": false,
 							"update_pull_request": false,
 							"pull_request_review_write": false,
 							"merge_pull_request": false,
@@ -240,10 +252,10 @@
 				"name": "Minimal",
 				"tools": {
 					"diagnostics": false,
-     "find_path": false,
-     "grep": false,
-     "read_file": false,
-     "thinking": true,
+					"find_path": false,
+					"grep": false,
+					"read_file": false,
+					"thinking": true,
 					"fetch": true,
 				},
 				"enable_all_context_servers": false,
@@ -313,8 +325,8 @@
 					"nixos": {
 						"tools": {
 							"nix": true,
-       "nix_versions": true,
-       "nixos_stats": true,
+							"nix_versions": true,
+							"nixos_stats": true,
 							"nixos_search": true,
 							"nixos_info": true,
 							"nixos_flakes_stats": true,
@@ -364,7 +376,7 @@
 					"mcp-server-context7": {
 						"tools": {
 							"query-docs": true,
-       "resolve-library-id": true,
+							"resolve-library-id": true,
 							"get-library-docs": true,
 						},
 					},
@@ -374,7 +386,9 @@
 		"default_profile": "write",
 		"default_model": {
 			"provider": "copilot_chat",
-			"model": "gpt-5.2-codex",
+			"model": "gpt-5.4-mini",
+			"enable_thinking": true,
+			"effort": "medium",
 		},
 		"dock": "left",
 	},
