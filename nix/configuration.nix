@@ -42,7 +42,6 @@
         "ca-derivations"
         "cgroups"
         "git-hashing"
-        "no-url-literals"
         "local-overlay-store"
         "pipe-operators"
         "verified-fetches"
@@ -51,6 +50,7 @@
         "root"
         "@wheel"
       ];
+      lint-url-literals = "warn";
     };
   };
 
