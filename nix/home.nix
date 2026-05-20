@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  dotfilesDir,
 
   pkgs,
   pkgs-unstable,
@@ -10,7 +11,6 @@
   ...
 }:
 let
-  dotfilesDir = "${config.home.homeDirectory}/Repositories/Malix-Labs/dotfiles";
   symlinksDir = "${dotfilesDir}/symlinks";
 
   nu = lib.getExe pkgs.nushell;
