@@ -1,8 +1,11 @@
 {
   pkgs,
   lib,
+
   username,
+
   nix-gaming-edge,
+
   ...
 }:
 

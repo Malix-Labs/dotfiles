@@ -5,11 +5,11 @@
   pkgs,
   pkgs-unstable,
 
-  declarative-flatpak,
-
   username,
   homeDirectory,
   dotfilesDirectory,
+
+  declarative-flatpak,
 
   ...
 }:

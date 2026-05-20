@@ -1,7 +1,7 @@
 {
   config,
   lib,
-  hostName,
+
   pkgs,
   pkgs-unstable,
 
@@ -9,13 +9,14 @@
   nixpkgs-unstable,
   nixpkgs-stable,
 
+  username,
+  hostName,
+  dotfilesDirectory,
+
   cachyos-kernel,
 
   mcp-nixos,
   fh,
-
-  username,
-  dotfilesDirectory,
 
   ...
 }:

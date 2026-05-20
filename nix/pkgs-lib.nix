@@ -1,6 +1,8 @@
 {
   pkgs,
+
   nixpkgs-unstable,
+
   ...
 }:
 {
