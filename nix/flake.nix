@@ -71,9 +71,21 @@
     }:
     let
       nixpkgs-chosen = nixpkgs-unstable;
-      hostName = "malix-legion-nixos";
+
+      username = "malix";
+      hostName = "${username}-legion-nixos";
+      homeDir = "/home/${username}";
+      dotfilesDir = "${homeDir}/Repositories/Malix-Labs/dotfiles";
+
       specialArgs = inputs // {
-        inherit nixpkgs-chosen hostName;
+        inherit
+          nixpkgs-chosen
+
+          username
+          hostName
+          homeDir
+          dotfilesDir
+          ;
       };
     in
     {

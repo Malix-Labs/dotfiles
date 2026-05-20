@@ -7,10 +7,13 @@
 
   declarative-flatpak,
 
+  username,
+  homeDir,
+  dotfilesDir,
+
   ...
 }:
 let
-  dotfilesDir = "${config.home.homeDirectory}/Repositories/Malix-Labs/dotfiles";
   symlinksDir = "${dotfilesDir}/symlinks";
 
   nu = lib.getExe pkgs.nushell;
@@ -24,8 +27,8 @@ in
   ];
 
   home = {
-    username = "malix";
-    homeDirectory = "/home/malix";
+    inherit username;
+    homeDirectory = homeDir;
     stateVersion = "25.11"; # NEVER MUTATE
     activation.createSshSocketDir = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       mkdir --parents ${sshDirectory}/sockets

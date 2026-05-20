@@ -13,6 +13,10 @@
 
   mcp-nixos,
   fh,
+
+  username,
+  dotfilesDir,
+
   ...
 }:
 {
@@ -173,7 +177,7 @@
       proton-vpn
     ];
 
-    etc.nixos.source = "/home/malix/Repositories/Malix-Labs/dotfiles/nix"; # string and not path for direct symlink (see https://discourse.nixos.org/t/how-to-create-symlinks-in-nixos/73911/4?u=malix)
+    etc.nixos.source = "${dotfilesDir}/nix"; # string and not path for direct symlink (see https://discourse.nixos.org/t/how-to-create-symlinks-in-nixos/73911/4?u=malix)
   };
 
   virtualisation = {
@@ -189,10 +193,10 @@
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    users.malix = ./home.nix;
+    users.${username} = ./home.nix;
   };
 
-  users.users.malix = {
+  users.users.${username} = {
     isNormalUser = true;
     description = "Malix";
     extraGroups = [
