@@ -177,7 +177,7 @@
       proton-vpn
     ];
 
-    etc.nixos.source = "${dotfilesDirectory}/nix"; # string and not path for direct symlink (see https://discourse.nixos.org/t/how-to-create-symlinks-in-nixos/73911/4?u=malix)
+    etc.nixos.source = "${dotfilesDirectory}/nix";
   };
 
   virtualisation = {
