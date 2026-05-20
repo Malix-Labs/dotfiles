@@ -4,6 +4,7 @@
 
   pkgs,
   pkgs-unstable,
+  nix-gaming-edge,
 
   declarative-flatpak,
 
@@ -12,6 +13,14 @@
 let
   dotfilesDir = "${config.home.homeDirectory}/Repositories/Malix-Labs/dotfiles";
   symlinksDir = "${dotfilesDir}/symlinks";
+  steamCompatTools = with pkgs; [
+    proton-ge-bin
+    nix-gaming-edge.packages.${pkgs.stdenv.hostPlatform.system}.proton-cachyos-x86_64-v3
+  ];
+  mkSteamCompatSymlink = tool: {
+    name = "Steam/compatibilitytools.d/${lib.getName tool}";
+    value.source = config.lib.file.mkOutOfStoreSymlink "${tool.steamcompattool}";
+  };
 
   nu = lib.getExe pkgs.nushell;
   sshDirectory = "${config.home.homeDirectory}/.ssh";
@@ -40,8 +49,12 @@ in
     ];
   };
 
-  xdg.configFile = {
-    "zed".source = config.lib.file.mkOutOfStoreSymlink "${symlinksDir}/zed";
+  xdg = {
+    configFile = {
+      "zed".source = config.lib.file.mkOutOfStoreSymlink "${symlinksDir}/zed";
+    };
+    # So that Proton can be discovered by other tools
+    dataFile = builtins.listToAttrs (map mkSteamCompatSymlink steamCompatTools);
   };
 
   programs = {
