@@ -74,8 +74,8 @@
 
       username = "malix";
       hostName = "${username}-legion-nixos";
-      homeDir = "/home/${username}";
-      dotfilesDir = "${homeDir}/Repositories/Malix-Labs/dotfiles";
+      homeDirectory = "/home/${username}";
+      dotfilesDirectory = "${homeDirectory}/Repositories/Malix-Labs/dotfiles";
 
       specialArgs = inputs // {
         inherit
@@ -83,8 +83,8 @@
 
           username
           hostName
-          homeDir
-          dotfilesDir
+          homeDirectory
+          dotfilesDirectory
           ;
       };
     in

@@ -8,13 +8,13 @@
   declarative-flatpak,
 
   username,
-  homeDir,
-  dotfilesDir,
+  homeDirectory,
+  dotfilesDirectory,
 
   ...
 }:
 let
-  symlinksDir = "${dotfilesDir}/symlinks";
+  symlinksDirectory = "${dotfilesDirectory}/symlinks";
 
   nu = lib.getExe pkgs.nushell;
   sshDirectory = "${config.home.homeDirectory}/.ssh";
@@ -27,10 +27,9 @@ in
   ];
 
   home = {
-    inherit username;
-    homeDirectory = homeDir;
+    inherit username homeDirectory;
     stateVersion = "25.11"; # NEVER MUTATE
-    activation.createSshSocketDir = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    activation.createSshSocketDirectory = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       mkdir --parents ${sshDirectory}/sockets
     '';
     packages = with pkgs; [
@@ -44,7 +43,7 @@ in
   };
 
   xdg.configFile = {
-    "zed".source = config.lib.file.mkOutOfStoreSymlink "${symlinksDir}/zed";
+    "zed".source = config.lib.file.mkOutOfStoreSymlink "${symlinksDirectory}/zed";
   };
 
   programs = {
@@ -57,7 +56,7 @@ in
         extraArgs = "--keep-since 2w --keep 10 --optimise";
         dates = "daily";
       };
-      flake = "${dotfilesDir}/nix";
+      flake = "${dotfilesDirectory}/nix";
     };
 
     nushell = {
