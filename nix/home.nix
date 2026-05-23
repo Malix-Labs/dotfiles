@@ -35,7 +35,6 @@ in
     packages = with pkgs; [
       audacity
       gitkraken
-      github-copilot-cli
       simplex-chat-desktop
 
       devenv
@@ -235,6 +234,8 @@ in
       enable = true;
       package = pkgs-unstable.vscode;
     };
+
+    github-copilot-cli.enable = true;
 
     google-chrome = {
       enable = true;

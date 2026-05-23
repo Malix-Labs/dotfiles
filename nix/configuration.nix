@@ -133,11 +133,14 @@
     flatpak.enable = true;
 
     ratbagd.enable = true;
+
+    cloudflare-warp.enable = true;
   };
 
   hardware.bluetooth.enable = true;
 
   programs = {
+    git.enable = true;
     nix-ld.enable = true;
     partition-manager.enable = true;
     kdeconnect.enable = true;
@@ -161,7 +164,6 @@
       helix
 
       wget
-      git
       fastfetch
       wl-clipboard-rs
       # clipboard-jh # broken for Wayland, see https://github.com/Slackadays/Clipboard/issues/171
@@ -174,7 +176,6 @@
 
       piper
 
-      cloudflare-warp
       proton-vpn
     ];
 
