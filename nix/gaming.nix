@@ -29,6 +29,7 @@ in
 
     gamescope = {
       enable = true; # already implicitly enabled by `steam.gamescopeSession.enable`
+      enableWsi = true;
       capSysNice = true;
     };
 
@@ -41,8 +42,4 @@ in
       value.source = tool.steamcompattool;
     }) steamCompatTools
   );
-
-  environment.systemPackages = with pkgs; [
-    gamescope-wsi
-  ];
 }
