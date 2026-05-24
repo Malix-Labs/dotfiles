@@ -19,7 +19,7 @@ in
   programs = {
     steam = {
       enable = true;
-      # gamescopeSession.enable = true; # hotfix for https://github.com/NixOS/nixpkgs/issues/523427
+      gamescopeSession.enable = true;
       protontricks.enable = true;
       extest.enable = true;
       extraCompatPackages = steamCompatTools;
