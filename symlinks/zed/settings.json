@@ -104,12 +104,10 @@
   "git_panel": {
     "tree_view": true,
     "status_style": "label_color",
-    "dock": "right",
   },
   "context_servers": {
     "mcp-server-github": {
       "enabled": true,
-      "remote": false,
       "settings": {
         "github_personal_access_token": "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",
       },
@@ -381,21 +379,15 @@
         },
       },
     },
-    "default_profile": "write",
     "default_model": {
       "provider": "copilot_chat",
       "model": "gpt-5.4-mini",
       "enable_thinking": true,
       "effort": "medium",
     },
-    "dock": "left",
   },
   "project_panel": {
     "hide_root": true,
     "diagnostic_badges": true,
-    "dock": "right",
-  },
-  "outline_panel": {
-    "dock": "right",
   },
 }
