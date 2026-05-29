@@ -30,6 +30,7 @@
     "mute_on_join": true,
   },
   "terminal": {
+    "show_count_badge": true,
     "copy_on_select": true,
   },
   "use_system_window_tabs": true,
@@ -391,6 +392,7 @@
   },
   "project_panel": {
     "hide_root": true,
+    "diagnostic_badges": true,
     "dock": "right",
   },
   "outline_panel": {
