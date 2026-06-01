@@ -135,7 +135,7 @@ in
           pruneTags = true;
         };
         column.ui = "auto dense";
-        aliases = {
+        alias = {
           "pf" = "push --force-with-lease";
           "imerge" = ''
             !f() {
