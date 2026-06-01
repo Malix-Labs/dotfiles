@@ -8,10 +8,10 @@
       "type": "registry",
       "default_config_options": {
         "allow_all": "on",
-        "model": "auto",
+        "model": "gpt-5.4-mini",
       },
       "favorite_config_option_values": {
-        "model": ["auto", "gpt-5.3-codex", "gpt-5.4-mini", "gpt-5-mini"],
+        "model": ["auto", "gpt-5.4-mini", "gpt-5-mini"],
       },
     },
   },
@@ -136,25 +136,13 @@
         "provider": "copilot_chat",
         "model": "gpt-5.4-mini",
         "enable_thinking": true,
-        "effort": "medium",
-      },
-      {
-        "provider": "copilot_chat",
-        "model": "gpt-5.2-codex",
-        "enable_thinking": true,
-        "effort": "medium",
-      },
-      {
-        "provider": "copilot_chat",
-        "model": "gemini-3.1-pro-preview",
-        "enable_thinking": true,
-        "effort": "medium",
+        "effort": "low",
       },
       {
         "provider": "copilot_chat",
         "model": "gpt-5-mini",
         "enable_thinking": true,
-        "effort": "medium",
+        "effort": "low",
       },
     ],
     "tool_permissions": {
@@ -198,7 +186,6 @@
               "sub_issue_write": false,
               "add_comment_to_pending_review": false,
               "add_issue_comment": false,
-              "assign_copilot_to_issue": true,
               "create_branch": true,
               "issue_write": false,
               "update_pull_request_branch": false,
@@ -211,10 +198,6 @@
         },
       },
       "built-in-tools-only": {
-        "default_model": {
-          "provider": "copilot_chat",
-          "model": "oswe-vscode-prime",
-        },
         "name": "Built-in Tools Only",
         "tools": {
           "save_file": true,
@@ -383,7 +366,7 @@
       "provider": "copilot_chat",
       "model": "gpt-5.4-mini",
       "enable_thinking": true,
-      "effort": "medium",
+      "effort": "low",
     },
   },
   "project_panel": {
