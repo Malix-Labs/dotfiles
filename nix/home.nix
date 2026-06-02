@@ -99,6 +99,7 @@ in
 
     git = {
       enable = true;
+      package = pkgs.gitFull;
       settings = {
         user = {
           name = "Malix - Alix Brunet";
