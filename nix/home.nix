@@ -260,6 +260,8 @@ in
           "issue view --json 'assignees,author,body,closed,closedAt,closedByPullRequestsReferences,comments,createdAt,id,isPinned,labels,milestone,number,projectItems,reactionGroups,state,stateReason,title,updatedAt,url'";
         "pr export" =
           "pr view --json 'additions,assignees,author,autoMergeRequest,baseRefName,baseRefOid,body,changedFiles,closed,closedAt,closingIssuesReferences,comments,commits,createdAt,deletions,files,fullDatabaseId,headRefName,headRefOid,headRepository,headRepositoryOwner,id,isCrossRepository,isDraft,labels,latestReviews,maintainerCanModify,mergeCommit,mergeStateStatus,mergeable,mergedAt,mergedBy,milestone,number,potentialMergeCommit,projectItems,reactionGroups,reviewDecision,reviewRequests,reviews,state,statusCheckRollup,title,updatedAt,url'";
+        "discussion export" =
+          "discussion view --json 'answerChosenAt,answerChosenBy,answered,author,body,category,closed,closedAt,comments,createdAt,id,labels,locked,number,reactionGroups,state,stateReason,title,updatedAt,url'";
       };
     };
 
