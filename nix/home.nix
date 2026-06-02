@@ -38,6 +38,7 @@ in
       simplex-chat-desktop
 
       devenv
+      tea
     ];
   };
 
