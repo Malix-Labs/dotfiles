@@ -39,6 +39,7 @@ in
 
       devenv
       tea
+      antigravity-cli
     ];
   };
 
