@@ -1,12 +1,13 @@
 {
   pkgs,
+
   ...
 }:
 
 {
-  home.packages = with pkgs; [
-    prismlauncher
+  programs.prismlauncher.enable = true;
 
+  home.packages = with pkgs; [
     (heroic.override {
       extraPkgs =
         pkgs': with pkgs'; [

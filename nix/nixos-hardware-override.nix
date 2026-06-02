@@ -3,8 +3,11 @@
 {
   config,
   lib,
+
   pkgs,
+
   l5p-keyboard-rgb,
+
   ...
 }:
 {

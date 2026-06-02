@@ -19,7 +19,10 @@
       # inputs.nixpkgs.follows # shoudln't be set, see https://github.com/xddxdd/nix-cachyos-kernel#how-to-use-kernels
     };
 
-    nixos-hardware.url = "github:NixOS/nixos-hardware";
+    nixos-hardware = {
+      url = "github:NixOS/nixos-hardware";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
     l5p-keyboard-rgb = {
       url = "github:4JX/L5P-Keyboard-RGB";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -71,9 +74,21 @@
     }:
     let
       nixpkgs-chosen = nixpkgs-unstable;
-      hostName = "malix-legion-nixos";
+
+      username = "malix";
+      hostName = "${username}-legion-nixos";
+      homeDirectory = "/home/${username}";
+      dotfilesDirectory = "${homeDirectory}/Repositories/Malix-Labs/dotfiles";
+
       specialArgs = inputs // {
-        inherit nixpkgs-chosen hostName;
+        inherit
+          nixpkgs-chosen
+
+          username
+          hostName
+          homeDirectory
+          dotfilesDirectory
+          ;
       };
     in
     {

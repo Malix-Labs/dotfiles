@@ -1,14 +1,15 @@
 {
   pkgs,
   lib,
+
+  username,
+
   nix-gaming-edge,
+
   ...
 }:
 
 let
-  mkSteamCompatRule =
-    tool:
-    "L+ %h/.local/share/Steam/compatibilitytools.d/${lib.getName tool} - - - - ${tool.steamcompattool}";
   steamCompatTools = with pkgs; [
     proton-ge-bin
     nix-gaming-edge.packages.${pkgs.stdenv.hostPlatform.system}.proton-cachyos-x86_64-v3
@@ -18,7 +19,7 @@ in
   programs = {
     steam = {
       enable = true;
-      gamescopeSession.enable = true;
+      # gamescopeSession.enable = true; # hotfix for https://github.com/NixOS/nixpkgs/issues/523427
       protontricks.enable = true;
       extest.enable = true;
       extraCompatPackages = steamCompatTools;
@@ -27,15 +28,19 @@ in
     };
 
     gamescope = {
-      enable = true; # implicitly enabled by `steam.gamescopeSession.enable`, but required to set other options
+      enable = true; # already implicitly enabled by `steam.gamescopeSession.enable`
       capSysNice = true;
     };
 
     gamemode.enable = true;
   };
 
-  # So that Proton can be discovered by other tools
-  systemd.user.tmpfiles.rules = map mkSteamCompatRule steamCompatTools;
+  home-manager.users.${username}.xdg.dataFile = lib.listToAttrs (
+    map (tool: {
+      name = "Steam/compatibilitytools.d/${lib.getName tool}";
+      value.source = tool.steamcompattool;
+    }) steamCompatTools
+  );
 
   environment.systemPackages = with pkgs; [
     gamescope-wsi

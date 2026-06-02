@@ -1,7 +1,7 @@
 {
   config,
   lib,
-  hostName,
+
   pkgs,
   pkgs-unstable,
 
@@ -9,10 +9,15 @@
   nixpkgs-unstable,
   nixpkgs-stable,
 
+  username,
+  hostName,
+  dotfilesDirectory,
+
   cachyos-kernel,
 
   mcp-nixos,
   fh,
+
   ...
 }:
 {
@@ -42,7 +47,6 @@
         "ca-derivations"
         "cgroups"
         "git-hashing"
-        "no-url-literals"
         "local-overlay-store"
         "pipe-operators"
         "verified-fetches"
@@ -51,6 +55,7 @@
         "root"
         "@wheel"
       ];
+      lint-url-literals = "warn";
     };
   };
 
@@ -128,11 +133,14 @@
     flatpak.enable = true;
 
     ratbagd.enable = true;
+
+    cloudflare-warp.enable = true;
   };
 
   hardware.bluetooth.enable = true;
 
   programs = {
+    git.enable = true;
     nix-ld.enable = true;
     partition-manager.enable = true;
     kdeconnect.enable = true;
@@ -156,7 +164,6 @@
       helix
 
       wget
-      git
       fastfetch
       wl-clipboard-rs
       # clipboard-jh # broken for Wayland, see https://github.com/Slackadays/Clipboard/issues/171
@@ -169,11 +176,10 @@
 
       piper
 
-      cloudflare-warp
       proton-vpn
     ];
 
-    etc.nixos.source = "/home/malix/Repositories/Malix-Labs/dotfiles/nix"; # string and not path for direct symlink (see https://discourse.nixos.org/t/how-to-create-symlinks-in-nixos/73911/4?u=malix)
+    etc.nixos.source = "${dotfilesDirectory}/nix";
   };
 
   virtualisation = {
@@ -189,10 +195,10 @@
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    users.malix = ./home.nix;
+    users.${username} = ./home.nix;
   };
 
-  users.users.malix = {
+  users.users.${username} = {
     isNormalUser = true;
     description = "Malix";
     extraGroups = [

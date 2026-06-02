@@ -5,13 +5,16 @@
   pkgs,
   pkgs-unstable,
 
+  username,
+  homeDirectory,
+  dotfilesDirectory,
+
   declarative-flatpak,
 
   ...
 }:
 let
-  dotfilesDir = "${config.home.homeDirectory}/Repositories/Malix-Labs/dotfiles";
-  symlinksDir = "${dotfilesDir}/symlinks";
+  symlinksDirectory = "${dotfilesDirectory}/symlinks";
 
   nu = lib.getExe pkgs.nushell;
   sshDirectory = "${config.home.homeDirectory}/.ssh";
@@ -24,24 +27,24 @@ in
   ];
 
   home = {
-    username = "malix";
-    homeDirectory = "/home/malix";
+    inherit username homeDirectory;
     stateVersion = "25.11"; # NEVER MUTATE
-    activation.createSshSocketDir = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    activation.createSshSocketDirectory = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       mkdir --parents ${sshDirectory}/sockets
     '';
     packages = with pkgs; [
       audacity
       gitkraken
-      github-copilot-cli
       simplex-chat-desktop
 
       devenv
+      tea
+      antigravity-cli
     ];
   };
 
   xdg.configFile = {
-    "zed".source = config.lib.file.mkOutOfStoreSymlink "${symlinksDir}/zed"; # bugged (see https://github.com/zed-industries/zed/issues/48729)
+    "zed".source = config.lib.file.mkOutOfStoreSymlink "${symlinksDirectory}/zed";
   };
 
   programs = {
@@ -54,7 +57,7 @@ in
         extraArgs = "--keep-since 2w --keep 10 --optimise";
         dates = "daily";
       };
-      flake = "${dotfilesDir}/nix";
+      flake = "${dotfilesDirectory}/nix";
     };
 
     nushell = {
@@ -134,8 +137,7 @@ in
           pruneTags = true;
         };
         column.ui = "auto dense";
-        maintenance.strategy = "geometric";
-        aliases = {
+        alias = {
           "pf" = "push --force-with-lease";
           "imerge" = ''
             !f() {
@@ -269,9 +271,11 @@ in
       enable = true;
       settings.aliases = {
         "issue export" =
-          "issue view --comments --json 'assignees,author,body,closed,closedAt,closedByPullRequestsReferences,comments,createdAt,id,isPinned,labels,milestone,number,projectItems,reactionGroups,state,stateReason,title,updatedAt,url'";
+          "issue view --json 'assignees,author,body,closed,closedAt,closedByPullRequestsReferences,comments,createdAt,id,isPinned,labels,milestone,number,projectItems,reactionGroups,state,stateReason,title,updatedAt,url'";
         "pr export" =
-          "pr view --comments --json 'additions,assignees,author,autoMergeRequest,baseRefName,baseRefOid,body,changedFiles,closed,closedAt,closingIssuesReferences,comments,commits,createdAt,deletions,files,fullDatabaseId,headRefName,headRefOid,headRepository,headRepositoryOwner,id,isCrossRepository,isDraft,labels,latestReviews,maintainerCanModify,mergeCommit,mergeStateStatus,mergeable,mergedAt,mergedBy,milestone,number,potentialMergeCommit,projectItems,reactionGroups,reviewDecision,reviewRequests,reviews,state,statusCheckRollup,title,updatedAt,url'";
+          "pr view --json 'additions,assignees,author,autoMergeRequest,baseRefName,baseRefOid,body,changedFiles,closed,closedAt,closingIssuesReferences,comments,commits,createdAt,deletions,files,fullDatabaseId,headRefName,headRefOid,headRepository,headRepositoryOwner,id,isCrossRepository,isDraft,labels,latestReviews,maintainerCanModify,mergeCommit,mergeStateStatus,mergeable,mergedAt,mergedBy,milestone,number,potentialMergeCommit,projectItems,reactionGroups,reviewDecision,reviewRequests,reviews,state,statusCheckRollup,title,updatedAt,url'";
+        "discussion export" =
+          "discussion view --json 'answerChosenAt,answerChosenBy,answered,author,body,category,closed,closedAt,comments,createdAt,id,labels,locked,number,reactionGroups,state,stateReason,title,updatedAt,url'";
       };
     };
 
@@ -296,6 +300,8 @@ in
       enable = true;
       package = pkgs-unstable.vscode;
     };
+
+    github-copilot-cli.enable = true;
 
     google-chrome = {
       enable = true;
