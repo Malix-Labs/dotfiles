@@ -100,6 +100,7 @@ in
     git = {
       enable = true;
       package = pkgs.gitFull;
+      lfs.enable = true;
       settings = {
         user = {
           name = "Malix - Alix Brunet";
