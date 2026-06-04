@@ -248,6 +248,8 @@ in
     };
 
     vesktop.enable = true;
+
+    gemini-cli.enable = true;
   };
 
   services = {
