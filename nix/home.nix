@@ -48,6 +48,14 @@ in
   xdg.configFile = {
     "zed".source = config.lib.file.mkOutOfStoreSymlink "${symlinksDirectory}/zed";
   };
+  home.file =
+    let
+      antigravity-cli = ".gemini/antigravity-cli/settings.json";
+    in
+    {
+      ${antigravity-cli}.source =
+        config.lib.file.mkOutOfStoreSymlink "${symlinksDirectory}/${antigravity-cli}";
+    };
 
   programs = {
     home-manager.enable = true;

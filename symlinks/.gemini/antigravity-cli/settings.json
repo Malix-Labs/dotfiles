@@ -1,0 +1,29 @@
+{
+  "artifactReviewPolicy": "agent-decides",
+  "enableTelemetry": false,
+  "enableTerminalSandbox": true,
+  "notifications": true,
+  "permissions": {
+    "allow": [
+      "unsandboxed(gh)",
+      "unsandboxed(git diff)",
+      "unsandboxed(git show)",
+      "unsandboxed(git status)",
+      "unsandboxed(git log)",
+      "unsandboxed(nix)",
+      "unsandboxed(nh)"
+    ]
+  },
+  "runningLightSpeed": "fast",
+  "showFeedbackSurvey": false,
+  "statusLine": {
+    "type": "",
+    "command": "",
+    "enabled": true
+  },
+  "toolPermission": "proceed-in-sandbox",
+  "trustedWorkspaces": [
+    "/home/malix",
+    "/home/malix/Repositories/NixOS"
+  ]
+}
