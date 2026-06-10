@@ -36,10 +36,10 @@ in
     gamemode.enable = true;
   };
 
-  home-manager.users.${username}.xdg.dataFile = lib.listToAttrs (
-    map (tool: {
-      name = "Steam/compatibilitytools.d/${lib.getName tool}";
-      value.source = tool.steamcompattool;
-    }) steamCompatTools
+  home-manager.users.${username}.xdg.dataFile = lib.genAttrs' steamCompatTools (
+    tool:
+    lib.nameValuePair "Steam/compatibilitytools.d/${lib.getName tool}" {
+      source = tool.steamcompattool;
+    }
   );
 }
