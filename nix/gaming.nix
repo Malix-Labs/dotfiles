@@ -36,6 +36,7 @@ in
     gamemode.enable = true;
   };
 
+  # Make steamCompatTools usable elsewhere
   home-manager.users.${username}.xdg.dataFile = lib.genAttrs' steamCompatTools (
     tool:
     lib.nameValuePair "Steam/compatibilitytools.d/${lib.getName tool}" {
