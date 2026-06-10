@@ -6,7 +6,6 @@
   pkgs-unstable,
 
   username,
-  homeDirectory,
   dotfilesDirectory,
 
   declarative-flatpak,
@@ -17,7 +16,7 @@ let
   mapSymlinks =
     paths:
     lib.genAttrs paths (path: {
-      source = config.lib.file.mkOutOfStoreSymlink "${dotfilesDirectory}/symlinks/${path}";
+      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/${dotfilesDirectory}/symlinks/${path}";
     });
 
   nu = lib.getExe pkgs.nushell;
@@ -31,7 +30,7 @@ in
   ];
 
   home = {
-    inherit username homeDirectory;
+    inherit username;
     stateVersion = "25.11"; # NEVER MUTATE
     packages = with pkgs; [
       audacity
@@ -59,7 +58,7 @@ in
         extraArgs = "--keep-since 2w --keep 10 --optimise";
         dates = "daily";
       };
-      flake = "${dotfilesDirectory}/nix";
+      flake = "${config.home.homeDirectory}/${dotfilesDirectory}/nix";
     };
 
     nushell = {
