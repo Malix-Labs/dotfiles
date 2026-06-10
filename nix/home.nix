@@ -33,9 +33,6 @@ in
   home = {
     inherit username homeDirectory;
     stateVersion = "25.11"; # NEVER MUTATE
-    activation.createSshSocketDirectory = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      mkdir --parents ${sshDirectory}/sockets
-    '';
     packages = with pkgs; [
       audacity
       gitkraken
@@ -192,22 +189,22 @@ in
     ssh = {
       enable = true;
       enableDefaultConfig = false;
-      matchBlocks."*" = {
-        addKeysToAgent = "yes";
-        identityFile = [
+      settings."*" = {
+        AddKeysToAgent = "yes";
+        IdentityFile = [
           "${sshDirectory}/id_ed25519"
         ];
-        identitiesOnly = true;
+        IdentitiesOnly = "yes";
 
-        controlMaster = "auto";
-        controlPath = "${sshDirectory}/sockets/%r@%n:%p";
-        controlPersist = "1h";
+        ControlMaster = "auto";
+        ControlPath = "${sshDirectory}/master-%r@%n:%p";
+        ControlPersist = "1h";
 
-        serverAliveInterval = 60;
+        ServerAliveInterval = 60;
 
-        hashKnownHosts = true;
+        HashKnownHosts = "yes";
 
-        setEnv.COLORTERM = "truecolor";
+        SetEnv.COLORTERM = "truecolor";
       };
     };
 
