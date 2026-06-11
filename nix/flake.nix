@@ -14,6 +14,11 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
     cachyos-kernel = {
       url = "github:xddxdd/nix-cachyos-kernel/release";
       # inputs.nixpkgs.follows # shoudln't be set, see https://github.com/xddxdd/nix-cachyos-kernel#how-to-use-kernels
@@ -70,6 +75,8 @@
 
       home-manager,
 
+      lanzaboote,
+
       ...
     }:
     let
@@ -94,6 +101,8 @@
         inherit specialArgs;
         modules = [
           determinate.nixosModules.default
+
+          lanzaboote.nixosModules.lanzaboote
 
           ./configuration.nix
 

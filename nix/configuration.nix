@@ -64,10 +64,15 @@
       cachyos-kernel.legacyPackages.${pkgs.stdenv.hostPlatform.system}.linuxPackages-cachyos-latest-lto-x86_64-v3;
     loader = {
       systemd-boot = {
-        enable = true;
+        enable = lib.mkForce false; # replaced by lanzaboote
         editor = false;
       };
       efi.canTouchEfiVariables = true;
+    };
+    lanzaboote = {
+      enable = true;
+      pkiBundle = "/var/lib/sbctl";
+      configurationLimit = 8; # maximum by systemd-pcrlock (see https://github.com/nix-community/lanzaboote/blob/b9e331d75d4618c7073ea08ff30fddf9a7d2fb08/nix/modules/lanzaboote.nix#L429-L438)
     };
     tmp.useTmpfs = true;
     kernel.sysctl."vm.swappiness" = 100;
@@ -160,6 +165,8 @@
 
   environment = {
     systemPackages = with pkgs; [
+      sbctl
+
       ghostty
 
       helix
