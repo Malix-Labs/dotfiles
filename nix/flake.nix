@@ -28,6 +28,10 @@
       url = "github:NixOS/nixos-hardware";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
     l5p-keyboard-rgb = {
       url = "github:4JX/L5P-Keyboard-RGB";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -72,6 +76,7 @@
       determinate,
 
       nixos-hardware,
+      disko,
 
       home-manager,
 
@@ -110,6 +115,8 @@
           ./pkgs-lib.nix
           nixos-hardware.nixosModules.lenovo-legion-15ach6h-hybrid # https://github.com/NixOS/nixos-hardware/tree/master/lenovo/legion/15ach6h
           ./nixos-hardware-override.nix
+          disko.nixosModules.disko
+          # ./disko.nix
 
           home-manager.nixosModules.default
           { home-manager.extraSpecialArgs = specialArgs; }
