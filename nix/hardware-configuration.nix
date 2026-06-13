@@ -14,9 +14,11 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/9e5b487a-8a22-4ab2-b068-f731e7ed7d58";
+    { device = "/dev/mapper/cryptroot";
       fsType = "ext4";
     };
+
+  boot.initrd.luks.devices."cryptroot".device = "/dev/disk/by-uuid/213ed6b2-470b-4ae1-898b-b816e0a93f48";
 
   fileSystems."/boot" =
     { device = "/dev/disk/by-uuid/F0A2-A1C9";
