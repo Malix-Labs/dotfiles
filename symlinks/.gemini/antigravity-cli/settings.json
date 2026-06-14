@@ -23,7 +23,8 @@
   },
   "toolPermission": "proceed-in-sandbox",
   "trustedWorkspaces": [
-    "/home/malix",
-    "/home/malix/Repositories/NixOS"
+    "/home/malix/Repositories/NixOS",
+    "/home/malix/Repositories/Malix-Labs",
+    "/home/malix/Repositories/Malix-Labs/dotfiles"
   ]
 }
