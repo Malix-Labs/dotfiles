@@ -73,6 +73,13 @@
       enable = true;
       pkiBundle = "/var/lib/sbctl";
       configurationLimit = 8; # maximum by systemd-pcrlock (see https://github.com/nix-community/lanzaboote/blob/b9e331d75d4618c7073ea08ff30fddf9a7d2fb08/nix/modules/lanzaboote.nix#L429-L438)
+
+      autoGenerateKeys.enable = true;
+      autoEnrollKeys = {
+        enable = true;
+        autoReboot = true;
+      };
+
       measuredBoot = {
         enable = true;
 
@@ -82,7 +89,15 @@
           4
           7
         ];
+
+        autoCryptenroll = {
+          enable = true;
+          device = "/dev/nvme0n1p2";
+          autoReboot = true;
+        };
       };
+
+      bootCounting.initialTries = 3;
     };
     tmp.useTmpfs = true;
     kernel.sysctl."vm.swappiness" = 100;
