@@ -1,0 +1,46 @@
+name: "Checks"
+
+on: [push, pull_request]
+
+jobs:
+  format:
+    name: "Format"
+    runs-on: &runner ubuntu-latest
+    steps:
+      - &checkout
+        uses: actions/checkout@v6
+      - &nix-setup
+        uses: ./.github/actions/nix-setup
+      - run: "nix fmt ./nix -- --check"
+
+  lint:
+    name: "Lint"
+    runs-on: *runner
+    steps:
+      - *checkout
+      - *nix-setup
+      - name: "Statix"
+        run: "nix run nixpkgs#statix -- check ./nix"
+      - name: "Deadnix"
+        if: ${{ !cancelled() }}
+        run: "nix run nixpkgs#deadnix -- ./nix"
+
+  flake-check:
+    name: "Flake Check"
+    runs-on: *runner
+    steps:
+      - *checkout
+      - *nix-setup
+      - uses: DeterminateSystems/flake-checker-action@main
+        with:
+          flake-lock-path: ./nix/flake.lock
+          nixpkgs-keys: nixpkgs-stable,nixpkgs-unstable
+          fail-mode: true
+
+  system-evaluation:
+    name: "Evaluation"
+    runs-on: *runner
+    steps:
+      - *checkout
+      - *nix-setup
+      - run: "nix eval ./nix#nixosConfigurations.malix-legion-nixos.config.system.build.toplevel.drvPath --show-trace"

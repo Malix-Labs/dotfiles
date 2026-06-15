@@ -1,0 +1,134 @@
+name: "Update"
+
+env:
+  PATH_TO_FLAKE_DIR: &flake-dir "nix"
+  BRANCH: &branch "ci/update"
+  PR_TITLE: &pr-title "chore(deps): rolling daily flake updates"
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+    inputs:
+      inputs:
+        description: "A space-separated list of inputs to update. Leave empty to update all inputs."
+        required: false
+        type: string
+      token:
+        description: "GITHUB_TOKEN or a PAT"
+        required: false
+        type: string
+      commit-msg:
+        description: "The message provided with the commit"
+        required: false
+        type: string
+      base:
+        description: "Sets the pull request base branch."
+        required: false
+        type: string
+      branch:
+        description: "The branch of the PR to be created"
+        required: false
+        type: string
+        default: *branch
+      push-to-fork:
+        description: "A fork to which the pull request branch will be pushed."
+        required: false
+        type: string
+      path-to-flake-dir:
+        description: "The path of the directory containing flake.nix"
+        required: false
+        type: string
+        default: *flake-dir
+      pr-title:
+        description: "The title of the PR to be created"
+        required: false
+        type: string
+        default: *pr-title
+      pr-body:
+        description: "The body of the PR to be created"
+        required: false
+        type: string
+      pr-labels:
+        description: "Labels to set on the PR"
+        required: false
+        type: string
+      pr-assignees:
+        description: "Assignees for the PR"
+        required: false
+        type: string
+      pr-reviewers:
+        description: "Reviewers for the PR"
+        required: false
+        type: string
+      git-author-name:
+        description: "Author name used for commit"
+        required: false
+        type: string
+      git-author-email:
+        description: "Author email used for commit"
+        required: false
+        type: string
+      git-committer-name:
+        description: "Committer name used for commit"
+        required: false
+        type: string
+      git-committer-email:
+        description: "Committer email used for commit"
+        required: false
+        type: string
+      sign-commits:
+        description: "Sign commits with GPG"
+        required: false
+        type: string
+      gpg-private-key:
+        description: "GPG Private Key"
+        required: false
+        type: string
+      gpg-fingerprint:
+        description: "GPG subkey fingerprint"
+        required: false
+        type: string
+      gpg-passphrase:
+        description: "GPG Passphrase"
+        required: false
+        type: string
+      nix-options:
+        description: "Options to pass to nix command"
+        required: false
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: ./.github/actions/nix-setup
+
+      - uses: DeterminateSystems/update-flake-lock@main
+        with:
+          inputs: ${{ github.event.inputs.inputs }}
+          token: ${{ github.event.inputs.token }}
+          commit-msg: ${{ github.event.inputs.commit-msg }}
+          base: ${{ github.event.inputs.base }}
+          branch: ${{ github.event.inputs.branch || env.BRANCH }}
+          push-to-fork: ${{ github.event.inputs.push-to-fork }}
+          path-to-flake-dir: ${{ github.event.inputs.path-to-flake-dir || env.PATH_TO_FLAKE_DIR }}
+          pr-title: ${{ github.event.inputs.pr-title || env.PR_TITLE }}
+          pr-body: ${{ github.event.inputs.pr-body }}
+          pr-labels: ${{ github.event.inputs.pr-labels }}
+          pr-assignees: ${{ github.event.inputs.pr-assignees }}
+          pr-reviewers: ${{ github.event.inputs.pr-reviewers }}
+          git-author-name: ${{ github.event.inputs.git-author-name }}
+          git-author-email: ${{ github.event.inputs.git-author-email }}
+          git-committer-name: ${{ github.event.inputs.git-committer-name }}
+          git-committer-email: ${{ github.event.inputs.git-committer-email }}
+          sign-commits: ${{ github.event.inputs.sign-commits }}
+          gpg-private-key: ${{ github.event.inputs.gpg-private-key }}
+          gpg-fingerprint: ${{ github.event.inputs.gpg-fingerprint }}
+          gpg-passphrase: ${{ github.event.inputs.gpg-passphrase }}
+          nix-options: ${{ github.event.inputs.nix-options }}
