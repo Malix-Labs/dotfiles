@@ -240,6 +240,7 @@ in
     };
 
     github-copilot-cli.enable = true;
+    gemini-cli.enable = true;
 
     google-chrome = {
       enable = true;
@@ -247,8 +248,6 @@ in
     };
 
     vesktop.enable = true;
-
-    gemini-cli.enable = true;
   };
 
   services = {
