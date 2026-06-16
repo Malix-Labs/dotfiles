@@ -41,7 +41,6 @@ in
       glab
       forgejo-cli
       tea
-      antigravity-cli
     ];
   };
 
@@ -246,7 +245,7 @@ in
     };
 
     github-copilot-cli.enable = true;
-    gemini-cli.enable = true;
+    antigravity-cli.enable = true;
 
     google-chrome = {
       enable = true;
