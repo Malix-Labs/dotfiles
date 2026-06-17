@@ -141,6 +141,8 @@ in
         };
         column.ui = "auto dense";
         alias = {
+          "uncommit" = "reset --soft HEAD~1";
+          "recommit" = "commit -C ORIG_HEAD";
           "pf" = "push --force-with-lease";
           "imerge" = ''
             !f() {
