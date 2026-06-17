@@ -122,5 +122,7 @@
           { home-manager.extraSpecialArgs = specialArgs; }
         ];
       };
+
+      formatter.x86_64-linux = nixpkgs-chosen.legacyPackages.x86_64-linux.nixfmt-tree;
     };
 }
