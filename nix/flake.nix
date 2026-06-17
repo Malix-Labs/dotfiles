@@ -120,6 +120,8 @@
 
           home-manager.nixosModules.default
           { home-manager.extraSpecialArgs = specialArgs; }
+
+          ../users/malix/identity.nix
         ];
       };
     };
