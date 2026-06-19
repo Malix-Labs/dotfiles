@@ -6,13 +6,27 @@ jobs:
   format:
     name: "Format"
     runs-on: &runner ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
       - &checkout
         uses: actions/checkout@v6
       - &nix-setup
         uses: ./.github/actions/nix-setup
-      - run: "nix fmt -- --ci"
+      - name: "Check"
+        id: "check"
+        run: "nix fmt -- --ci"
         working-directory: ./nix
+      - name: "Fix"
+        if: failure() && steps.check.outcome == "failure"
+        uses: peter-evans/create-pull-request@v8
+        with:
+          commit-message: "format: ${{ github.head_ref || github.ref_name }}"
+          title: "Format ${{ github.head_ref || github.ref_name }}"
+          body: "${{ github.server_url }}/${{ github.repository }}/runs/${{ job.check_run_id }}"
+          branch: "format/${{ github.head_ref || github.ref_name }}"
+          delete-branch: true
 
   lint:
     name: "Lint"
