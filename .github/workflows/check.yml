@@ -37,7 +37,7 @@ jobs:
       - name: "Statix"
         run: "nix run nixpkgs#statix -- check ./nix"
       - name: "Deadnix"
-        if: ${{ !cancelled() }}
+        if: !cancelled()
         run: "nix run nixpkgs#deadnix -- ./nix"
 
   flake-check:
