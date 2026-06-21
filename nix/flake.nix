@@ -54,6 +54,12 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
+    agy-timer-start = {
+      url = "https://gist.github.com/Malix-Labs/663d4910dfb3eb71018b1f1c2d9bcd64";
+      type = "git";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
   };
 
   nixConfig = {

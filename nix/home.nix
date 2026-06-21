@@ -10,6 +10,8 @@
 
   declarative-flatpak,
 
+  agy-timer-start,
+
   ...
 }:
 let
@@ -27,6 +29,7 @@ in
     ./pkgs-lib.nix
     declarative-flatpak.homeModules.default
     ./gaming-user.nix
+    agy-timer-start.homeModules.default
   ];
 
   home = {
@@ -257,6 +260,7 @@ in
 
   services = {
     ssh-agent.enable = true;
+    agy-timer-start.enable = true;
 
     flatpak = {
       enable = true;
