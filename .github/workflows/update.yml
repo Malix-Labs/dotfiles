@@ -27,6 +27,7 @@ jobs:
 
       - uses: DeterminateSystems/update-flake-lock@main
         with:
+          token: ${{ secrets.GH_TOKEN }}
           inputs: ${{ github.event.inputs.inputs }}
           nix-options: ${{ github.event.inputs.nix-options }}
           branch: "ci/update"
