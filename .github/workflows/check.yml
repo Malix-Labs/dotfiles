@@ -46,7 +46,7 @@ jobs:
         run: "nix run nixpkgs#statix -- check ./nix"
       - name: "Deadnix"
         if: !cancelled()
-        run: "nix run nixpkgs#deadnix -- ./nix"
+        run: "nix run nixpkgs#deadnix -- --fail ./nix"
 
   flake-check:
     name: "Flake Check"
