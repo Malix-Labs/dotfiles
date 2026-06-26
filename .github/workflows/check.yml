@@ -60,7 +60,7 @@ jobs:
           nixpkgs-keys: nixpkgs-stable,nixpkgs-unstable
           fail-mode: true
 
-  system-evaluation:
+  evaluation:
     name: "Evaluation"
     runs-on: *runner
     steps:
