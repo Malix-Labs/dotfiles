@@ -1,0 +1,21 @@
+name: "Build"
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  toplevel:
+    name: "Build Toplevel"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: ./.github/actions/nix-setup
+      - name: "Build system configuration"
+        run: "nix build ./nix#nixosConfigurations.malix-legion-nixos.config.system.build.toplevel --no-link --show-trace"
