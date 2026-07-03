@@ -178,6 +178,7 @@
     partition-manager.enable = true;
     kdeconnect.enable = true;
     bandwhich.enable = true;
+    command-not-found.enable = false;
   };
 
   fonts.packages = with pkgs; [

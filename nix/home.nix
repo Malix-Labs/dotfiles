@@ -12,6 +12,8 @@
 
   agy-timer-start,
 
+  nix-index-database,
+
   ...
 }:
 let
@@ -30,6 +32,7 @@ in
     declarative-flatpak.homeModules.default
     ./gaming-user.nix
     agy-timer-start.homeModules.default
+    nix-index-database.homeModules.nix-index
   ];
 
   home = {
@@ -62,6 +65,13 @@ in
       };
       flake = "${config.home.homeDirectory}/${dotfilesDirectory}/nix";
     };
+
+    nix-index = {
+      enable = true;
+      package = nix-index-database.packages.${pkgs.stdenv.hostPlatform.system}.nix-index-with-small-db;
+    };
+
+    nix-index-database.comma.enable = true;
 
     nushell = {
       enable = true;
