@@ -66,12 +66,12 @@ in
       flake = "${config.home.homeDirectory}/${dotfilesDirectory}/nix";
     };
 
-    nix-index = {
-      enable = true;
+    nix-index.enable = true;
+
+    nix-index-database = {
+      comma.enable = true;
       package = nix-index-database.packages.${pkgs.stdenv.hostPlatform.system}.nix-index-with-small-db;
     };
-
-    nix-index-database.comma.enable = true;
 
     nushell = {
       enable = true;
