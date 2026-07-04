@@ -54,11 +54,14 @@ jobs:
     steps:
       - *checkout
       - *nix-setup
-      - uses: DeterminateSystems/flake-checker-action@main
+      - name: "Flake Checker"
+        uses: DeterminateSystems/flake-checker-action@main
         with:
           flake-lock-path: ./nix/flake.lock
           nixpkgs-keys: nixpkgs-stable,nixpkgs-unstable
           fail-mode: true
+      - name: "Flake Check"
+        run: "nix flake check ./nix"
 
   evaluation:
     name: "Evaluation"
