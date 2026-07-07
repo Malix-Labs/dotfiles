@@ -72,4 +72,3 @@ jobs:
       - uses: ./.github/actions/nix-build
         with:
           dry_run: true
-
