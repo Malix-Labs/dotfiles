@@ -69,5 +69,7 @@ jobs:
     steps:
       - *checkout
       - *nix-setup
-      - name: "Dry-run Build"
-        run: "nix build ./nix#nixosConfigurations.malix-legion-nixos.config.system.build.toplevel --accept-flake-config --dry-run --no-link --print-build-logs --show-trace"
+      - uses: ./.github/actions/nix-build
+        with:
+          dry_run: true
+

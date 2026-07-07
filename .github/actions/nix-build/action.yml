@@ -1,0 +1,23 @@
+name: "Nix Build"
+description: "Builds or dry-runs all system configurations using nix-fast-build"
+inputs:
+  dry_run:
+    description: "Whether to run a dry-run check"
+    default: "false"
+runs:
+  using: composite
+  steps:
+    - name: "nix-fast-build"
+      shell: bash
+      run: |
+        nix run github:Malix-Labs/nix-fast-build/passthrough -- \
+          --flake ./nix#nixosConfigurations \
+          --select 'configs: builtins.mapAttrs (name: value: value.config.system.build.toplevel) configs' \
+          --skip-cached \
+          --eval-args "--accept-flake-config --show-trace" \
+          -- \
+          --accept-flake-config \
+          --show-trace \
+          --no-link \
+          ${{ inputs.dry_run == 'true' && '--dry-run' || '' }}
+

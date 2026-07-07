@@ -17,6 +17,6 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - uses: ./.github/actions/nix-setup
-      - name: "Build system configuration"
-        run: "nix build ./nix#nixosConfigurations.malix-legion-nixos.config.system.build.toplevel --accept-flake-config --no-link --print-build-logs --show-trace"
+      - uses: ./.github/actions/nix-build
+
 
