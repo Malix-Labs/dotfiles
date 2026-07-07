@@ -11,13 +11,12 @@ runs:
       shell: bash
       run: |
         nix run github:Malix-Labs/nix-fast-build/passthrough -- \
-          --flake ./nix#nixosConfigurations \
-          --select 'configs: builtins.mapAttrs (name: value: value.config.system.build.toplevel) configs' \
+          --flake ./nix \
+          --select 'flake: (builtins.getFlake "git+https://gist.github.com/Malix-Labs/b33fbec809d7a9b5334747a22bfd61da").lib flake.outputs' \
           --skip-cached \
-          --eval-args "--accept-flake-config --show-trace" \
+          --eval-args "--accept-flake-config --show-trace --impure" \
           -- \
           --accept-flake-config \
           --show-trace \
           --no-link \
           ${{ inputs.dry_run == 'true' && '--dry-run' || '' }}
-
