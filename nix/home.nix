@@ -10,7 +10,7 @@
 
   declarative-flatpak,
 
-  agy-timer-start,
+  agent-quota-timer-utils,
 
   nix-index-database,
 
@@ -31,7 +31,7 @@ in
     ./pkgs-lib.nix
     declarative-flatpak.homeModules.default
     ./gaming-user.nix
-    agy-timer-start.homeModules.default
+    agent-quota-timer-utils.homeModules.default
     nix-index-database.homeModules.nix-index
   ];
 
@@ -282,7 +282,7 @@ in
 
   services = {
     ssh-agent.enable = true;
-    agy-timer-start.enable = true;
+    agent-quota-timer-utils.enable = true;
 
     flatpak = {
       enable = true;

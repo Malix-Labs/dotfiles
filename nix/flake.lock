@@ -1,19 +1,20 @@
 {
   "nodes": {
-    "agy-timer-start": {
+    "agent-quota-timer-utils": {
       "inputs": {
         "flake-parts": "flake-parts",
         "nixpkgs": [
           "nixpkgs-unstable"
         ],
+        "options-schema": "options-schema",
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1782124796,
-        "narHash": "sha256-E991fRtSYnAKC3lxZwjLHk5NXyvT0CK6J6V3HS3r42g=",
+        "lastModified": 1783912472,
+        "narHash": "sha256-w+EdBh/3/aaW+EdIun63S52NVh/OyCX7L4jC0CiktYU=",
         "ref": "refs/heads/main",
-        "rev": "407441a4ed8d6f438864fa3305b3c984f83929ad",
-        "revCount": 9,
+        "rev": "0d494340a566da28b89b223c241079c4cbc413f3",
+        "revCount": 17,
         "type": "git",
         "url": "https://gist.github.com/Malix-Labs/663d4910dfb3eb71018b1f1c2d9bcd64"
       },
@@ -331,7 +332,10 @@
     },
     "flake-parts": {
       "inputs": {
-        "nixpkgs-lib": "nixpkgs-lib"
+        "nixpkgs-lib": [
+          "agent-quota-timer-utils",
+          "nixpkgs"
+        ]
       },
       "locked": {
         "lastModified": 1778716662,
@@ -788,6 +792,27 @@
         "url": "https://flakehub.com/f/NixOS/nixpkgs/0.2511"
       }
     },
+    "options-schema": {
+      "inputs": {
+        "nixpkgs": [
+          "agent-quota-timer-utils",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1783014457,
+        "narHash": "sha256-Rbos5/gQCfwcQhjqR0zSbN2VSViwqfMQeEFyVG5n93U=",
+        "ref": "refs/heads/main",
+        "rev": "2f46704b70c59916ca58e69c1534ef0608388be5",
+        "revCount": 1,
+        "type": "git",
+        "url": "https://gist.github.com/Malix-Labs/eec30a668f03ca4ad1060c68c3f5c442"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://gist.github.com/Malix-Labs/eec30a668f03ca4ad1060c68c3f5c442"
+      }
+    },
     "pre-commit": {
       "inputs": {
         "flake-compat": "flake-compat_3",
@@ -813,7 +838,7 @@
     },
     "root": {
       "inputs": {
-        "agy-timer-start": "agy-timer-start",
+        "agent-quota-timer-utils": "agent-quota-timer-utils",
         "cachyos-kernel": "cachyos-kernel",
         "declarative-flatpak": "declarative-flatpak",
         "determinate": "determinate",
