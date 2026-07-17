@@ -218,6 +218,7 @@
     useGlobalPkgs = true;
     useUserPackages = true;
     users.${username} = ./home.nix;
+    backupFileExtension = "bak";
   };
 
   users.users.${username} = {
