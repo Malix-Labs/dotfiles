@@ -116,23 +116,8 @@
 
   time.timeZone = "Europe/Paris";
   i18n = {
-    extraLocaleSettings = {
-      LANGUAGE = "en:fr";
-
-      LC_ADDRESS = "fr_CH.UTF-8";
-      LC_IDENTIFICATION = "fr_CH.UTF-8";
-      LC_MEASUREMENT = "fr_CH.UTF-8";
-      LC_MONETARY = "fr_CH.UTF-8";
-      LC_NAME = "fr_CH.UTF-8";
-      LC_NUMERIC = "fr_CH.UTF-8";
-      LC_PAPER = "fr_CH.UTF-8";
-      LC_TELEPHONE = "fr_CH.UTF-8";
-      LC_TIME = "fr_CH.UTF-8";
-    };
-    extraLocales = [
-      "fr_FR.UTF-8/UTF-8"
-      "en_GB.UTF-8/UTF-8"
-    ];
+    defaultLocale = "fr_CH.UTF-8";
+    extraLocaleSettings.LANGUAGE = "en:C:fr";
   };
 
   console.keyMap = "fr";
