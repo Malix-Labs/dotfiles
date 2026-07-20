@@ -168,6 +168,7 @@ in
           "uncommit" = "reset --soft HEAD~1";
           "recommit" = "commit -C ORIG_HEAD";
           "pf" = "push --force-with-lease";
+          "retrigger" = "!git commit --amend --no-edit && git push --force-with-lease";
           "remote-swap" =
             "!f() { git remote rename origin upstream && git remote add origin \"$1\" && git fetch origin; }; f";
           "remote-unfork" =
