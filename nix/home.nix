@@ -225,6 +225,12 @@ in
       };
     };
 
+    mergiraf = {
+      enable = true;
+      enableGitIntegration = true;
+      enableJujutsuIntegration = true;
+    };
+
     ssh = {
       enable = true;
       enableDefaultConfig = false;
