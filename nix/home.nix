@@ -25,6 +25,11 @@ let
 
   nu = lib.getExe pkgs.nushell;
   sshDirectory = "${config.home.homeDirectory}/.ssh";
+
+  vcs.user = {
+    name = "Malix - Alix Brunet";
+    email = "alixbrunetcontact@gmail.com";
+  };
 in
 {
   imports = [
@@ -125,10 +130,7 @@ in
       package = pkgs.gitFull;
       lfs.enable = true;
       settings = {
-        user = {
-          name = "Malix - Alix Brunet";
-          email = "alixbrunetcontact@gmail.com";
-        };
+        inherit (vcs) user;
         core.fsmonitor = true;
         feature.manyFiles = true;
         checkout = {
@@ -213,6 +215,13 @@ in
         signByDefault = true;
         format = "ssh";
         key = "${sshDirectory}/id_ed25519.pub";
+      };
+    };
+
+    jujutsu = {
+      enable = true;
+      settings = {
+        inherit (vcs) user;
       };
     };
 
