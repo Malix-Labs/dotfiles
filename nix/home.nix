@@ -166,7 +166,7 @@ in
         column.ui = "auto dense";
         alias = {
           "uncommit" = "reset --soft HEAD~1";
-          "recommit" = "commit -C ORIG_HEAD";
+          "recommit" = "commit --reuse-message ORIG_HEAD";
           "pf" = "push --force-with-lease";
           "retrigger" = "!git commit --amend --no-edit && git push --force-with-lease";
           "remote-swap" =
