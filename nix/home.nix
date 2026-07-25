@@ -294,6 +294,8 @@ in
     };
 
     vesktop.enable = true;
+
+    element-desktop.enable = true;
   };
 
   services = {
