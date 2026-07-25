@@ -32,7 +32,7 @@
       nixpkgs-unstable.flake = nixpkgs-unstable;
       nixpkgs-stable-latest.to = {
         type = "tarball";
-        url = "https://channels.nixos.org/nixos-25.11/nixexprs.tar.xz";
+        url = "https://channels.nixos.org/nixos-26.05/nixexprs.tar.xz";
       };
       nixpkgs-unstable-latest.to = {
         type = "tarball";
@@ -64,10 +64,41 @@
       cachyos-kernel.legacyPackages.${pkgs.stdenv.hostPlatform.system}.linuxPackages-cachyos-latest-lto-x86_64-v3;
     loader = {
       systemd-boot = {
-        enable = true;
+        enable = lib.mkForce false; # replaced by lanzaboote
         editor = false;
       };
       efi.canTouchEfiVariables = true;
+    };
+    lanzaboote = {
+      enable = true;
+      pkiBundle = "/var/lib/sbctl";
+      configurationLimit = 8; # maximum by systemd-pcrlock (see https://github.com/nix-community/lanzaboote/blob/b9e331d75d4618c7073ea08ff30fddf9a7d2fb08/nix/modules/lanzaboote.nix#L429-L438)
+
+      autoGenerateKeys.enable = true;
+      autoEnrollKeys = {
+        enable = true;
+        autoReboot = true;
+        includeFirmwareBuiltinKeys = true;
+      };
+
+      measuredBoot = {
+        enable = true;
+
+        # only stable ones
+        pcrs = [
+          0
+          4
+          7
+        ];
+
+        autoCryptenroll = {
+          enable = true;
+          device = "/dev/nvme0n1p2";
+          autoReboot = true;
+        };
+      };
+
+      bootCounting.initialTries = 3;
     };
     tmp.useTmpfs = true;
     kernel.sysctl."vm.swappiness" = 100;
@@ -85,29 +116,15 @@
 
   time.timeZone = "Europe/Paris";
   i18n = {
-    extraLocaleSettings = {
-      LANGUAGE = "en:fr";
-
-      LC_ADDRESS = "fr_CH.UTF-8";
-      LC_IDENTIFICATION = "fr_CH.UTF-8";
-      LC_MEASUREMENT = "fr_CH.UTF-8";
-      LC_MONETARY = "fr_CH.UTF-8";
-      LC_NAME = "fr_CH.UTF-8";
-      LC_NUMERIC = "fr_CH.UTF-8";
-      LC_PAPER = "fr_CH.UTF-8";
-      LC_TELEPHONE = "fr_CH.UTF-8";
-      LC_TIME = "fr_CH.UTF-8";
-    };
-    extraLocales = [
-      "fr_FR.UTF-8/UTF-8"
-      "en_GB.UTF-8/UTF-8"
-    ];
+    defaultLocale = "fr_CH.UTF-8";
+    extraLocaleSettings.LANGUAGE = "en:C:fr";
   };
 
   console.keyMap = "fr";
 
   services = {
 
+    xserver.xkb.layout = "fr";
     displayManager.plasma-login-manager.enable = true;
     desktopManager.plasma6.enable = true;
 
@@ -134,6 +151,8 @@
 
     ratbagd.enable = true;
 
+    hardware.openrgb.enable = true;
+
     cloudflare-warp.enable = true;
   };
 
@@ -145,6 +164,7 @@
     partition-manager.enable = true;
     kdeconnect.enable = true;
     bandwhich.enable = true;
+    command-not-found.enable = false;
   };
 
   fonts.packages = with pkgs; [
@@ -159,6 +179,8 @@
 
   environment = {
     systemPackages = with pkgs; [
+      sbctl
+
       ghostty
 
       helix
@@ -171,6 +193,8 @@
       nixd
       nil
       nixfmt
+      flake-edit
+      flake-du
       fh.packages.${pkgs.stdenv.hostPlatform.system}.default
       mcp-nixos.packages.${pkgs.stdenv.hostPlatform.system}.default
 
@@ -179,7 +203,7 @@
       proton-vpn
     ];
 
-    etc.nixos.source = "${dotfilesDirectory}/nix";
+    etc.nixos.source = "${config.users.users.${username}.home}/${dotfilesDirectory}/nix";
   };
 
   virtualisation = {
@@ -196,6 +220,7 @@
     useGlobalPkgs = true;
     useUserPackages = true;
     users.${username} = ./home.nix;
+    backupFileExtension = "bak";
   };
 
   users.users.${username} = {

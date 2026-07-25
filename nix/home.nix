@@ -6,46 +6,57 @@
   pkgs-unstable,
 
   username,
-  homeDirectory,
   dotfilesDirectory,
 
   declarative-flatpak,
 
+  agent-quota-timer-utils,
+
+  nix-index-database,
+
   ...
 }:
 let
-  symlinksDirectory = "${dotfilesDirectory}/symlinks";
+  mapSymlinks =
+    paths:
+    lib.genAttrs paths (path: {
+      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/${dotfilesDirectory}/symlinks/${path}";
+    });
 
   nu = lib.getExe pkgs.nushell;
   sshDirectory = "${config.home.homeDirectory}/.ssh";
+
+  vcs.user = {
+    name = "Malix - Alix Brunet";
+    email = "alixbrunetcontact@gmail.com";
+  };
 in
 {
   imports = [
     ./pkgs-lib.nix
     declarative-flatpak.homeModules.default
     ./gaming-user.nix
+    agent-quota-timer-utils.homeModules.default
+    nix-index-database.homeModules.nix-index
   ];
 
   home = {
-    inherit username homeDirectory;
+    inherit username;
     stateVersion = "25.11"; # NEVER MUTATE
-    activation.createSshSocketDirectory = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      mkdir --parents ${sshDirectory}/sockets
-    '';
     packages = with pkgs; [
       audacity
       gitkraken
       simplex-chat-desktop
 
       devenv
+      glab
+      forgejo-cli
       tea
-      antigravity-cli
     ];
   };
 
-  xdg.configFile = {
-    "zed".source = config.lib.file.mkOutOfStoreSymlink "${symlinksDirectory}/zed";
-  };
+  xdg.configFile = mapSymlinks [ "zed" ];
+  home.file = mapSymlinks [ ".gemini/antigravity-cli/settings.json" ];
 
   programs = {
     home-manager.enable = true;
@@ -57,14 +68,33 @@ in
         extraArgs = "--keep-since 2w --keep 10 --optimise";
         dates = "daily";
       };
-      flake = "${dotfilesDirectory}/nix";
+      flake = "${config.home.homeDirectory}/${dotfilesDirectory}/nix";
     };
+
+    nix-index = {
+      enable = true;
+      package = nix-index-database.packages.${pkgs.stdenv.hostPlatform.system}.nix-index-with-small-db;
+    };
+
+    nix-index-database.comma.enable = true;
 
     nushell = {
       enable = true;
       settings = {
         show_banner = false;
       };
+      # fix for https://github.com/carapace-sh/carapace-bin/issues/3612 , waiting for https://github.com/nix-community/home-manager/pull/9602 or https://github.com/carapace-sh/carapace-bin/issues/3612
+      extraConfig = ''
+        let original_completer = $env.config.completions.external.completer
+        let external_completer = {|spans|
+          if ($spans | length) == 1 {
+            null
+          } else {
+            do $original_completer $spans
+          }
+        }
+        $env.config = ($env.config | upsert completions.external.completer {|| $external_completer})
+      '';
     };
 
     bash = {
@@ -97,11 +127,10 @@ in
 
     git = {
       enable = true;
+      package = pkgs.gitFull;
+      lfs.enable = true;
       settings = {
-        user = {
-          name = "Malix - Alix Brunet";
-          email = "alixbrunetcontact@gmail.com";
-        };
+        inherit (vcs) user;
         core.fsmonitor = true;
         feature.manyFiles = true;
         checkout = {
@@ -138,7 +167,14 @@ in
         };
         column.ui = "auto dense";
         alias = {
+          "uncommit" = "reset --soft HEAD~1";
+          "recommit" = "commit --reuse-message ORIG_HEAD";
           "pf" = "push --force-with-lease";
+          "fixpush" = "!git commit --amend --no-edit && git push --force-with-lease";
+          "remote-swap" =
+            "!f() { git remote rename origin upstream && git remote add origin \"$1\" && git fetch origin; }; f";
+          "remote-unfork" =
+            "!git remote remove origin && git remote rename upstream origin && git fetch origin";
           "imerge" = ''
             !f() {
               [ $# -eq 1 ] || { echo "usage: git imerge <target>" >&2; return 2; }
@@ -245,25 +281,38 @@ in
       };
     };
 
+    jujutsu = {
+      enable = true;
+      settings = {
+        inherit (vcs) user;
+      };
+    };
+
+    mergiraf = {
+      enable = true;
+      enableGitIntegration = true;
+      enableJujutsuIntegration = true;
+    };
+
     ssh = {
       enable = true;
       enableDefaultConfig = false;
-      matchBlocks."*" = {
-        addKeysToAgent = "yes";
-        identityFile = [
+      settings."*" = {
+        AddKeysToAgent = "yes";
+        IdentityFile = [
           "${sshDirectory}/id_ed25519"
         ];
-        identitiesOnly = true;
+        IdentitiesOnly = "yes";
 
-        controlMaster = "auto";
-        controlPath = "${sshDirectory}/sockets/%r@%n:%p";
-        controlPersist = "1h";
+        ControlMaster = "auto";
+        ControlPath = "${sshDirectory}/master-%r@%n:%p";
+        ControlPersist = "1h";
 
-        serverAliveInterval = 60;
+        ServerAliveInterval = 60;
 
-        hashKnownHosts = true;
+        HashKnownHosts = "yes";
 
-        setEnv.COLORTERM = "truecolor";
+        SetEnv.COLORTERM = "truecolor";
       };
     };
 
@@ -301,7 +350,14 @@ in
       package = pkgs-unstable.vscode;
     };
 
-    github-copilot-cli.enable = true;
+    github-copilot-cli = {
+      enable = true;
+      package = pkgs-unstable.github-copilot-cli;
+    };
+    antigravity-cli = {
+      enable = true;
+      package = pkgs-unstable.antigravity-cli;
+    };
 
     google-chrome = {
       enable = true;
@@ -309,10 +365,13 @@ in
     };
 
     vesktop.enable = true;
+
+    element-desktop.enable = true;
   };
 
   services = {
     ssh-agent.enable = true;
+    agent-quota-timer-utils.enable = true;
 
     flatpak = {
       enable = true;

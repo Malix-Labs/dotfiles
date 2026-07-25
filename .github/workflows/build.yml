@@ -1,0 +1,20 @@
+name: "Build"
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  toplevel:
+    name: "Build Toplevel"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: ./.github/actions/nix-setup
+      - uses: ./.github/actions/nix-build

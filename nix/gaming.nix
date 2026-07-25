@@ -19,7 +19,7 @@ in
   programs = {
     steam = {
       enable = true;
-      # gamescopeSession.enable = true; # hotfix for https://github.com/NixOS/nixpkgs/issues/523427
+      gamescopeSession.enable = true;
       protontricks.enable = true;
       extest.enable = true;
       extraCompatPackages = steamCompatTools;
@@ -29,20 +29,18 @@ in
 
     gamescope = {
       enable = true; # already implicitly enabled by `steam.gamescopeSession.enable`
+      enableWsi = true;
       capSysNice = true;
     };
 
     gamemode.enable = true;
   };
 
-  home-manager.users.${username}.xdg.dataFile = lib.listToAttrs (
-    map (tool: {
-      name = "Steam/compatibilitytools.d/${lib.getName tool}";
-      value.source = tool.steamcompattool;
-    }) steamCompatTools
+  # Make steamCompatTools usable elsewhere
+  home-manager.users.${username}.xdg.dataFile = lib.genAttrs' steamCompatTools (
+    tool:
+    lib.nameValuePair "Steam/compatibilitytools.d/${lib.getName tool}" {
+      source = tool.steamcompattool;
+    }
   );
-
-  environment.systemPackages = with pkgs; [
-    gamescope-wsi
-  ];
 }

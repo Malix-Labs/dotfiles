@@ -1,0 +1,22 @@
+name: "Nix Build"
+description: "Builds or dry-runs all system configurations using nix-fast-build"
+inputs:
+  dry_run:
+    description: "Whether to run a dry-run check"
+    default: "false"
+runs:
+  using: composite
+  steps:
+    - name: "nix-fast-build"
+      shell: bash
+      run: |
+        nix run github:Malix-Labs/nix-fast-build/passthrough -- \
+          --flake ./nix \
+          --select 'flake: (builtins.getFlake "git+https://gist.github.com/Malix-Labs/b33fbec809d7a9b5334747a22bfd61da").lib flake.outputs' \
+          --skip-cached \
+          --eval-args "--accept-flake-config --show-trace --impure" \
+          -- \
+          --accept-flake-config \
+          --show-trace \
+          --no-link \
+          ${{ inputs.dry_run == 'true' && '--dry-run' || '' }}
