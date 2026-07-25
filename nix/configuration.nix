@@ -193,6 +193,8 @@
       nixd
       nil
       nixfmt
+      flake-edit
+      flake-du
       fh.packages.${pkgs.stdenv.hostPlatform.system}.default
       mcp-nixos.packages.${pkgs.stdenv.hostPlatform.system}.default
 
