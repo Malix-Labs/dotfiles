@@ -285,8 +285,14 @@ in
       package = pkgs-unstable.vscode;
     };
 
-    github-copilot-cli.enable = true;
-    antigravity-cli.enable = true;
+    github-copilot-cli = {
+      enable = true;
+      package = pkgs-unstable.github-copilot-cli;
+    };
+    antigravity-cli = {
+      enable = true;
+      package = pkgs-unstable.antigravity-cli;
+    };
 
     google-chrome = {
       enable = true;
