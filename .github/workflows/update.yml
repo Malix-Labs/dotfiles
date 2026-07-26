@@ -37,6 +37,10 @@ jobs:
       - uses: DeterminateSystems/update-flake-lock@v28
         with:
           token: ${{ steps.app-token.outputs.token }}
+          git-author-name: ${{ github.event_name == 'workflow_dispatch' && github.actor || format('{0}[bot]', steps.app-token.outputs.app-slug) }}
+          git-author-email: ${{ github.event_name == 'workflow_dispatch' && format('{0}+{1}@users.noreply.github.com', github.actor_id, github.actor) || format('{0}+{1}[bot]@users.noreply.github.com', vars.APP_ID, steps.app-token.outputs.app-slug) }}
+          git-committer-name: "${{ steps.app-token.outputs.app-slug }}[bot]"
+          git-committer-email: ${{ format('{0}+{1}[bot]@users.noreply.github.com', vars.APP_ID, steps.app-token.outputs.app-slug) }}
           inputs: ${{ github.event.inputs.inputs }}
           nix-options: ${{ github.event.inputs.nix-options }}
           branch: "ci/update"
