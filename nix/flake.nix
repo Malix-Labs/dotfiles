@@ -44,10 +44,6 @@
       url = "github:DeterminateSystems/fh";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-    mcp-nixos = {
-      url = "github:utensils/mcp-nixos";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
 
     nix-gaming-edge = {
       url = "github:powerofthe69/nix-gaming-edge";

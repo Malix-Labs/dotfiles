@@ -123,8 +123,8 @@
     },
     "nixos": {
       "enabled": true,
-      "command": "nix",
-      "args": ["run", "github:utensils/mcp-nixos", "--"],
+      "command": "mcp-nixos",
+      "args": [],
     },
   },
   "agent": {
