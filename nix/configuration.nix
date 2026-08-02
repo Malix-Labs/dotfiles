@@ -15,8 +15,6 @@
 
   cachyos-kernel,
 
-  fh,
-
   ...
 }:
 {
@@ -194,7 +192,7 @@
       nixfmt
       flake-edit
       flake-du
-      fh.packages.${pkgs.stdenv.hostPlatform.system}.default
+      fh
       mcp-nixos
 
       piper

@@ -40,11 +40,6 @@
     declarative-flatpak.url = "github:in-a-dil-emma/declarative-flatpak/v4.1.6";
     # nix-flatpak.url = "github:gmodena/nix-flatpak";
 
-    fh = {
-      url = "github:DeterminateSystems/fh";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
-
     nix-gaming-edge = {
       url = "github:powerofthe69/nix-gaming-edge";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
