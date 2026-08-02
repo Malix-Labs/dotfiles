@@ -33,7 +33,7 @@ let
 in
 {
   imports = [
-    ./pkgs-lib.nix
+    ./pkgs.nix
     declarative-flatpak.homeModules.default
     ./gaming-user.nix
     agent-quota-timer-utils.homeModules.default
