@@ -99,6 +99,7 @@
   "autosave": "on_window_change",
   "buffer_font_family": "FiraCode Nerd Font",
   "git_panel": {
+    "group_by": "staging",
     "tree_view": true,
     "status_style": "label_color",
   },
