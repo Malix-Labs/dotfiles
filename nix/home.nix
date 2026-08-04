@@ -83,18 +83,6 @@ in
       settings = {
         show_banner = false;
       };
-      # fix for https://github.com/carapace-sh/carapace-bin/issues/3612 , waiting for https://github.com/nix-community/home-manager/pull/9602 or https://github.com/carapace-sh/carapace-bin/issues/3612
-      extraConfig = ''
-        let original_completer = $env.config.completions.external.completer
-        let external_completer = {|spans|
-          if ($spans | length) == 1 {
-            null
-          } else {
-            do $original_completer $spans
-          }
-        }
-        $env.config = ($env.config | upsert completions.external.completer {|| $external_completer})
-      '';
     };
 
     bash = {
