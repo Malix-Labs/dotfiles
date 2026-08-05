@@ -78,6 +78,8 @@ in
 
     nix-index-database.comma.enable = true;
 
+    flake-edit.enable = true;
+
     nushell = {
       enable = true;
       settings = {
