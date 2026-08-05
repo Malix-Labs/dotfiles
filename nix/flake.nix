@@ -40,15 +40,6 @@
     declarative-flatpak.url = "github:in-a-dil-emma/declarative-flatpak/v4.1.6";
     # nix-flatpak.url = "github:gmodena/nix-flatpak";
 
-    fh = {
-      url = "github:DeterminateSystems/fh";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
-    mcp-nixos = {
-      url = "github:utensils/mcp-nixos";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
-
     nix-gaming-edge = {
       url = "github:powerofthe69/nix-gaming-edge";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -125,7 +116,7 @@
           ./configuration.nix
 
           ./hardware-configuration.nix
-          ./pkgs-lib.nix
+          ./pkgs.nix
           nixos-hardware.nixosModules.lenovo-legion-15ach6h-hybrid # https://github.com/NixOS/nixos-hardware/tree/master/lenovo/legion/15ach6h
           ./nixos-hardware-override.nix
           disko.nixosModules.disko

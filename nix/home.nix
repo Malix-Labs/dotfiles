@@ -33,7 +33,7 @@ let
 in
 {
   imports = [
-    ./pkgs-lib.nix
+    ./pkgs.nix
     declarative-flatpak.homeModules.default
     ./gaming-user.nix
     agent-quota-timer-utils.homeModules.default
@@ -172,7 +172,7 @@ in
           "uncommit" = "reset --soft HEAD~1";
           "recommit" = "commit --reuse-message ORIG_HEAD";
           "pf" = "push --force-with-lease";
-          "retrigger" = "!git commit --amend --no-edit && git push --force-with-lease";
+          "fixpush" = "!git commit --amend --no-edit && git push --force-with-lease";
           "remote-swap" =
             "!f() { git remote rename origin upstream && git remote add origin \"$1\" && git fetch origin; }; f";
           "remote-unfork" =
@@ -262,6 +262,8 @@ in
           "issue view --json 'assignees,author,body,closed,closedAt,closedByPullRequestsReferences,comments,createdAt,id,isPinned,labels,milestone,number,projectItems,reactionGroups,state,stateReason,title,updatedAt,url'";
         "pr export" =
           "pr view --json 'additions,assignees,author,autoMergeRequest,baseRefName,baseRefOid,body,changedFiles,closed,closedAt,closingIssuesReferences,comments,commits,createdAt,deletions,files,fullDatabaseId,headRefName,headRefOid,headRepository,headRepositoryOwner,id,isCrossRepository,isDraft,labels,latestReviews,maintainerCanModify,mergeCommit,mergeStateStatus,mergeable,mergedAt,mergedBy,milestone,number,potentialMergeCommit,projectItems,reactionGroups,reviewDecision,reviewRequests,reviews,state,statusCheckRollup,title,updatedAt,url'";
+        "discussion export" =
+          "discussion view --json 'answerChosenAt,answerChosenBy,answered,author,body,category,closed,closedAt,comments,createdAt,id,labels,locked,number,reactionGroups,state,stateReason,title,updatedAt,url'";
       };
     };
 
@@ -287,8 +289,14 @@ in
       package = pkgs-unstable.vscode;
     };
 
-    github-copilot-cli.enable = true;
-    antigravity-cli.enable = true;
+    github-copilot-cli = {
+      enable = true;
+      package = pkgs-unstable.github-copilot-cli;
+    };
+    antigravity-cli = {
+      enable = true;
+      package = pkgs-unstable.antigravity-cli;
+    };
 
     google-chrome = {
       enable = true;

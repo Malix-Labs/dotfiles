@@ -1,8 +1,8 @@
 {
-  "altScreenMode": "always",
   "artifactReviewPolicy": "agent-decides",
   "enableTelemetry": false,
   "enableTerminalSandbox": true,
+  "model": "Gemini 3.6 Flash (Medium)",
   "notifications": true,
   "permissions": {
     "allow": [
@@ -150,6 +150,7 @@
     "/home/malix/Repositories/NixOS",
     "/home/malix/Repositories/Malix-Labs",
     "/home/malix/Repositories/Malix-Labs/dotfiles",
-    "/home/malix"
+    "/home/malix",
+    "/home/malix/Repositories/NixOS/nixos-search"
   ]
 }
