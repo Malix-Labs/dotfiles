@@ -2,7 +2,7 @@
   "artifactReviewPolicy": "agent-decides",
   "enableTelemetry": false,
   "enableTerminalSandbox": true,
-  "model": "Gemini 3.6 Flash (Medium)",
+  "model": "Gemini 3.6 Flash (Low)",
   "notifications": true,
   "permissions": {
     "allow": [
@@ -151,6 +151,7 @@
     "/home/malix/Repositories/Malix-Labs",
     "/home/malix/Repositories/Malix-Labs/dotfiles",
     "/home/malix",
-    "/home/malix/Repositories/NixOS/nixos-search"
+    "/home/malix/Repositories/NixOS/nixos-search",
+    "/home/malix/Repositories/NixOS/nixpkgs"
   ]
 }
