@@ -21,7 +21,7 @@ permissions:
 jobs:
   main:
     runs-on: ubuntu-latest
-    environment: "Malix - GitHub App" # ID:18767037302
+    environment: "Malix - GitHub App" # ID: 18767037302
     steps:
       - uses: actions/create-github-app-token@v3
         id: app-token
