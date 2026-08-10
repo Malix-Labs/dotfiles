@@ -56,7 +56,7 @@ in
   };
 
   xdg.configFile = mapSymlinks [ "zed" ];
-  home.file = mapSymlinks [ ".gemini/antigravity-cli/settings.json" ];
+  home.file = mapSymlinks [ ".gemini/antigravity-cli" ];
 
   programs = {
     home-manager.enable = true;
