@@ -2,6 +2,20 @@
   "format_on_save": "modifications_if_available",
   "cli_default_open_behavior": "new_window",
   "agent_servers": {
+    "codex-acp": {
+      "type": "registry"
+    },
+    "pi-acp": {
+      "type": "registry"
+    },
+    "opencode": {
+      "default_config_options": {
+        "mode": "build",
+        "effort": "max",
+        "model": "opencode/gpt-5.6-luna"
+      },
+      "type": "registry"
+    },
     "github-copilot-cli": {
       "type": "registry",
       "default_config_options": {
@@ -130,6 +144,12 @@
     },
   },
   "agent": {
+    "sandbox_permissions": {
+      "write_paths": [],
+      "allow_all_hosts": true,
+      "allow_unsandboxed": false,
+      "allow_fs_write_all": false
+    },
     "favorite_models": [
       {
         "provider": "copilot_chat",
