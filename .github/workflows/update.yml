@@ -14,6 +14,11 @@ on:
         required: false
         type: string
   workflow_call:
+    inputs:
+      working-directory:
+        description: "Path to directory containing flake.nix"
+        type: string
+        default: "."
 
 permissions:
   contents: write
@@ -54,7 +59,7 @@ jobs:
           inputs: ${{ github.event.inputs.inputs }}
           nix-options: ${{ github.event.inputs.nix-options }}
           branch: "ci/update"
-          path-to-flake-dir: "nix"
+          path-to-flake-dir: ${{ inputs.working-directory }}
           pr-labels: "Update"
           pr-title: ${{ env.TITLE }}
           commit-msg: |

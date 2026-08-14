@@ -113,12 +113,12 @@
 
           lanzaboote.nixosModules.lanzaboote
 
-          ./configuration.nix
+          ./nix/configuration.nix
 
-          ./hardware-configuration.nix
-          ./pkgs.nix
+          ./nix/hardware-configuration.nix
+          ./nix/pkgs.nix
           nixos-hardware.nixosModules.lenovo-legion-15ach6h-hybrid # https://github.com/NixOS/nixos-hardware/tree/master/lenovo/legion/15ach6h
-          ./nixos-hardware-override.nix
+          ./nix/nixos-hardware-override.nix
           disko.nixosModules.disko
           # ./disko.nix
 
