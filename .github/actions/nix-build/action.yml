@@ -18,5 +18,4 @@ runs:
           -- \
           --accept-flake-config \
           --show-trace \
-          --no-link \
           ${{ inputs.dry_run == 'true' && '--dry-run' || '' }}
