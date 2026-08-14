@@ -11,7 +11,7 @@ runs:
       shell: bash
       run: |
         nix run github:Malix-Labs/nix-fast-build/passthrough -- \
-          --flake ./nix \
+          --flake . \
           --select 'flake: (builtins.getFlake "git+https://gist.github.com/Malix-Labs/b33fbec809d7a9b5334747a22bfd61da").lib flake.outputs' \
           --skip-cached \
           --eval-args "--accept-flake-config --show-trace --impure" \

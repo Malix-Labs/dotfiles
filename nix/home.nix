@@ -68,7 +68,7 @@ in
         extraArgs = "--keep-since 2w --keep 10 --optimise";
         dates = "daily";
       };
-      flake = "${config.home.homeDirectory}/${dotfilesDirectory}/nix";
+      flake = "${config.home.homeDirectory}/${dotfilesDirectory}";
     };
 
     nix-index = {

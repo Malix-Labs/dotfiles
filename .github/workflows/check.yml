@@ -6,6 +6,11 @@ on:
       - main
   pull_request:
   workflow_call:
+    inputs:
+      working-directory:
+        description: "Path to directory containing flake.nix"
+        type: string
+        default: "."
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -26,7 +31,7 @@ jobs:
       - name: "Check"
         id: "check"
         run: "nix fmt -- --ci"
-        working-directory: ./nix
+        working-directory: ${{ inputs.working-directory }}
       - name: "Fix"
         if: failure() && steps.check.outcome == "failure"
         uses: peter-evans/create-pull-request@v8
@@ -44,10 +49,10 @@ jobs:
       - *checkout
       - *nix-setup
       - name: "Statix"
-        run: "nix run nixpkgs#statix -- check ./nix"
+        run: "nix run nixpkgs#statix -- check ${{ inputs.working-directory }}"
       - name: "Deadnix"
         if: !cancelled()
-        run: "nix run nixpkgs#deadnix -- --fail ./nix"
+        run: "nix run nixpkgs#deadnix -- --fail ${{ inputs.working-directory }}"
 
   flake-check:
     name: "Flake Check"
@@ -58,11 +63,11 @@ jobs:
       - name: "Flake Checker"
         uses: DeterminateSystems/flake-checker-action@v13
         with:
-          flake-lock-path: ./nix/flake.lock
+          flake-lock-path: "${{ inputs.working-directory }}/flake.lock"
           nixpkgs-keys: nixpkgs-stable,nixpkgs-unstable
           fail-mode: true
       - name: "Flake Check"
-        run: "nix flake check ./nix"
+        run: "nix flake check ${{ inputs.working-directory }}"
 
   evaluation:
     name: "Evaluation"

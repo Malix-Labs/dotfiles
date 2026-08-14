@@ -200,7 +200,7 @@
       proton-vpn
     ];
 
-    etc.nixos.source = "${config.users.users.${username}.home}/${dotfilesDirectory}/nix";
+    etc.nixos.source = "${config.users.users.${username}.home}/${dotfilesDirectory}";
   };
 
   virtualisation = {
