@@ -2,7 +2,7 @@
   "artifactReviewPolicy": "agent-decides",
   "enableTelemetry": false,
   "enableTerminalSandbox": true,
-  "model": "Gemini 3.6 Flash (Low)",
+  "model": "Gemini 3.7 Flash (Medium)",
   "notifications": true,
   "permissions": {
     "allow": [
@@ -162,6 +162,8 @@
     "/home/malix/Repositories/Malix-Labs/dotfiles",
     "/home/malix",
     "/home/malix/Repositories/NixOS/nixos-search",
-    "/home/malix/Repositories/NixOS/nixpkgs"
+    "/home/malix/Repositories/NixOS/nixpkgs",
+    "/home/malix/Repositories/Mic92/nix-fast-build",
+    "/home/malix/Repositories/Malix-Labs/GitHub-Action_Runner-Fetch"
   ]
 }
