@@ -3,7 +3,6 @@
   lib,
 
   pkgs,
-  pkgs-unstable,
 
   nixpkgs-chosen,
   nixpkgs-unstable,
