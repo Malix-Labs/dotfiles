@@ -17,49 +17,12 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  format:
-    name: "Format"
-    runs-on: &runner ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
-    steps:
-      - &checkout
-        uses: actions/checkout@v7
-      - &nix-setup
-        uses: ./.github/actions/nix-setup
-      - name: "Check"
-        id: "check"
-        run: "nix fmt -- --ci"
-        working-directory: ${{ inputs.working-directory }}
-      - name: "Fix"
-        if: failure() && steps.check.outcome == "failure"
-        uses: peter-evans/create-pull-request@v8
-        with:
-          commit-message: "format: ${{ github.head_ref || github.ref_name }}"
-          title: "Format ${{ github.head_ref || github.ref_name }}"
-          body: "${{ github.server_url }}/${{ github.repository }}/runs/${{ job.check_run_id }}"
-          branch: "format/${{ github.head_ref || github.ref_name }}"
-          delete-branch: true
-
-  lint:
-    name: "Lint"
-    runs-on: *runner
-    steps:
-      - *checkout
-      - *nix-setup
-      - name: "Statix"
-        run: "nix run nixpkgs#statix -- check ${{ inputs.working-directory }}"
-      - name: "Deadnix"
-        if: !cancelled()
-        run: "nix run nixpkgs#deadnix -- --fail ${{ inputs.working-directory }}"
-
   flake-check:
     name: "Flake Check"
-    runs-on: *runner
+    runs-on: ubuntu-latest
     steps:
-      - *checkout
-      - *nix-setup
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/nix-setup
       - name: "Flake Checker"
         uses: DeterminateSystems/flake-checker-action@v13
         with:
@@ -68,13 +31,3 @@ jobs:
           fail-mode: true
       - name: "Flake Check"
         run: "nix flake check ${{ inputs.working-directory }}"
-
-  evaluation:
-    name: "Evaluation"
-    runs-on: *runner
-    steps:
-      - *checkout
-      - *nix-setup
-      - uses: ./.github/actions/nix-build
-        with:
-          dry_run: true

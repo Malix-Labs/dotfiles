@@ -56,6 +56,16 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
+    git-hooks = {
+      url = "github:cachix/git-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
   };
 
   nixConfig = {
@@ -75,6 +85,7 @@
 
   outputs =
     inputs@{
+      self,
       nixpkgs-unstable,
 
       determinate,
@@ -86,10 +97,15 @@
 
       lanzaboote,
 
+      treefmt-nix,
+      git-hooks,
+
       ...
     }:
     let
+      system = "x86_64-linux";
       nixpkgs-chosen = nixpkgs-unstable;
+      pkgs = nixpkgs-chosen.legacyPackages.${system};
 
       username = "malix";
       hostName = "${username}-legion-nixos";
@@ -103,6 +119,22 @@
           hostName
           dotfilesDirectory
           ;
+      };
+
+      treefmtEval = treefmt-nix.lib.evalModule pkgs {
+        programs = {
+          nixfmt.enable = true;
+          deadnix.enable = true;
+          statix.enable = true;
+        };
+      };
+
+      preCommitCheck = git-hooks.lib.${system}.run {
+        src = ./.;
+        hooks.treefmt = {
+          enable = true;
+          package = treefmtEval.config.build.wrapper;
+        };
       };
     in
     {
@@ -127,6 +159,15 @@
         ];
       };
 
-      formatter.x86_64-linux = nixpkgs-chosen.legacyPackages.x86_64-linux.nixfmt-tree;
+      formatter.${system} = treefmtEval.config.build.wrapper;
+
+      checks.${system} = {
+        inherit preCommitCheck;
+        toplevel = self.nixosConfigurations.${hostName}.config.system.build.toplevel;
+      };
+
+      devShells.${system}.default = pkgs.mkShell {
+        inherit (preCommitCheck) shellHook;
+      };
     };
 }
