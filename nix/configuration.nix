@@ -223,7 +223,7 @@
     backupFileExtension = "bak";
   };
 
-  vaultix.settings.hostPubkey = ssh.keys.master;
+  vaultix.settings.hostPubkey = ssh.host;
 
   users.users.${username} = {
     isNormalUser = true;

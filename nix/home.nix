@@ -56,7 +56,10 @@ in
     ];
   };
 
-  xdg.configFile = mapSymlinks [ "zed" ];
+  xdg.configFile = (mapSymlinks [ "zed" ]) // {
+    "environment.d/10-secrets.conf".source =
+      config.lib.file.mkOutOfStoreSymlink "/run/vaultix.d/secrets.env";
+  };
   home.file = mapSymlinks [ ".gemini/antigravity-cli" ];
 
   programs = {
@@ -86,6 +89,16 @@ in
       settings = {
         show_banner = false;
       };
+      extraEnv = ''
+        if ('/run/vaultix.d/secrets.env' | path exists) {
+          open /run/vaultix.d/secrets.env
+          | lines
+          | where ($it | str contains '=')
+          | parse "{key}={value}"
+          | transpose -r -d
+          | load-env
+        }
+      '';
       # fix for https://github.com/carapace-sh/carapace-bin/issues/3612 , waiting for https://github.com/nix-community/home-manager/pull/9602 or https://github.com/carapace-sh/carapace-bin/issues/3612
       extraConfig = ''
         let original_completer = $env.config.completions.external.completer
@@ -103,6 +116,8 @@ in
     bash = {
       enable = true;
       initExtra = ''
+        [ -f "/run/vaultix.d/secrets.env" ] && set -a && . /run/vaultix.d/secrets.env && set +a
+
         if [[ $- == *i* ]] && \
           [ -z "$BASH_EXECUTION_STRING" ] && \
           [ "$TERM" != "dumb" ] && \
