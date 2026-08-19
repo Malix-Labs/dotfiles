@@ -56,6 +56,13 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
+    systems.url = "github:nix-systems/default";
+
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs-unstable";
+    };
+
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -84,28 +91,9 @@
   };
 
   outputs =
-    inputs@{
-      self,
-      nixpkgs-unstable,
-
-      determinate,
-
-      nixos-hardware,
-      disko,
-
-      home-manager,
-
-      lanzaboote,
-
-      treefmt-nix,
-      git-hooks,
-
-      ...
-    }:
+    inputs@{ flake-parts, ... }:
     let
-      system = "x86_64-linux";
-      nixpkgs-chosen = nixpkgs-unstable;
-      pkgs = nixpkgs-chosen.legacyPackages.${system};
+      nixpkgs-chosen = inputs.nixpkgs-unstable;
 
       username = "malix";
       hostName = "${username}-legion-nixos";
@@ -114,60 +102,67 @@
       specialArgs = inputs // {
         inherit
           nixpkgs-chosen
-
           username
           hostName
           dotfilesDirectory
           ;
       };
-
-      treefmtEval = treefmt-nix.lib.evalModule pkgs {
-        programs = {
-          nixfmt.enable = true;
-          deadnix.enable = true;
-          statix.enable = true;
-        };
-      };
-
-      preCommitCheck = git-hooks.lib.${system}.run {
-        src = ./.;
-        hooks.treefmt = {
-          enable = true;
-          package = treefmtEval.config.build.wrapper;
-        };
-      };
     in
-    {
-      nixosConfigurations.${hostName} = nixpkgs-chosen.lib.nixosSystem {
-        inherit specialArgs;
-        modules = [
-          determinate.nixosModules.default
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      imports = [
+        inputs.treefmt-nix.flakeModule
+        inputs.git-hooks.flakeModule
+      ];
 
-          lanzaboote.nixosModules.lanzaboote
+      systems = import inputs.systems;
 
-          ./nix/configuration.nix
+      perSystem =
+        {
+          config,
+          inputs',
+          system,
+          lib,
+          ...
+        }:
+        {
+          _module.args.pkgs = inputs'.nixpkgs-unstable.legacyPackages;
 
-          ./nix/hardware-configuration.nix
-          ./nix/pkgs.nix
-          nixos-hardware.nixosModules.lenovo-legion-15ach6h-hybrid # https://github.com/NixOS/nixos-hardware/tree/master/lenovo/legion/15ach6h
-          ./nix/nixos-hardware-override.nix
-          disko.nixosModules.disko
-          # ./disko.nix
+          treefmt.programs = {
+            nixfmt.enable = true;
+            deadnix.enable = true;
+            statix.enable = true;
+          };
 
-          home-manager.nixosModules.default
-          { home-manager.extraSpecialArgs = specialArgs; }
-        ];
-      };
+          pre-commit.settings.hooks.treefmt.enable = true;
 
-      formatter.${system} = treefmtEval.config.build.wrapper;
+          checks = lib.optionalAttrs (system == "x86_64-linux") {
+            toplevel = inputs.self.nixosConfigurations.${hostName}.config.system.build.toplevel;
+          };
 
-      checks.${system} = {
-        inherit preCommitCheck;
-        toplevel = self.nixosConfigurations.${hostName}.config.system.build.toplevel;
-      };
+          devShells.default = config.pre-commit.devShell;
+        };
 
-      devShells.${system}.default = pkgs.mkShell {
-        inherit (preCommitCheck) shellHook;
+      flake = {
+        nixosConfigurations.${hostName} = nixpkgs-chosen.lib.nixosSystem {
+          inherit specialArgs;
+          modules = [
+            inputs.determinate.nixosModules.default
+
+            inputs.lanzaboote.nixosModules.lanzaboote
+
+            ./nix/configuration.nix
+
+            ./nix/hardware-configuration.nix
+            ./nix/pkgs.nix
+            inputs.nixos-hardware.nixosModules.lenovo-legion-15ach6h-hybrid # https://github.com/NixOS/nixos-hardware/tree/master/lenovo/legion/15ach6h
+            ./nix/nixos-hardware-override.nix
+            inputs.disko.nixosModules.disko
+            # ./disko.nix
+
+            inputs.home-manager.nixosModules.default
+            { home-manager.extraSpecialArgs = specialArgs; }
+          ];
+        };
       };
     };
 }
