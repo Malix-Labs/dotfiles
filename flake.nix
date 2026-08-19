@@ -73,6 +73,11 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
+    vaultix = {
+      url = "github:milieuim/vaultix";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
   };
 
   nixConfig = {
@@ -98,6 +103,14 @@
       username = "malix";
       hostName = "${username}-legion-nixos";
       dotfilesDirectory = "Repositories/Malix-Labs/dotfiles";
+      secretsDir = "./nix/users/${username}/secrets";
+
+      ssh = {
+        dir = ".ssh";
+        keys = {
+          master = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFEbJzrHvhXgm5jvL4clxiKcGSWt076D+kPZt+a+ZcRQ Malix - Alix Brunet";
+        };
+      };
 
       specialArgs = inputs // {
         inherit
@@ -105,6 +118,7 @@
           username
           hostName
           dotfilesDirectory
+          ssh
           ;
       };
     in
@@ -112,6 +126,7 @@
       imports = [
         inputs.treefmt-nix.flakeModule
         inputs.git-hooks.flakeModule
+        inputs.vaultix.flakeModules.default
       ];
 
       systems = import inputs.systems;
@@ -143,9 +158,16 @@
         };
 
       flake = {
+        vaultix = {
+          identity = "$HOME/${ssh.dir}/master";
+          defaultSecretDirectory = secretsDir;
+          cache = "${secretsDir}/cache"; # see https://github.com/milieuim/vaultix/issues/64
+        };
+
         nixosConfigurations.${hostName} = nixpkgs-chosen.lib.nixosSystem {
           inherit specialArgs;
           modules = [
+            inputs.vaultix.nixosModules.vaultix
             inputs.determinate.nixosModules.default
 
             inputs.lanzaboote.nixosModules.lanzaboote

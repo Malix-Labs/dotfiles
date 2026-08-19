@@ -11,6 +11,7 @@
   username,
   hostName,
   dotfilesDirectory,
+  ssh,
 
   cachyos-kernel,
 
@@ -19,6 +20,7 @@
 {
   imports = [
     ./gaming.nix
+    ./users/malix/secrets.nix
   ];
 
   nix = {
@@ -150,6 +152,8 @@
     hardware.openrgb.enable = true;
 
     cloudflare-warp.enable = true;
+
+    userborn.enable = true;
   };
 
   hardware.bluetooth.enable = true;
@@ -218,6 +222,8 @@
     users.${username} = ./home.nix;
     backupFileExtension = "bak";
   };
+
+  vaultix.settings.hostPubkey = ssh.keys.master;
 
   users.users.${username} = {
     isNormalUser = true;

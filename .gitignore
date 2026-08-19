@@ -1,3 +1,18 @@
+# Local Tooling
 .envrc
 .direnv/
 .pre-commit-config.yaml
+
+# Secrets
+.env
+.env.*
+*.env
+*.env.*
+*.secret
+*.key
+*.pem
+id_ed25519
+id_rsa
+id_ecdsa
+id_dsa
+!*.pub

@@ -7,6 +7,7 @@
 
   username,
   dotfilesDirectory,
+  ssh,
 
   declarative-flatpak,
 
@@ -24,7 +25,7 @@ let
     });
 
   nu = lib.getExe pkgs.nushell;
-  sshDirectory = "${config.home.homeDirectory}/.ssh";
+  sshDir = "${config.home.homeDirectory}/${ssh.dir}";
 
   vcs.user = {
     name = "Malix - Alix Brunet";
@@ -216,7 +217,7 @@ in
       signing = {
         signByDefault = true;
         format = "ssh";
-        key = "${sshDirectory}/id_ed25519.pub";
+        key = "${sshDir}/master.pub";
       };
     };
 
@@ -238,13 +239,11 @@ in
       enableDefaultConfig = false;
       settings."*" = {
         AddKeysToAgent = "yes";
-        IdentityFile = [
-          "${sshDirectory}/id_ed25519"
-        ];
+        IdentityFile = ssh.keys |> lib.attrNames |> map (name: "${sshDir}/${name}");
         IdentitiesOnly = "yes";
 
         ControlMaster = "auto";
-        ControlPath = "${sshDirectory}/master-%r@%n:%p";
+        ControlPath = "${sshDir}/master-%r@%n:%p";
         ControlPersist = "1h";
 
         ServerAliveInterval = 60;
