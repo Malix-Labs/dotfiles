@@ -125,6 +125,7 @@
     xserver.xkb.layout = "fr";
     displayManager.plasma-login-manager.enable = true;
     desktopManager.plasma6.enable = true;
+    switcherooControl.enable = true; # hotfix nixos-hardware https://github.com/NixOS/nixos-hardware/pull/2004
 
     printing.enable = true;
 
