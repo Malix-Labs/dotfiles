@@ -14,7 +14,7 @@
 {
   hardware.nvidia = {
     prime.amdgpuBusId = "PCI:5:0:0"; # See https://github.com/NixOS/nixos-hardware/issues/1388
-    # powerManagement.finegrained = true; # causes deadlock after a timeout
+    powerManagement.finegrained = true;
   };
 
   # hotfix nixos-hardware https://github.com/NixOS/nixos-hardware/pull/2002
