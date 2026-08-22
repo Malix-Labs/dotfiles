@@ -12,7 +12,6 @@
 {
   hardware.nvidia = {
     prime.amdgpuBusId = "PCI:5:0:0"; # See https://github.com/NixOS/nixos-hardware/issues/1388
-    powerManagement.finegrained = true;
   };
 
   # Add Lenovo Legion kernel module and userspace utility
