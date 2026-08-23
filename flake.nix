@@ -37,6 +37,11 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
+    nixos-winpe = {
+      url = "github:Malix-Labs/NixOS_WinPE";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
     declarative-flatpak.url = "github:in-a-dil-emma/declarative-flatpak/v4.1.6";
     # nix-flatpak.url = "github:gmodena/nix-flatpak";
 
@@ -178,9 +183,10 @@
             ./nix/hardware-configuration.nix
             ./nix/pkgs.nix
             inputs.nixos-hardware.nixosModules.lenovo-legion-15ach6h-hybrid # https://github.com/NixOS/nixos-hardware/tree/master/lenovo/legion/15ach6h
+            inputs.nixos-winpe.nixosModules.lenovo-legion-15ach6h
             ./nix/nixos-hardware-override.nix
             inputs.disko.nixosModules.disko
-            # ./disko.nix
+            ./nix/disko.nix
 
             inputs.home-manager.nixosModules.default
             { home-manager.extraSpecialArgs = specialArgs; }
