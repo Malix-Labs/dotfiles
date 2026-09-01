@@ -134,10 +134,7 @@ in
 
     nix-your-shell.enable = true;
 
-    direnv = {
-      enable = true;
-      nix-direnv.enable = true;
-    };
+    direnv.enable = true;
 
     carapace.enable = true;
 
