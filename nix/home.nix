@@ -7,6 +7,7 @@
 
   username,
   dotfilesDirectory,
+  ssh,
 
   declarative-flatpak,
 
@@ -24,7 +25,7 @@ let
     });
 
   nu = lib.getExe pkgs.nushell;
-  sshDirectory = "${config.home.homeDirectory}/.ssh";
+  sshDir = "${config.home.homeDirectory}/${ssh.dir}";
 
   vcs.user = {
     name = "Malix - Alix Brunet";
@@ -55,7 +56,10 @@ in
     ];
   };
 
-  xdg.configFile = mapSymlinks [ "zed" ];
+  xdg.configFile = (mapSymlinks [ "zed" ]) // {
+    "environment.d/10-secrets.conf".source =
+      config.lib.file.mkOutOfStoreSymlink "/run/vaultix.d/secrets.env";
+  };
   home.file = mapSymlinks [ ".gemini/antigravity-cli" ];
 
   programs = {
@@ -85,6 +89,16 @@ in
       settings = {
         show_banner = false;
       };
+      extraEnv = ''
+        if ('/run/vaultix.d/secrets.env' | path exists) {
+          open /run/vaultix.d/secrets.env
+          | lines
+          | where ($it | str contains '=')
+          | parse "{key}={value}"
+          | transpose -r -d
+          | load-env
+        }
+      '';
       # fix for https://github.com/carapace-sh/carapace-bin/issues/3612 , waiting for https://github.com/nix-community/home-manager/pull/9602 or https://github.com/carapace-sh/carapace-bin/issues/3612
       extraConfig = ''
         let original_completer = $env.config.completions.external.completer
@@ -102,6 +116,8 @@ in
     bash = {
       enable = true;
       initExtra = ''
+        [ -f "/run/vaultix.d/secrets.env" ] && set -a && . /run/vaultix.d/secrets.env && set +a
+
         if [[ $- == *i* ]] && \
           [ -z "$BASH_EXECUTION_STRING" ] && \
           [ "$TERM" != "dumb" ] && \
@@ -213,7 +229,7 @@ in
       signing = {
         signByDefault = true;
         format = "ssh";
-        key = "${sshDirectory}/id_ed25519.pub";
+        key = "${sshDir}/master.pub";
       };
     };
 
@@ -235,13 +251,11 @@ in
       enableDefaultConfig = false;
       settings."*" = {
         AddKeysToAgent = "yes";
-        IdentityFile = [
-          "${sshDirectory}/id_ed25519"
-        ];
+        IdentityFile = ssh.keys |> lib.attrNames |> map (name: "${sshDir}/${name}");
         IdentitiesOnly = "yes";
 
         ControlMaster = "auto";
-        ControlPath = "${sshDirectory}/master-%r@%n:%p";
+        ControlPath = "${sshDir}/master-%r@%n:%p";
         ControlPersist = "1h";
 
         ServerAliveInterval = 60;

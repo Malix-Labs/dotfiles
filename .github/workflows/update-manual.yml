@@ -1,8 +1,6 @@
-name: "Update"
+name: "Update (Manual)"
 
 on:
-  schedule:
-    - cron: "0 0 * * *"
   workflow_dispatch:
     inputs:
       inputs:
@@ -38,7 +36,6 @@ jobs:
           permission-pull-requests: "write"
 
       - name: Get Dispatch User Info
-        if: github.event_name == 'workflow_dispatch'
         id: dispatch-user
         run: gh api "/users/${{ github.actor }}" --jq '"author=" + (.name // .login) + " <" + (.email // (.id|tostring + "+" + .login + "@users.noreply.github.com")) + ">"' >> "$GITHUB_OUTPUT"
         env:
@@ -49,20 +46,23 @@ jobs:
 
       - uses: DeterminateSystems/update-flake-lock@v28
         env:
-          TITLE: "update: ${{ github.event.inputs.inputs || 'all' }}"
+          TITLE: "update(nix): ${{ inputs.inputs || 'all' }}"
         with:
           token: ${{ steps.app-token.outputs.token }}
           git-author-name: &bot_name "${{ steps.app-token.outputs.app-slug }}[bot]"
           git-author-email: &bot_email ${{ format('{0}+{1}[bot]@users.noreply.github.com', vars.USER_ID, steps.app-token.outputs.app-slug) }}
           git-committer-name: *bot_name
           git-committer-email: *bot_email
-          inputs: ${{ github.event.inputs.inputs }}
-          nix-options: ${{ github.event.inputs.nix-options }}
-          branch: "ci/update"
+          inputs: ${{ inputs.inputs }}
+          nix-options: ${{ inputs.nix-options }}
+          # can't include the version (see https://github.com/DeterminateSystems/update-flake-lock/issues/305)
+          branch: "ci/update/nix/${{ inputs.inputs || 'all' }}"
           path-to-flake-dir: ${{ inputs.working-directory }}
           pr-labels: "Update"
           pr-title: ${{ env.TITLE }}
+
+          # Bugged: https://github.com/DeterminateSystems/update-flake-lock/issues/294
           commit-msg: |
             ${{ env.TITLE }}
 
-            ${{ github.event_name == 'workflow_dispatch' && format('Co-authored-by: {0}', steps.dispatch-user.outputs.author) || '' }}
+            Co-authored-by: ${{ steps.dispatch-user.outputs.author }}

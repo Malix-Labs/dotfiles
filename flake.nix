@@ -37,6 +37,11 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
+    nixos-winpe = {
+      url = "github:Malix-Labs/NixOS_WinPE";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
     declarative-flatpak.url = "github:in-a-dil-emma/declarative-flatpak/v4.1.6";
     # nix-flatpak.url = "github:gmodena/nix-flatpak";
 
@@ -53,6 +58,28 @@
 
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
+    systems.url = "github:nix-systems/default";
+
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs-unstable";
+    };
+
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
+    git-hooks = {
+      url = "github:cachix/git-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
+    vaultix = {
+      url = "github:milieuim/vaultix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
@@ -74,59 +101,97 @@
   };
 
   outputs =
-    inputs@{
-      nixpkgs-unstable,
-
-      determinate,
-
-      nixos-hardware,
-      disko,
-
-      home-manager,
-
-      lanzaboote,
-
-      ...
-    }:
+    inputs@{ flake-parts, ... }:
     let
-      nixpkgs-chosen = nixpkgs-unstable;
+      nixpkgs-chosen = inputs.nixpkgs-unstable;
 
       username = "malix";
       hostName = "${username}-legion-nixos";
       dotfilesDirectory = "Repositories/Malix-Labs/dotfiles";
+      secretsDir = "./nix/users/${username}/secrets";
+
+      ssh = {
+        dir = ".ssh";
+        keys = {
+          master = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFEbJzrHvhXgm5jvL4clxiKcGSWt076D+kPZt+a+ZcRQ Malix - Alix Brunet";
+        };
+        host = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOm09W/QGDr5r1H/PymZ9GkO4R44eKxjRXy7HKLBc4AM root@malix-legion-nixos";
+      };
 
       specialArgs = inputs // {
         inherit
           nixpkgs-chosen
-
           username
           hostName
           dotfilesDirectory
+          ssh
           ;
       };
     in
-    {
-      nixosConfigurations.${hostName} = nixpkgs-chosen.lib.nixosSystem {
-        inherit specialArgs;
-        modules = [
-          determinate.nixosModules.default
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      imports = [
+        inputs.treefmt-nix.flakeModule
+        inputs.git-hooks.flakeModule
+        inputs.vaultix.flakeModules.default
+      ];
 
-          lanzaboote.nixosModules.lanzaboote
+      systems = import inputs.systems;
 
-          ./nix/configuration.nix
+      perSystem =
+        {
+          config,
+          inputs',
+          system,
+          lib,
+          ...
+        }:
+        {
+          _module.args.pkgs = inputs'.nixpkgs-unstable.legacyPackages;
 
-          ./nix/hardware-configuration.nix
-          ./nix/pkgs.nix
-          nixos-hardware.nixosModules.lenovo-legion-15ach6h-hybrid # https://github.com/NixOS/nixos-hardware/tree/master/lenovo/legion/15ach6h
-          ./nix/nixos-hardware-override.nix
-          disko.nixosModules.disko
-          # ./disko.nix
+          treefmt.programs = {
+            nixfmt.enable = true;
+            deadnix.enable = true;
+            statix.enable = true;
+          };
 
-          home-manager.nixosModules.default
-          { home-manager.extraSpecialArgs = specialArgs; }
-        ];
+          pre-commit.settings.hooks.treefmt.enable = true;
+
+          checks = lib.optionalAttrs (system == "x86_64-linux") {
+            toplevel = inputs.self.nixosConfigurations.${hostName}.config.system.build.toplevel;
+          };
+
+          devShells.default = config.pre-commit.devShell;
+        };
+
+      flake = {
+        vaultix = {
+          identity = "$HOME/${ssh.dir}/master";
+          defaultSecretDirectory = secretsDir;
+          cache = "${secretsDir}/cache"; # see https://github.com/milieuim/vaultix/issues/64
+        };
+
+        nixosConfigurations.${hostName} = nixpkgs-chosen.lib.nixosSystem {
+          inherit specialArgs;
+          modules = [
+            inputs.vaultix.nixosModules.vaultix
+            inputs.determinate.nixosModules.default
+
+            inputs.lanzaboote.nixosModules.lanzaboote
+
+            ./nix/configuration.nix
+
+            ./nix/hardware-configuration.nix
+            ./nix/pkgs.nix
+            inputs.nixos-hardware.nixosModules.lenovo-legion-15ach6h-hybrid # https://github.com/NixOS/nixos-hardware/tree/master/lenovo/legion/15ach6h
+            inputs.nixos-winpe.nixosModules.lenovo-legion-15ach6h
+            ./nix/nixos-hardware-override.nix
+            inputs.disko.nixosModules.disko
+            ./nix/disko.nix
+
+            inputs.home-manager.nixosModules.default
+            { home-manager.extraSpecialArgs = specialArgs; }
+          ];
+        };
       };
-
-      formatter.x86_64-linux = nixpkgs-chosen.legacyPackages.x86_64-linux.nixfmt-tree;
     };
 }

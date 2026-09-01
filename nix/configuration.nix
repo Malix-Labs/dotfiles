@@ -3,7 +3,6 @@
   lib,
 
   pkgs,
-  pkgs-unstable,
 
   nixpkgs-chosen,
   nixpkgs-unstable,
@@ -12,6 +11,7 @@
   username,
   hostName,
   dotfilesDirectory,
+  ssh,
 
   cachyos-kernel,
 
@@ -20,6 +20,7 @@
 {
   imports = [
     ./gaming.nix
+    ./users/malix/secrets.nix
   ];
 
   nix = {
@@ -124,6 +125,7 @@
     xserver.xkb.layout = "fr";
     displayManager.plasma-login-manager.enable = true;
     desktopManager.plasma6.enable = true;
+    switcherooControl.enable = true; # hotfix nixos-hardware https://github.com/NixOS/nixos-hardware/pull/2004
 
     printing.enable = true;
 
@@ -151,6 +153,8 @@
     hardware.openrgb.enable = true;
 
     cloudflare-warp.enable = true;
+
+    userborn.enable = true;
   };
 
   hardware.bluetooth.enable = true;
@@ -219,6 +223,8 @@
     users.${username} = ./home.nix;
     backupFileExtension = "bak";
   };
+
+  vaultix.settings.hostPubkey = ssh.host;
 
   users.users.${username} = {
     isNormalUser = true;
