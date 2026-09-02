@@ -30,4 +30,4 @@ jobs:
           nixpkgs-keys: nixpkgs-stable,nixpkgs-unstable
           fail-mode: true
       - name: "Flake Check"
-        run: "nix flake check ${{ inputs.working-directory }}"
+        run: "nix flake check --accept-flake-config ${{ inputs.working-directory }}"

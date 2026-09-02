@@ -14,6 +14,7 @@
   ssh,
 
   cachyos-kernel,
+  nixConfig,
 
   ...
 }:
@@ -38,23 +39,7 @@
       };
       # templates # gets shortcutted by determinate nix ; see https://github.com/DeterminateSystems/nix-src/issues/339
     };
-    settings = {
-      experimental-features = [
-        "nix-command"
-        "flakes"
-        "ca-derivations"
-        "cgroups"
-        "git-hashing"
-        "local-overlay-store"
-        "pipe-operators"
-        "verified-fetches"
-      ];
-      trusted-users = [
-        "root"
-        "@wheel"
-      ];
-      lint-url-literals = "warn";
-    };
+    settings = nixConfig;
   };
 
   boot = {

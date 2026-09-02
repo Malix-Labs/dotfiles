@@ -1,3 +1,4 @@
+rec # to pass `nixConfig` as an argument
 {
   inputs = {
 
@@ -86,6 +87,19 @@
   };
 
   nixConfig = {
+    extra-experimental-features = [
+      "nix-command"
+      "flakes"
+      "ca-derivations"
+      "cgroups"
+      "git-hashing"
+      "local-overlay-store"
+      "pipe-operators"
+      "verified-fetches"
+    ];
+    lint-url-literals = "warn";
+    extra-trusted-users = [ "@wheel" ];
+
     extra-substituters = [
       "https://nix-community.cachix.org/"
 
@@ -120,6 +134,7 @@
 
       specialArgs = inputs // {
         inherit
+          nixConfig
           nixpkgs-chosen
           username
           hostName
