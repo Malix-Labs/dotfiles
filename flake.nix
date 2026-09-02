@@ -90,12 +90,7 @@ rec # to pass `nixConfig` as an argument
     extra-experimental-features = [
       "nix-command"
       "flakes"
-      "ca-derivations"
-      "cgroups"
-      "git-hashing"
-      "local-overlay-store"
       "pipe-operators"
-      "verified-fetches"
     ];
     lint-url-literals = "warn";
     extra-trusted-users = [ "@wheel" ];
