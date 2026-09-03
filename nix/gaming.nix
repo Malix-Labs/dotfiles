@@ -1,6 +1,5 @@
 {
   pkgs,
-  lib,
 
   username,
 
@@ -37,10 +36,11 @@ in
   };
 
   # Make steamCompatTools usable elsewhere
-  home-manager.users.${username}.xdg.dataFile = lib.genAttrs' steamCompatTools (
-    tool:
-    lib.nameValuePair "Steam/compatibilitytools.d/${lib.getName tool}" {
-      source = tool.steamcompattool;
-    }
-  );
+  home-manager.users.${username} = {
+    imports = [ nix-gaming-edge.homeModules.steam-compat-tools ];
+    programs.steam-compat-tools = {
+      enable = true;
+      packages = steamCompatTools;
+    };
+  };
 }
