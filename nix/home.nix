@@ -268,6 +268,9 @@ in
 
     gh = {
       enable = true;
+      extensions = with pkgs; [
+        gh-stack
+      ];
       settings.aliases = {
         "issue export" =
           "issue view --json 'assignees,author,body,closed,closedAt,closedByPullRequestsReferences,comments,createdAt,id,isPinned,labels,milestone,number,projectItems,reactionGroups,state,stateReason,title,updatedAt,url'";
