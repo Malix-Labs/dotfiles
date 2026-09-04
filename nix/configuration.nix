@@ -146,6 +146,10 @@
     hardware.openrgb.enable = true;
 
     cloudflare-warp.enable = true;
+    tailscale = {
+      enable = true;
+      extraSetFlags = [ "--operator=${username}" ];
+    };
 
     userborn.enable = true;
   };

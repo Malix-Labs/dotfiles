@@ -325,6 +325,7 @@ in
   services = {
     ssh-agent.enable = true;
     agent-quota-timer-utils.enable = true;
+    tailscale-systray.enable = true;
 
     flatpak = {
       enable = true;
