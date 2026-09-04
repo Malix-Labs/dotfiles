@@ -25,6 +25,8 @@
   ];
 
   nix = {
+    daemonCPUSchedPolicy = "batch";
+
     registry = {
       nixpkgs = lib.mkForce { flake = nixpkgs-chosen; }; # Override determinate
       nixpkgs-stable.flake = nixpkgs-stable;
@@ -40,6 +42,12 @@
       # templates # gets shortcutted by determinate nix ; see https://github.com/DeterminateSystems/nix-src/issues/339
     };
     settings = nixConfig;
+  };
+
+  systemd.services.nix-daemon.serviceConfig = {
+    CPUWeight = 20;
+    IOWeight = 20;
+    MemoryHigh = "80%";
   };
 
   boot = {

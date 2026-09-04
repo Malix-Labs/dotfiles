@@ -93,6 +93,10 @@ rec # to pass `nixConfig` as an argument
       "pipe-operators"
     ];
     lint-url-literals = "warn";
+    use-xdg-base-directories = true;
+    auto-optimise-store = true;
+    builders-use-substitutes = true;
+    log-lines = 50;
     extra-trusted-users = [ "@wheel" ];
 
     extra-substituters = [
