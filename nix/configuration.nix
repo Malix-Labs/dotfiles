@@ -142,7 +142,6 @@
     flatpak.enable = true;
 
     ratbagd.enable = true;
-
     hardware.openrgb.enable = true;
 
     cloudflare-warp.enable = true;
