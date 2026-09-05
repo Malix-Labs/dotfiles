@@ -93,11 +93,7 @@ rec # to pass `nixConfig` as an argument
       "pipe-operators"
     ];
     lint-url-literals = "warn";
-    use-xdg-base-directories = true;
-    auto-optimise-store = true;
-    builders-use-substitutes = true;
     log-lines = 50;
-    extra-trusted-users = [ "@wheel" ];
 
     extra-substituters = [
       "https://nix-community.cachix.org/"
@@ -192,10 +188,10 @@ rec # to pass `nixConfig` as an argument
 
             inputs.lanzaboote.nixosModules.lanzaboote
 
+            ./nix/base.nix
             ./nix/configuration.nix
 
             ./nix/hardware-configuration.nix
-            ./nix/pkgs.nix
             inputs.nixos-hardware.nixosModules.lenovo-legion-15ach6h-hybrid # https://github.com/NixOS/nixos-hardware/tree/master/lenovo/legion/15ach6h
             inputs.nixos-winpe.nixosModules.lenovo-legion-15ach6h
             ./nix/nixos-hardware-override.nix

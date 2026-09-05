@@ -4,17 +4,12 @@
 
   pkgs,
 
-  nixpkgs-chosen,
-  nixpkgs-unstable,
-  nixpkgs-stable,
-
   username,
   hostName,
   dotfilesDirectory,
   ssh,
 
   cachyos-kernel,
-  nixConfig,
 
   ...
 }:
@@ -23,32 +18,6 @@
     ./gaming.nix
     ./users/malix/secrets.nix
   ];
-
-  nix = {
-    daemonCPUSchedPolicy = "batch";
-
-    registry = {
-      nixpkgs = lib.mkForce { flake = nixpkgs-chosen; }; # Override determinate
-      nixpkgs-stable.flake = nixpkgs-stable;
-      nixpkgs-unstable.flake = nixpkgs-unstable;
-      nixpkgs-stable-latest.to = {
-        type = "tarball";
-        url = "https://channels.nixos.org/nixos-26.05/nixexprs.tar.xz";
-      };
-      nixpkgs-unstable-latest.to = {
-        type = "tarball";
-        url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz";
-      };
-      # templates # gets shortcutted by determinate nix ; see https://github.com/DeterminateSystems/nix-src/issues/339
-    };
-    settings = nixConfig;
-  };
-
-  systemd.services.nix-daemon.serviceConfig = {
-    CPUWeight = 20;
-    IOWeight = 20;
-    MemoryHigh = "80%";
-  };
 
   boot = {
     kernelPackages =
