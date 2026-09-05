@@ -1,6 +1,5 @@
 {
   pkgs,
-  osConfig,
   nix-gaming-edge,
   ...
 }:
@@ -12,10 +11,7 @@
   programs = {
     prismlauncher.enable = true;
 
-    steam-compat-tools = {
-      enable = true;
-      packages = osConfig.programs.steam.extraCompatPackages;
-    };
+    steam-compat-tools.enable = true;
   };
 
   home.packages = with pkgs; [
