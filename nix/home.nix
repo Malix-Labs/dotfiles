@@ -14,6 +14,7 @@
   agent-quota-timer-utils,
 
   nix-index-database,
+  nix-remote,
 
   ...
 }:
@@ -38,6 +39,7 @@ in
     ./gaming-user.nix
     agent-quota-timer-utils.homeModules.default
     nix-index-database.homeModules.nix-index
+    nix-remote.homeManagerModules.default
   ];
 
   home = {
@@ -63,6 +65,13 @@ in
 
   programs = {
     home-manager.enable = true;
+
+    nix-remote = {
+      enable = true;
+      settings = {
+        repo = "Malix-Labs/dotfiles";
+      };
+    };
 
     nh = {
       enable = true;

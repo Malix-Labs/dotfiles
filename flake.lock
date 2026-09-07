@@ -659,6 +659,35 @@
         "type": "github"
       }
     },
+    "nix-remote": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "git-hooks": [
+          "git-hooks"
+        ],
+        "nixpkgs": [
+          "nixpkgs-unstable"
+        ],
+        "systems": [
+          "systems"
+        ]
+      },
+      "locked": {
+        "lastModified": 1788801926,
+        "narHash": "sha256-nL1RdX60ogXEv5DYyRUyVpsTH7Hbq4sIRwHle7MSgpA=",
+        "owner": "Malix-Labs",
+        "repo": "Nix_Remote-Builders-Distributed",
+        "rev": "2b9667560dd847f009636d2702e8ead9f26a6e57",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Malix-Labs",
+        "repo": "Nix_Remote-Builders-Distributed",
+        "type": "github"
+      }
+    },
     "nixos-hardware": {
       "inputs": {
         "nixpkgs": [
@@ -911,6 +940,7 @@
         "lanzaboote": "lanzaboote",
         "nix-gaming-edge": "nix-gaming-edge",
         "nix-index-database": "nix-index-database",
+        "nix-remote": "nix-remote",
         "nixos-hardware": "nixos-hardware",
         "nixos-winpe": "nixos-winpe",
         "nixpkgs-stable": "nixpkgs-stable",

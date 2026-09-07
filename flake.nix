@@ -84,6 +84,13 @@ rec # to pass `nixConfig` as an argument
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
+    nix-remote = {
+      url = "github:Malix-Labs/Nix_Remote-Builders-Distributed";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.systems.follows = "systems";
+      inputs.flake-parts.follows = "flake-parts";
+      inputs.git-hooks.follows = "git-hooks";
+    };
   };
 
   nixConfig = {
