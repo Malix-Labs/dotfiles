@@ -37,7 +37,8 @@ jobs:
       session_id: ${{ inputs.session_id }}
       target: ${{ inputs.target }}
       matrix: ${{ inputs.matrix }}
-      timeout_startup: ${{ inputs.timeout_startup }}
-      timeout_idle: ${{ inputs.timeout_idle }}
-      timeout_linger: ${{ inputs.timeout_linger }}
+      environment: "Nix Builders"
+      timeout_startup: ${{ format('{0}', inputs.timeout_startup) }}
+      timeout_idle: ${{ format('{0}', inputs.timeout_idle) }}
+      timeout_linger: ${{ format('{0}', inputs.timeout_linger) }}
     secrets: inherit
