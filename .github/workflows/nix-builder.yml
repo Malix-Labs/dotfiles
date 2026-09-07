@@ -38,7 +38,7 @@ jobs:
       target: ${{ inputs.target }}
       matrix: ${{ inputs.matrix }}
       environment: "Nix Builders"
-      timeout_startup: ${{ format('{0}', inputs.timeout_startup) }}
-      timeout_idle: ${{ format('{0}', inputs.timeout_idle) }}
-      timeout_linger: ${{ format('{0}', inputs.timeout_linger) }}
+      timeout_startup: ${{ inputs.timeout_startup != '' && format('{0}', inputs.timeout_startup) || '300' }}
+      timeout_idle: ${{ inputs.timeout_idle != '' && format('{0}', inputs.timeout_idle) || '300' }}
+      timeout_linger: ${{ inputs.timeout_linger != '' && format('{0}', inputs.timeout_linger) || '0' }}
     secrets: inherit
