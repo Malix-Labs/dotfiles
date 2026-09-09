@@ -185,6 +185,27 @@
         "type": "github"
       }
     },
+    "disko_2": {
+      "inputs": {
+        "nixpkgs": [
+          "nixos-winpe",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1781152676,
+        "narHash": "sha256-RxWs5ND31KzTG7wvMM+PMfUjyNpmIEr999lqNARaM5o=",
+        "owner": "nix-community",
+        "repo": "disko",
+        "rev": "ff8702b4de27f72b4c78573dfb89ec74e36abdf1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "disko",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -710,6 +731,7 @@
     },
     "nixos-winpe": {
       "inputs": {
+        "disko": "disko_2",
         "flake-parts": "flake-parts_6",
         "git-hooks": "git-hooks_3",
         "nixpkgs": [
@@ -718,11 +740,11 @@
         "systems": "systems_3"
       },
       "locked": {
-        "lastModified": 1787570716,
-        "narHash": "sha256-oYV/uPwrymQeXwGrQsKB6VWJTYl+q7ugtSMKd5kbjG0=",
+        "lastModified": 1788972867,
+        "narHash": "sha256-gDZRJ2YJRFUp3qxi5KP68VSzbaVkP0Bqurramo5Pqkg=",
         "owner": "Malix-Labs",
         "repo": "NixOS_WinPE",
-        "rev": "77fb84867688a62b44566a66fb2420d23af7fa44",
+        "rev": "3999ee9c3728dec0336ee515538173ec281afe01",
         "type": "github"
       },
       "original": {
