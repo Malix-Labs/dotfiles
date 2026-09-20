@@ -40,6 +40,9 @@ on:
 
 jobs:
   remote-builder:
+    permissions:
+      id-token: write
+      contents: read
     uses: Malix-Labs/Nix_Remote-Builders-Distributed/.github/workflows/nix-builder.yml@main
     with:
       session_id: ${{ inputs.session_id }}
