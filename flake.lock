@@ -674,11 +674,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1788801926,
-        "narHash": "sha256-nL1RdX60ogXEv5DYyRUyVpsTH7Hbq4sIRwHle7MSgpA=",
+        "lastModified": 1789864214,
+        "narHash": "sha256-xcZu5XtetupT7y4No31cvxLwOscplapDYhjhF3coeC8=",
         "owner": "Malix-Labs",
         "repo": "Nix_Remote-Builders-Distributed",
-        "rev": "2b9667560dd847f009636d2702e8ead9f26a6e57",
+        "rev": "29fd7c61607372170e219da3557ba09cc90c4833",
         "type": "github"
       },
       "original": {
