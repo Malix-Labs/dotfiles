@@ -718,11 +718,11 @@
         "systems": "systems_3"
       },
       "locked": {
-        "lastModified": 1790000446,
-        "narHash": "sha256-WjpN3GfsI+2CevKiDBd8ifdXsac+tH+M6fZOe46JvPE=",
+        "lastModified": 1790001391,
+        "narHash": "sha256-3PtTLijyBPIjd0MclxvIZFh5a3+B+SHbQeDy92M+054=",
         "owner": "Malix-Labs",
         "repo": "NixOS_WinPE",
-        "rev": "57e203b60c58bed5c1efa117566d2e41cc39b57d",
+        "rev": "de5fa28f59792724fd4a7bd489650b2ff474dab0",
         "type": "github"
       },
       "original": {
