@@ -37,7 +37,7 @@
       autoGenerateKeys.enable = true;
       autoEnrollKeys = {
         enable = true;
-        autoReboot = true;
+        autoReboot = false; # manual: reboot when YOU want it (was true; interacts with winpe-arm BootNext on switch)
         includeFirmwareBuiltinKeys = true;
       };
 
@@ -54,7 +54,7 @@
         autoCryptenroll = {
           enable = true;
           device = "/dev/nvme0n1p2";
-          autoReboot = true;
+          autoReboot = false; # manual: reboot when YOU want it (was true; interacts with winpe-arm BootNext on switch)
         };
       };
 
