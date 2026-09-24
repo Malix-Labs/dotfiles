@@ -124,6 +124,10 @@
 
   hardware.bluetooth.enable = true;
 
+  # WinPE Flash arm: do NOT re-arm BootNext automatically on switches and NixOS boots.
+  # Manual flash: run `winpe-flash arm` yourself (or remove this line to go back to auto), then reboot.
+  hardware.winpe.autoBootOnUpdate = false;
+
   programs = {
     git.enable = true;
     nix-ld.enable = true;
