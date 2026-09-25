@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - uses: ./.github/actions/nix-setup
+      - uses: Malix-Labs/dotfiles/.github/actions/nix-setup@main
       - name: "Flake Checker"
         uses: DeterminateSystems/flake-checker-action@v13
         with:
