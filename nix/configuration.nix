@@ -32,7 +32,7 @@
     lanzaboote = {
       enable = true;
       pkiBundle = "/var/lib/sbctl";
-      configurationLimit = 8; # maximum by systemd-pcrlock (see https://github.com/nix-community/lanzaboote/blob/b9e331d75d4618c7073ea08ff30fddf9a7d2fb08/nix/modules/lanzaboote.nix#L429-L438)
+      configurationLimit = 4; # maximum by systemd-pcrlock (see https://github.com/nix-community/lanzaboote/blob/46bad145cca5d952bcd58142d4d2612e73331e49/nix/modules/lanzaboote.nix#L431-L440)
 
       autoGenerateKeys.enable = true;
       autoEnrollKeys = {
