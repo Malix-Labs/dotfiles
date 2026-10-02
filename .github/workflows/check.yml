@@ -24,7 +24,7 @@ jobs:
       - uses: actions/checkout@v7
       - uses: Malix-Labs/dotfiles/.github/actions/nix-setup@main
       - name: "Flake Checker"
-        uses: DeterminateSystems/flake-checker-action@v13
+        uses: DeterminateSystems/flake-checker-action@v14
         with:
           flake-lock-path: "${{ inputs.working-directory }}/flake.lock"
           nixpkgs-keys: nixpkgs-stable,nixpkgs-unstable
