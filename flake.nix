@@ -43,7 +43,7 @@ rec # to pass `nixConfig` as an argument
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
-    declarative-flatpak.url = "github:in-a-dil-emma/declarative-flatpak/v4.1.9";
+    declarative-flatpak.url = "github:in-a-dil-emma/declarative-flatpak/v4.2.0";
     # nix-flatpak.url = "github:gmodena/nix-flatpak";
 
     nix-gaming-edge = {
