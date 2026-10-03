@@ -54,6 +54,8 @@ in
       glab
       forgejo-cli
       tea
+
+      antigravity-hub
     ];
   };
 
