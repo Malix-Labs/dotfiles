@@ -61,7 +61,10 @@ in
     "environment.d/10-secrets.conf".source =
       config.lib.file.mkOutOfStoreSymlink "/run/vaultix.d/secrets.env";
   };
-  home.file = mapSymlinks [ ".gemini/antigravity-cli" ];
+  home.file = mapSymlinks [
+    ".gemini/config"
+    ".gemini/antigravity-cli"
+  ];
 
   programs = {
     home-manager.enable = true;

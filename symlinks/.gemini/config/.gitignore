@@ -1,0 +1,8 @@
+*
+!/.gitignore
+!/config.json
+!/mcp_config.json
+!/skills
+!/skills/**
+!/rules
+!/rules/**
