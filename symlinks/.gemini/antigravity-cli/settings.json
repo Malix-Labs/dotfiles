@@ -1,9 +1,10 @@
 {
-  "allowNonWorkspaceAccess": true,
+  "agentMode": "accept-edits",
   "artifactReviewPolicy": "agent-decides",
   "enableTerminalSandbox": true,
-  "model": "Gemini 3.8 Flash (High)",
+  "model": "Gemini 3.8 Flash (Medium)",
   "notifications": true,
+  "pickerGrouping": "grouped",
   "runningLightSpeed": "fast",
   "showFeedbackSurvey": false,
   "statusLine": {
