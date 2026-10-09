@@ -3,7 +3,7 @@ description: "Sets up Nix and Nix-taylored GitHub Caching"
 runs:
   using: composite
   steps:
-    - uses: Malix-Labs/GitHub-Action_Nix-Reclaim@v1
+    - uses: Malix-Labs/GitHub-Action_Nix-Reclaim@v1.0.0
     - uses: DeterminateSystems/nix-installer-action@v22
     - uses: DeterminateSystems/magic-nix-cache-action@v14
       with:
