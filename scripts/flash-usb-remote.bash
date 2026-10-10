@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-USB_HOSTNAME="@usbHostName@"
-MASTER_KEY_PUB="@masterKey@"
+USB_HOSTNAME="${USB_HOSTNAME:-usb-remote}"
+MASTER_KEY_PUB="${MASTER_KEY_PUB:-ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFEbJzrHvhXgm5jvL4clxiKcGSWt076D+kPZt+a+ZcRQ Malix - Alix Brunet}"
 
 DISK="${1:-/dev/disk/by-id/usb-Generic_Flash_Disk_0916027A-0:0}"
 

@@ -204,9 +204,11 @@ rec # to pass `nixConfig` as an argument
               util-linux
               inputs'.disko.packages.disko-install
             ];
-            text = builtins.replaceStrings [ "@usbHostName@" "@masterKey@" ] [ usbHostName ssh.keys.master ] (
-              builtins.readFile ./scripts/flash-usb-remote.bash
-            );
+            text = ''
+              USB_HOSTNAME="''${USB_HOSTNAME:-${usbHostName}}" \
+              MASTER_KEY_PUB="''${MASTER_KEY_PUB:-${ssh.keys.master}}" \
+              exec ${./scripts/flash-usb-remote.bash} "$@"
+            '';
           };
 
           apps.flash-usb-remote = {
