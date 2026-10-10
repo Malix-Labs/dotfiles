@@ -6,6 +6,7 @@
 
   username,
   hostName,
+  usbHostName,
   dotfilesDirectory,
   ssh,
 
@@ -208,7 +209,7 @@
     isSystemUser = true;
     group = "nogroup";
     openssh.authorizedKeys.keys = [
-      "command=\"nix-daemon --stdio\",no-port-forwarding,no-X11-forwarding,no-agent-forwarding,no-pty ${ssh.keys.hosts.usb-remote}"
+      "command=\"nix-daemon --stdio\",no-port-forwarding,no-X11-forwarding,no-agent-forwarding,no-pty ${ssh.keys.hosts.${usbHostName}}"
     ];
   };
 

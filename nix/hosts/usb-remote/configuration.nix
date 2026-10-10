@@ -3,12 +3,13 @@
   pkgs,
   lib,
   hostName,
+  usbHostName,
   self,
   ssh,
   ...
 }:
 {
-  networking.hostName = "usb-remote";
+  networking.hostName = usbHostName;
   nixpkgs.hostPlatform = "x86_64-linux";
   services.userborn.enable = true;
 
@@ -98,7 +99,7 @@
   services.tailscale = {
     enable = true;
     extraUpFlags = [
-      "--hostname=usb-remote"
+      "--hostname=${config.networking.hostName}"
       "--ssh"
     ];
     authKeyFile = lib.mkIf (
@@ -107,7 +108,7 @@
   };
 
   # Vaultix: decrypt secrets using usb-remote's SSH host key
-  vaultix.settings.hostPubkey = ssh.keys.hosts.usb-remote;
+  vaultix.settings.hostPubkey = ssh.keys.hosts.${config.networking.hostName};
 
   # Storage constraints: auto-deduplication, reactive GC via min-free/max-free, zram swap
   nix = {

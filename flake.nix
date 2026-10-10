@@ -134,6 +134,7 @@ rec # to pass `nixConfig` as an argument
 
       username = "malix";
       hostName = "${username}-legion-nixos";
+      usbHostName = "usb-remote";
       dotfilesDirectory = "Repositories/Malix-Labs/dotfiles";
       secretsDir = "./nix/users/${username}/secrets";
 
@@ -144,7 +145,8 @@ rec # to pass `nixConfig` as an argument
           hosts = {
             ${hostName} =
               "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOm09W/QGDr5r1H/PymZ9GkO4R44eKxjRXy7HKLBc4AM root@malix-legion-nixos";
-            usb-remote = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFt75zBTjGYGtQVq+1FPVgQTzLUphihmah18Lm5iIFwX root@usb-remote";
+            ${usbHostName} =
+              "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFt75zBTjGYGtQVq+1FPVgQTzLUphihmah18Lm5iIFwX root@usb-remote";
           };
         };
       };
@@ -155,6 +157,7 @@ rec # to pass `nixConfig` as an argument
           nixpkgs-chosen
           username
           hostName
+          usbHostName
           dotfilesDirectory
           ssh
           ;
@@ -225,23 +228,25 @@ rec # to pass `nixConfig` as an argument
           ];
         };
 
-        nixosConfigurations.usb-remote = nixpkgs-chosen.lib.nixosSystem {
+        nixosConfigurations.${usbHostName} = nixpkgs-chosen.lib.nixosSystem {
           inherit specialArgs;
           modules = [
             inputs.vaultix.nixosModules.vaultix
             inputs.impermanence.nixosModules.default
             inputs.disko.nixosModules.disko
-            ./nix/hosts/usb-remote/disko.nix
-            ./nix/hosts/usb-remote/configuration.nix
+            ./nix/hosts/${usbHostName}/disko.nix
+            ./nix/hosts/${usbHostName}/configuration.nix
           ];
         };
 
-        deploy.nodes.usb-remote = {
-          hostname = "usb-remote";
+        deploy.nodes.${usbHostName} = {
+          hostname = usbHostName;
           profiles.system = {
             user = "root";
             sshUser = "root";
-            path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos inputs.self.nixosConfigurations.usb-remote;
+            path =
+              inputs.deploy-rs.lib.x86_64-linux.activate.nixos
+                inputs.self.nixosConfigurations.${usbHostName};
           };
         };
       };
