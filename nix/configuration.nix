@@ -196,9 +196,26 @@
 
   vaultix.settings.hostPubkey = ssh.host;
 
+  services.openssh = {
+    enable = true;
+    settings = {
+      PasswordAuthentication = false;
+      KbdInteractiveAuthentication = false;
+    };
+  };
+
+  users.users.nix-builder = {
+    isSystemUser = true;
+    group = "nogroup";
+    openssh.authorizedKeys.keys = [
+      "command=\"nix-daemon --stdio\",no-port-forwarding,no-X11-forwarding,no-agent-forwarding,no-pty ${ssh.hosts.usb-remote}"
+    ];
+  };
+
   users.users.${username} = {
     isNormalUser = true;
     description = "Malix";
+    openssh.authorizedKeys.keys = [ ssh.keys.master ];
     extraGroups = [
       "networkmanager"
       "wheel"

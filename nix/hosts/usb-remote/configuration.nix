@@ -3,8 +3,8 @@
   pkgs,
   lib,
   hostName,
-  username,
   self,
+  ssh,
   ...
 }:
 {
@@ -107,7 +107,7 @@
   };
 
   # Vaultix: decrypt secrets using usb-remote's SSH host key
-  vaultix.settings.hostPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFt75zBTjGYGtQVq+1FPVgQTzLUphihmah18Lm5iIFwX root@usb-remote";
+  vaultix.settings.hostPubkey = ssh.hosts.usb-remote;
 
   # Storage constraints: auto-deduplication, reactive GC via min-free/max-free, zram swap
   nix = {
@@ -126,7 +126,7 @@
     buildMachines = [
       {
         inherit hostName; # "malix-legion-nixos" via specialArgs & Tailscale MagicDNS
-        sshUser = username; # "malix" via specialArgs
+        sshUser = "nix-builder";
         sshKey = "/persist/etc/ssh/ssh_host_ed25519_key";
         protocol = "ssh-ng";
         systems = [ self.nixosConfigurations.${hostName}.config.nixpkgs.hostPlatform.system ];
