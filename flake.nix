@@ -84,6 +84,17 @@ rec # to pass `nixConfig` as an argument
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
+    impermanence = {
+      url = "github:nix-community/impermanence";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.home-manager.follows = "home-manager";
+    };
+
+    deploy-rs = {
+      url = "github:serokell/deploy-rs";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
     nix-remote = {
       url = "github:Malix-Labs/Nix_Remote-Builders-Distributed";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -208,6 +219,26 @@ rec # to pass `nixConfig` as an argument
             inputs.home-manager.nixosModules.default
             { home-manager.extraSpecialArgs = specialArgs; }
           ];
+        };
+
+        nixosConfigurations.usb-remote = nixpkgs-chosen.lib.nixosSystem {
+          inherit specialArgs;
+          modules = [
+            inputs.vaultix.nixosModules.vaultix
+            inputs.impermanence.nixosModules.default
+            inputs.disko.nixosModules.disko
+            ./nix/hosts/usb-remote/disko.nix
+            ./nix/hosts/usb-remote/configuration.nix
+          ];
+        };
+
+        deploy.nodes.usb-remote = {
+          hostname = "usb-remote";
+          profiles.system = {
+            user = "root";
+            sshUser = "root";
+            path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos inputs.self.nixosConfigurations.usb-remote;
+          };
         };
       };
     };
