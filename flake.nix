@@ -242,14 +242,15 @@ rec # to pass `nixConfig` as an argument
         deploy.nodes.${usbHostName} =
           let
             targetConfig = inputs.self.nixosConfigurations.${usbHostName};
-            targetSystem = targetConfig.pkgs.stdenv.hostPlatform.system;
           in
           {
             hostname = usbHostName;
             profiles.system = {
               user = "root";
               sshUser = "root";
-              path = inputs.deploy-rs.lib.${targetSystem}.activate.nixos targetConfig;
+              path =
+                inputs.deploy-rs.lib.${targetConfig.pkgs.stdenv.hostPlatform.system}.activate.nixos
+                  targetConfig;
             };
           };
       };
