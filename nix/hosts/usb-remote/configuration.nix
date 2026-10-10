@@ -107,7 +107,7 @@
   };
 
   # Vaultix: decrypt secrets using usb-remote's SSH host key
-  vaultix.settings.hostPubkey = ssh.hosts.usb-remote;
+  vaultix.settings.hostPubkey = ssh.keys.hosts.usb-remote;
 
   # Storage constraints: auto-deduplication, reactive GC via min-free/max-free, zram swap
   nix = {

@@ -141,10 +141,11 @@ rec # to pass `nixConfig` as an argument
         dir = ".ssh";
         keys = {
           master = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFEbJzrHvhXgm5jvL4clxiKcGSWt076D+kPZt+a+ZcRQ Malix - Alix Brunet";
-        };
-        host = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOm09W/QGDr5r1H/PymZ9GkO4R44eKxjRXy7HKLBc4AM root@malix-legion-nixos";
-        hosts = {
-          usb-remote = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFt75zBTjGYGtQVq+1FPVgQTzLUphihmah18Lm5iIFwX root@usb-remote";
+          hosts = {
+            ${hostName} =
+              "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOm09W/QGDr5r1H/PymZ9GkO4R44eKxjRXy7HKLBc4AM root@malix-legion-nixos";
+            usb-remote = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFt75zBTjGYGtQVq+1FPVgQTzLUphihmah18Lm5iIFwX root@usb-remote";
+          };
         };
       };
 

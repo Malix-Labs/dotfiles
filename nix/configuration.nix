@@ -194,7 +194,7 @@
     backupFileExtension = "bak";
   };
 
-  vaultix.settings.hostPubkey = ssh.host;
+  vaultix.settings.hostPubkey = ssh.keys.hosts.${hostName};
 
   services.openssh = {
     enable = true;
@@ -208,7 +208,7 @@
     isSystemUser = true;
     group = "nogroup";
     openssh.authorizedKeys.keys = [
-      "command=\"nix-daemon --stdio\",no-port-forwarding,no-X11-forwarding,no-agent-forwarding,no-pty ${ssh.hosts.usb-remote}"
+      "command=\"nix-daemon --stdio\",no-port-forwarding,no-X11-forwarding,no-agent-forwarding,no-pty ${ssh.keys.hosts.usb-remote}"
     ];
   };
 
