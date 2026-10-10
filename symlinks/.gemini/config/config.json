@@ -1,6 +1,6 @@
 {
   "userSettings": {
-    "autoExecutionPolicy": "CASCADE_COMMANDS_AUTO_EXECUTION_SANDBOX",
+    "autoExecutionPolicy": "CASCADE_COMMANDS_AUTO_EXECUTION_PROCEED_IN_SANDBOX",
     "customThemeSeedsDark": {
       "background": "#000000",
       "primary": "#FF0000"
@@ -67,7 +67,9 @@
         "read_url(codeberg.org)",
         "command(lsblk)",
         "command(git fixpush)",
-        "command(git ls-files)"
+        "command(git ls-files)",
+        "unsandboxed(git diff)",
+        "unsandboxed(git status)"
       ]
     },
     "nonWorkspaceFileAccessPolicy": "AGENT_SETTING_POLICY_ASK",
