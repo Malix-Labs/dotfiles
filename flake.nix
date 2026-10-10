@@ -198,10 +198,10 @@ rec # to pass `nixConfig` as an argument
 
           packages.flash-usb-remote = pkgs.writeShellApplication {
             name = "flash-usb-remote";
-            runtimeInputs = [
-              pkgs.rage
-              pkgs.coreutils
-              pkgs.util-linux
+            runtimeInputs = with pkgs; [
+              rage
+              coreutils
+              util-linux
               inputs'.disko.packages.disko-install
             ];
             text = ''
