@@ -138,7 +138,7 @@
     "sandbox_permissions": {
       "write_paths": [],
       "allow_all_hosts": true,
-      "allow_unsandboxed": false,
+			"allow_command": false,
       "allow_fs_write_all": false
     },
     "favorite_models": [
