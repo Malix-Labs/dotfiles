@@ -10,11 +10,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1785674637,
-        "narHash": "sha256-Rs3CS1Qvi8joR1hK+MXvs8pTiFkmZsw7ebjRlOCuJkE=",
+        "lastModified": 1791648534,
+        "narHash": "sha256-ld3UQrvi4So3a0/CWY1nhsZo7Ga9XZrfsgPtwZbfHHg=",
         "ref": "refs/heads/main",
-        "rev": "9eba913893978a1588a22b534ed8421df53aac90",
-        "revCount": 20,
+        "rev": "40c16f279cba5d2b99663299e178533c795e022e",
+        "revCount": 21,
         "type": "git",
         "url": "https://gist.github.com/Malix-Labs/663d4910dfb3eb71018b1f1c2d9bcd64"
       },
