@@ -12,6 +12,7 @@
   networking.hostName = usbHostName;
   nixpkgs.hostPlatform = "x86_64-linux";
   services.userborn.enable = true;
+  users.mutableUsers = false;
 
   # Bootloader configured for portable USB (do not alter host motherboard NVRAM)
   boot.loader.systemd-boot.enable = true;
@@ -41,8 +42,8 @@
   # Impermanence: state persisted explicitly on /persist (/nix/persist)
   environment.persistence."/persist" = {
     hideMounts = true;
+    enableWarnings = false;
     directories = [
-      "/var/lib/nixos"
       "/var/log/journal"
       "/var/lib/tailscale"
       "/var/lib/iwd"
@@ -88,6 +89,7 @@
 
   users.users.malix = {
     isNormalUser = true;
+    uid = 1000;
     hashedPasswordFile = config.vaultix.secrets.malix_password.path;
     extraGroups = [ "wheel" ];
     openssh.authorizedKeys.keys = config.users.users.root.openssh.authorizedKeys.keys;
