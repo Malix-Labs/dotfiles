@@ -147,6 +147,8 @@ in
 
     nix-your-shell.enable = true;
 
+    btop.enable = true;
+
     direnv.enable = true;
 
     carapace.enable = true;
