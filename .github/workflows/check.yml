@@ -16,10 +16,6 @@ on:
         type: string
         required: false
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}-${{ inputs.working-directory }}
-  cancel-in-progress: true
-
 jobs:
   flake-check:
     name: "Flake Check"

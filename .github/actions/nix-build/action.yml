@@ -12,8 +12,10 @@ runs:
       run: |
         nix run github:Malix-Labs/nix-fast-build/passthrough -- \
           --flake . \
-          --select 'flake: (builtins.getFlake "git+https://gist.github.com/Malix-Labs/b33fbec809d7a9b5334747a22bfd61da").lib flake.outputs' \
+          --select '(builtins.getFlake "github:Malix-Labs/Nix_Schemas-Evaluator").lib.select { }' \
           --skip-cached \
+          --no-nom \
+          --debug \
           --eval-args "--accept-flake-config --show-trace --impure" \
           -- \
           --accept-flake-config \
