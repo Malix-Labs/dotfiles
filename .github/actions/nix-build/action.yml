@@ -16,6 +16,7 @@ runs:
           --skip-cached \
           --no-nom \
           --debug \
+          --eval-workers 2 \
           --eval-args "--accept-flake-config --show-trace --impure" \
           -- \
           --accept-flake-config \
