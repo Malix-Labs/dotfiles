@@ -190,8 +190,6 @@ rec # to pass `nixConfig` as an argument
 
           pre-commit.settings.hooks.treefmt.enable = true;
 
-          checks = { };
-
           packages.flash-usb-remote = pkgs.writeShellApplication {
             name = "flash-usb-remote";
             runtimeInputs = with pkgs; [
