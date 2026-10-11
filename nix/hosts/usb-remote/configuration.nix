@@ -2,10 +2,12 @@
   config,
   pkgs,
   lib,
+  username,
   hostName,
   usbHostName,
   self,
   ssh,
+  nixConfig,
   ...
 }:
 {
@@ -78,18 +80,15 @@
     HandleLidSwitchExternalPower = "ignore";
   };
 
-  users.users.root.openssh.authorizedKeys.keys = [
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFEbJzrHvhXgm5jvL4clxiKcGSWt076D+kPZt+a+ZcRQ Malix - Alix Brunet"
-  ];
+  users.users.root.openssh.authorizedKeys.keys = [ ssh.keys.master ];
 
   vaultix.secrets.malix_password = {
     file = ./password.age;
   };
   vaultix.beforeUserborn = [ "malix_password" ];
 
-  users.users.malix = {
+  users.users.${username} = {
     isNormalUser = true;
-    uid = 1000;
     hashedPasswordFile = config.vaultix.secrets.malix_password.path;
     extraGroups = [ "wheel" ];
     openssh.authorizedKeys.keys = config.users.users.root.openssh.authorizedKeys.keys;
@@ -114,11 +113,7 @@
 
   # Storage constraints: auto-deduplication, reactive GC via min-free/max-free, zram swap
   nix = {
-    settings = {
-      experimental-features = [
-        "nix-command"
-        "flakes"
-      ];
+    settings = nixConfig // {
       auto-optimise-store = true;
       # Reactive on-demand GC: only triggers during nix commands when space is low
       min-free = 256 * 1024 * 1024; # 256 MiB: trigger GC if free space drops below this
@@ -190,16 +185,16 @@
       Restart = "always";
       RestartSec = "2s";
       ExecStart = pkgs.writeShellScript "display-kiosk" ''
-        ${pkgs.tmux}/bin/tmux kill-session -t kiosk 2>/dev/null || true
-        exec ${pkgs.tmux}/bin/tmux new-session -s kiosk -d "${pkgs.btop}/bin/btop" \; \
+        ${lib.getExe pkgs.tmux} kill-session -t kiosk 2>/dev/null || true
+        exec ${lib.getExe pkgs.tmux} new-session -s kiosk -d "${lib.getExe pkgs.btop}" \; \
           set-option -g status off \; \
           set-option -g pane-border-status off \; \
-          split-window -t kiosk "${pkgs.systemd}/bin/journalctl -f -o short-iso -n 50" \; \
+          split-window -t kiosk "${lib.getExe' pkgs.systemd "journalctl"} -f -o short-iso -n 50" \; \
           set-hook -g window-resized 'if-shell -F "#{e|>=:#{window_width},#{e|*:#{window_height},2}}" "select-layout even-horizontal" "select-layout even-vertical"' \; \
           if-shell -F "#{e|>=:#{window_width},#{e|*:#{window_height},2}}" "select-layout -t kiosk even-horizontal" "select-layout -t kiosk even-vertical" \; \
           attach-session -t kiosk
       '';
-      ExecStop = "${pkgs.tmux}/bin/tmux kill-session -t kiosk";
+      ExecStop = "${lib.getExe pkgs.tmux} kill-session -t kiosk";
     };
   };
 

@@ -2,6 +2,12 @@
   lib,
   ...
 }:
+let
+  btrfsMountOptions = [
+    "compress=zstd:1"
+    "noatime"
+  ];
+in
 {
   disko.devices = {
     nodev = {
@@ -48,17 +54,11 @@
                 subvolumes = {
                   "@nix" = {
                     mountpoint = "/nix";
-                    mountOptions = [
-                      "compress=zstd:1"
-                      "noatime"
-                    ];
+                    mountOptions = btrfsMountOptions;
                   };
                   "@persist" = {
                     mountpoint = "/persist";
-                    mountOptions = [
-                      "compress=zstd:1"
-                      "noatime"
-                    ];
+                    mountOptions = btrfsMountOptions;
                   };
                 };
               };
