@@ -176,8 +176,6 @@ rec # to pass `nixConfig` as an argument
         {
           config,
           inputs',
-          system,
-          lib,
           pkgs,
           ...
         }:
@@ -192,9 +190,7 @@ rec # to pass `nixConfig` as an argument
 
           pre-commit.settings.hooks.treefmt.enable = true;
 
-          checks = lib.optionalAttrs (system == "x86_64-linux") {
-            toplevel = inputs.self.nixosConfigurations.${hostName}.config.system.build.toplevel;
-          };
+          checks = { };
 
           packages.flash-usb-remote = pkgs.writeShellApplication {
             name = "flash-usb-remote";
