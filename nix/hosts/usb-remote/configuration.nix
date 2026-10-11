@@ -89,6 +89,7 @@
 
   users.users.${username} = {
     isNormalUser = true;
+    uid = 1000;
     hashedPasswordFile = config.vaultix.secrets.malix_password.path;
     extraGroups = [ "wheel" ];
     openssh.authorizedKeys.keys = config.users.users.root.openssh.authorizedKeys.keys;

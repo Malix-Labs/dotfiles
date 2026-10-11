@@ -211,11 +211,6 @@ rec # to pass `nixConfig` as an argument
             '';
           };
 
-          apps.flash-usb-remote = {
-            type = "app";
-            program = lib.getExe config.packages.flash-usb-remote;
-          };
-
           devShells.default = config.pre-commit.devShell;
         };
 
