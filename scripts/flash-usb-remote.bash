@@ -68,6 +68,7 @@ fi
 
 if [ -d "/mnt/disko-install-root" ] && ! mountpoint -q "/mnt/disko-install-root"; then
   echo "==> Cleaning up stale install root directory..."
+  chattr -R -i "/mnt/disko-install-root" 2>/dev/null || true
   rm -rf "/mnt/disko-install-root"
 fi
 
