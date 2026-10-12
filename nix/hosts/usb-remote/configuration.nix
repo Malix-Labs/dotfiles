@@ -19,6 +19,7 @@
   # Bootloader configured for portable USB (do not alter host motherboard NVRAM)
   boot.loader.systemd-boot.enable = true;
   boot.loader.systemd-boot.configurationLimit = 1;
+  boot.loader.timeout = 1;
 
   # Ensure user/group resolution works if directories need to be created during initial install
   system.activationScripts.createPersistentStorageDirs.deps = [
@@ -76,6 +77,12 @@
   # OpenSSH server with key-only authentication
   services.openssh = {
     enable = true;
+    hostKeys = [
+      {
+        type = "ed25519";
+        path = "/etc/ssh/ssh_host_ed25519_key";
+      }
+    ];
     settings = {
       PasswordAuthentication = false;
     };
@@ -91,6 +98,9 @@
 
   vaultix.secrets.malix_password = {
     file = ./password.age;
+  };
+  vaultix.secrets.tailscale_authkey = {
+    file = ./tailscale_authkey.age;
   };
   vaultix.beforeUserborn = [ "malix_password" ];
 
