@@ -20,8 +20,9 @@ cleanup() {
 trap cleanup EXIT
 
 USER_HOME=$(eval echo "~${SUDO_USER:-$USER}")
+DOTFILES_DIR="${DOTFILES_DIR:-$(git rev-parse --show-toplevel 2>/dev/null || echo "$USER_HOME/Repositories/Malix-Labs/dotfiles")}"
 MASTER_KEY="${MASTER_KEY:-$USER_HOME/.ssh/master}"
-SECRET_KEY_FILE="./nix/hosts/$USB_HOSTNAME/secrets/ssh_host_ed25519_key.age"
+SECRET_KEY_FILE="$DOTFILES_DIR/nix/hosts/$USB_HOSTNAME/secrets/ssh_host_ed25519_key.age"
 
 mkdir -p "$SEED_DIR/persist/etc/ssh"
 
@@ -63,7 +64,7 @@ if [ ! -f "$SEED_DIR/persist/etc/ssh/ssh_host_ed25519_key" ]; then
 fi
 
 echo "==> Partitioning and installing $USB_HOSTNAME onto $DISK..."
-disko-install --flake ".#$USB_HOSTNAME" --disk main "$DISK" --extra-files "$SEED_DIR" /
+disko-install --flake "$DOTFILES_DIR#$USB_HOSTNAME" --disk main "$DISK" --extra-files "$SEED_DIR" /
 
 sync
 echo "==> Installation complete! $DISK is ready to boot."
