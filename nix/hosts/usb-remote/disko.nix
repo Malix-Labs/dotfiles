@@ -49,7 +49,7 @@ in
                   "-m"
                   "single"
                   "-L"
-                  "USB Malix Rem 1"
+                  "usb-remote"
                 ];
                 subvolumes = {
                   "@nix" = {

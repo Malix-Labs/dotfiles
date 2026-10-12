@@ -20,6 +20,13 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.systemd-boot.configurationLimit = 1;
 
+  # Ensure user/group resolution works if directories need to be created during initial install
+  system.activationScripts.createPersistentStorageDirs.deps = [
+    "etc"
+    "users"
+    "groups"
+  ];
+
   # Automatic reboot after 10s on kernel panic (avoids indefinite freeze on headless machines)
   boot.kernelParams = [ "panic=10" ];
 

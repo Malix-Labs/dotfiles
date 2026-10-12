@@ -24,7 +24,10 @@ DOTFILES_DIR="${DOTFILES_DIR:-$(git rev-parse --show-toplevel 2>/dev/null || ech
 MASTER_KEY="${MASTER_KEY:-$USER_HOME/.ssh/master}"
 SECRET_KEY_FILE="$DOTFILES_DIR/nix/hosts/$USB_HOSTNAME/secrets/ssh_host_ed25519_key.age"
 
-mkdir -p "$SEED_DIR/persist/etc/ssh"
+mkdir -p "$SEED_DIR/persist/etc/ssh" \
+         "$SEED_DIR/persist/var/log/journal" \
+         "$SEED_DIR/persist/var/lib/tailscale" \
+         "$SEED_DIR/persist/var/lib/iwd"
 
 if [ -f "$SECRET_KEY_FILE" ]; then
   echo "==> Decrypting host private key from $SECRET_KEY_FILE using $MASTER_KEY..."
@@ -63,8 +66,13 @@ if [ ! -f "$SEED_DIR/persist/etc/ssh/ssh_host_ed25519_key" ]; then
   exit 1
 fi
 
+if [ -d "/mnt/disko-install-root" ] && ! mountpoint -q "/mnt/disko-install-root"; then
+  echo "==> Cleaning up stale install root directory..."
+  rm -rf "/mnt/disko-install-root"
+fi
+
 echo "==> Partitioning and installing $USB_HOSTNAME onto $DISK..."
-disko-install --flake "$DOTFILES_DIR#$USB_HOSTNAME" --disk main "$DISK" --extra-files "$SEED_DIR" /
+disko-install --flake "$DOTFILES_DIR#$USB_HOSTNAME" --disk main "$DISK" --extra-files "$SEED_DIR/persist" /
 
 sync
 echo "==> Installation complete! $DISK is ready to boot."
