@@ -10,7 +10,7 @@ runs:
     - name: "nix-fast-build"
       shell: bash
       run: |
-        nix run github:Malix-Labs/nix-fast-build/passthrough -- \
+        nix run github:Malix-Labs/nix-fast-build/test-shallow-cache-status-ci -- \
           --flake . \
           --select '(builtins.getFlake "github:Malix-Labs/Nix_Schemas-Evaluator").lib.select { }' \
           --skip-cached \
