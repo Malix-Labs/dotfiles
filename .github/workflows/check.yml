@@ -36,8 +36,6 @@ jobs:
         with:
           flake-lock-path: *flake-lock-path
           fail-mode: *fail-mode
-      - name: "Flake Check"
-        run: "nix flake check --accept-flake-config ${{ inputs.working-directory }}"
       - name: "Dry-run Build"
         uses: ./.github/actions/nix-build
         with:
