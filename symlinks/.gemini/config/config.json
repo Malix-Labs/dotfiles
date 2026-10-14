@@ -69,7 +69,18 @@
         "command(git fixpush)",
         "command(git ls-files)",
         "unsandboxed(git diff)",
-        "unsandboxed(git status)"
+        "unsandboxed(git status)",
+        "unsandboxed(git log)",
+        "unsandboxed(head)",
+        "unsandboxed(git show)",
+        "unsandboxed(grep)",
+        "unsandboxed(git fetch)",
+        "unsandboxed(wc)",
+        "unsandboxed(cat)",
+        "unsandboxed(git add)",
+        "unsandboxed(ls)",
+        "unsandboxed(ps)",
+        "unsandboxed(echo)"
       ]
     },
     "nonWorkspaceFileAccessPolicy": "AGENT_SETTING_POLICY_ASK",

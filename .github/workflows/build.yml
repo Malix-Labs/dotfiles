@@ -13,5 +13,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - uses: Malix-Labs/dotfiles/.github/actions/nix-setup@main
-      - uses: Malix-Labs/dotfiles/.github/actions/nix-build@main
+      - uses: ./.github/actions/nix-setup
+      - uses: ./.github/actions/nix-build
