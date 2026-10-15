@@ -195,7 +195,7 @@
     backupFileExtension = "bak";
   };
 
-  vaultix.settings.hostPubkey = ssh.keys.hosts.${hostName};
+  vaultix.settings.hostPubkey = ssh.hosts.${hostName};
 
   services.openssh = {
     enable = true;
@@ -209,14 +209,14 @@
     isSystemUser = true;
     group = "nogroup";
     openssh.authorizedKeys.keys = [
-      "command=\"nix-daemon --stdio\",no-port-forwarding,no-X11-forwarding,no-agent-forwarding,no-pty ${ssh.keys.hosts.${usbHostName}}"
+      "command=\"nix-daemon --stdio\",no-port-forwarding,no-X11-forwarding,no-agent-forwarding,no-pty ${ssh.hosts.${usbHostName}}"
     ];
   };
 
   users.users.${username} = {
     isNormalUser = true;
     description = "Malix";
-    openssh.authorizedKeys.keys = [ ssh.keys.master ];
+    openssh.authorizedKeys.keys = [ ssh.identities.master ];
     extraGroups = [
       "networkmanager"
       "wheel"
