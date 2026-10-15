@@ -116,11 +116,17 @@ rec # to pass `nixConfig` as an argument
     extra-substituters = [
       "https://nix-community.cachix.org/"
 
+      "https://install.determinate.systems"
+      "https://cache.flakehub.com"
+
       "https://attic.xuyh0120.win/lantian"
       "https://nix-cache.tokidoki.dev/tokidoki"
     ];
     extra-trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+
+      "cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM="
+      "cache.flakehub.com-4:Asi8qIv291s0aYLyH6IOnr5Kf6+OF14WVjkE6t3xMio="
 
       "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
       "tokidoki:MD4VWt3kK8Fmz3jkiGoNRJIW31/QAm7l1Dcgz2Xa4hk="
@@ -140,14 +146,14 @@ rec # to pass `nixConfig` as an argument
 
       ssh = {
         dir = ".ssh";
-        keys = {
+        identities = {
           master = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFEbJzrHvhXgm5jvL4clxiKcGSWt076D+kPZt+a+ZcRQ Malix - Alix Brunet";
-          hosts = {
-            ${hostName} =
-              "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOm09W/QGDr5r1H/PymZ9GkO4R44eKxjRXy7HKLBc4AM root@malix-legion-nixos";
-            ${usbHostName} =
-              "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFt75zBTjGYGtQVq+1FPVgQTzLUphihmah18Lm5iIFwX root@usb-remote";
-          };
+        };
+        hosts = {
+          ${hostName} =
+            "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOm09W/QGDr5r1H/PymZ9GkO4R44eKxjRXy7HKLBc4AM root@malix-legion-nixos";
+          ${usbHostName} =
+            "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFt75zBTjGYGtQVq+1FPVgQTzLUphihmah18Lm5iIFwX root@usb-remote";
         };
       };
 
@@ -200,7 +206,7 @@ rec # to pass `nixConfig` as an argument
             ];
             text = ''
               USB_HOSTNAME="''${USB_HOSTNAME:-${usbHostName}}" \
-              MASTER_KEY_PUB="''${MASTER_KEY_PUB:-${ssh.keys.master}}" \
+              MASTER_KEY_PUB="''${MASTER_KEY_PUB:-${ssh.identities.master}}" \
               exec ${./scripts/flash-usb-remote.bash} "$@"
             '';
           };
