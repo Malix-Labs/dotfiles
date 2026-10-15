@@ -116,6 +116,8 @@ rec # to pass `nixConfig` as an argument
     extra-substituters = [
       "https://nix-community.cachix.org/"
 
+      "https://install.determinate.systems"
+
       "https://attic.xuyh0120.win/lantian"
       "https://nix-cache.tokidoki.dev/tokidoki"
     ];
