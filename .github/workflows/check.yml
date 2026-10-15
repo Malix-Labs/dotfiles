@@ -37,7 +37,9 @@ jobs:
           flake-lock-path: *flake-lock-path
           fail-mode: *fail-mode
       - name: "Flake Check"
-        run: "nix flake check --accept-flake-config ${{ inputs.working-directory }}"
+        env:
+          WORKING_DIR: ${{ inputs.working-directory }}
+        run: nix flake check --accept-flake-config "$WORKING_DIR"
       - name: "Dry-run Build"
         uses: Malix-Labs/dotfiles/.github/actions/nix-build@main
         with:
