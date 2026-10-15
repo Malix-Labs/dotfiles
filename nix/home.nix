@@ -266,7 +266,7 @@ in
       enableDefaultConfig = false;
       settings."*" = {
         AddKeysToAgent = "yes";
-        IdentityFile = ssh.keys |> lib.attrNames |> map (name: "${sshDir}/${name}");
+        IdentityFile = ssh.identities |> lib.attrNames |> map (name: "${sshDir}/${name}");
         IdentitiesOnly = "yes";
 
         ControlMaster = "auto";
