@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - uses: Malix-Labs/dotfiles/.github/actions/nix-setup@main
+      - uses: ./.github/actions/nix-setup
       - name: &flake-checker-name "Flake Checker"
         if: inputs.nixpkgs-keys != '' || github.repository == 'Malix-Labs/dotfiles'
         uses: &flake-checker-action DeterminateSystems/flake-checker-action@v14
