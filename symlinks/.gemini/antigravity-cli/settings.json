@@ -37,6 +37,7 @@
     "/home/malix/Repositories/nix-community/nixdoc",
     "/home/malix/Repositories/flox/flox",
     "/home/malix/Repositories/flox/worktrees/flox/quiet-raven/flox",
-    "/home/malix/Repositories/Malix-Labs/Nix_Schemas-Evaluator"
+    "/home/malix/Repositories/Malix-Labs/Nix_Schemas-Evaluator",
+    "/home/malix/Repositories/maralorn/nix-output-monitor"
   ]
 }
