@@ -37,9 +37,10 @@ jobs:
 
       - name: Get Dispatch User Info
         id: dispatch-user
-        run: gh api "/users/${{ github.actor }}" --jq '"author=" + (.name // .login) + " <" + (.email // (.id|tostring + "+" + .login + "@users.noreply.github.com")) + ">"' >> "$GITHUB_OUTPUT"
+        run: gh api "/users/$ACTOR" --jq '"author=" + (.name // .login) + " <" + (.email // (.id|tostring + "+" + .login + "@users.noreply.github.com")) + ">"' >> "$GITHUB_OUTPUT"
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          ACTOR: ${{ github.actor }}
 
       - uses: actions/checkout@v7
       - uses: ./.github/actions/nix-setup

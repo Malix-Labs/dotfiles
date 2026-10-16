@@ -19,7 +19,7 @@ cleanup() {
 }
 trap cleanup EXIT
 
-USER_HOME=$(eval echo "~${SUDO_USER:-$USER}")
+USER_HOME=$(getent passwd "${SUDO_USER:-$USER}" | cut -d: -f6)
 DOTFILES_DIR="${DOTFILES_DIR:-$(git rev-parse --show-toplevel 2>/dev/null || echo "$USER_HOME/Repositories/Malix-Labs/dotfiles")}"
 MASTER_KEY="${MASTER_KEY:-$USER_HOME/.ssh/master}"
 SECRET_KEY_FILE="$DOTFILES_DIR/nix/hosts/$USB_HOSTNAME/secrets/ssh_host_ed25519_key.age"
