@@ -1,9 +1,16 @@
 name: "Nix Setup"
 description: "Sets up Nix and Nix-taylored GitHub Caching"
+inputs:
+  reclaim:
+    description: "Whether to run disk space reclamation (Malix-Labs/GitHub-Action_Nix-Reclaim)"
+    type: boolean # Future compatibility: action metadata syntax does not support types yet (forced to string, see https://docs.github.com/en/actions/sharing-automations/creating-actions/metadata-syntax-for-github-actions#inputs)
+    default: false
+
 runs:
   using: composite
   steps:
-    - uses: Malix-Labs/GitHub-Action_Nix-Reclaim@v2.0.0
+    - if: ${{ fromJSON(inputs.reclaim) }}
+      uses: Malix-Labs/GitHub-Action_Nix-Reclaim@v2.0.0
     - uses: DeterminateSystems/nix-installer-action@v22
     - uses: DeterminateSystems/magic-nix-cache-action@v14
       with:
