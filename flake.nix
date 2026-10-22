@@ -62,6 +62,11 @@ rec # to pass `nixConfig` as an argument
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
+    schemas-evaluator = {
+      url = "github:Malix-Labs/Nix_Schemas-Evaluator";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
     systems.url = "github:nix-systems/default";
 
     flake-parts = {
