@@ -12,12 +12,11 @@ runs:
       run: |
         nix run github:Malix-Labs/nix-fast-build/malix -- \
           --flake . \
-          --select '(builtins.getFlake "github:Malix-Labs/Nix_Schemas-Evaluator").lib.select { }' \
+          --select 'flake: (flake.inputs.schemas-evaluator.lib.select { }) flake.outputs' \
           --skip-cached \
           --no-nom \
           --debug \
           --eval-workers 2 \
-          --impure \
           --option show-trace true \
           --option accept-flake-config true \
           ${{ inputs.dry_run == 'true' && '--dry-run' || '' }}
