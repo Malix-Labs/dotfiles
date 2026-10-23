@@ -12,7 +12,8 @@ runs:
       run: |
         nix run github:Malix-Labs/nix-fast-build/malix -- \
           --flake . \
-          --select 'flake: (flake.inputs.schemas-evaluator.lib.select { }) flake.outputs' \
+          --select '${{ github.repository == 'Malix-Labs/dotfiles' && 'flake: (flake.inputs.schemas-evaluator.lib.select { }) flake.outputs' || format('(builtins.getFlake "path:{0}/../../..").inputs.schemas-evaluator.lib.select {{ }}', github.action_path) }}' \
+          ${{ github.repository != 'Malix-Labs/dotfiles' && '--impure' || '' }} \
           --skip-cached \
           --no-nom \
           --debug \
