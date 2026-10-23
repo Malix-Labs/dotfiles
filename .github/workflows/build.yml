@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - uses: ./.github/actions/nix-setup
+      - uses: Malix-Labs/dotfiles/.github/actions/nix-setup@main
         with:
           reclaim: true
-      - uses: ./.github/actions/nix-build
+      - uses: Malix-Labs/dotfiles/.github/actions/nix-build@main
