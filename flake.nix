@@ -123,7 +123,7 @@ rec # to pass `nixConfig` as an argument
 
       "https://install.determinate.systems"
 
-      "https://attic.xuyh0120.win/lantian"
+      "https://cache.lantian.pub/lantian"
       "https://nix-cache.tokidoki.dev/tokidoki"
     ];
     extra-trusted-public-keys = [
@@ -132,7 +132,7 @@ rec # to pass `nixConfig` as an argument
       "cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM="
       "cache.flakehub.com-4:Asi8qIv291s0aYLyH6IOnr5Kf6+OF14WVjkE6t3xMio="
 
-      "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
+      "lantian:WVGO7vsRMSEN+h7Lp7kv6SAmrkEXgUGbbXm7jMDjBuQ="
       "tokidoki:MD4VWt3kK8Fmz3jkiGoNRJIW31/QAm7l1Dcgz2Xa4hk="
     ];
   };
