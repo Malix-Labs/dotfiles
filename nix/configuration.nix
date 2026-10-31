@@ -61,7 +61,6 @@
 
       bootCounting.initialTries = 3;
     };
-    tmp.useTmpfs = true;
     kernel.sysctl."vm.swappiness" = 100;
     supportedFilesystems.exfat = true;
   };
@@ -72,14 +71,6 @@
   };
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1"; # https://wiki.nixos.org/wiki/Wayland#Electron_and_Chromium ; also see https://github.com/NixOS/nixpkgs/issues/291051
-
-  time.timeZone = "Europe/Paris";
-  i18n = {
-    defaultLocale = "fr_CH.UTF-8";
-    extraLocaleSettings.LANGUAGE = "en:C:fr";
-  };
-
-  console.keyMap = "fr";
 
   services = {
 
@@ -128,15 +119,12 @@
 
   programs = {
     nh = {
-      enable = true;
       flake = "${config.users.users.${username}.home}/${dotfilesDirectory}";
       clean = {
-        enable = true;
         dates = "daily";
         extraArgs = "--keep-since 2w --keep 10 --optimise";
       };
     };
-    git.enable = true;
     nix-ld.enable = true;
     partition-manager.enable = true;
     kdeconnect.enable = true;
@@ -204,16 +192,10 @@
     ];
   };
 
-  users.users.${username} = {
-    isNormalUser = true;
-    description = "Malix";
-    openssh.authorizedKeys.keys = [ ssh.identities.master ];
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-      "podman"
-    ];
-  };
+  users.users.${username}.extraGroups = [
+    "networkmanager"
+    "podman"
+  ];
 
   system.stateVersion = "24.11"; # NEVER MUTATE
 }

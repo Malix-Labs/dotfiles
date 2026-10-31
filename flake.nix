@@ -228,7 +228,6 @@ rec # to pass `nixConfig` as an argument
         nixosConfigurations.${hostName} = nixpkgs-chosen.lib.nixosSystem {
           inherit specialArgs;
           modules = [
-            inputs.vaultix.nixosModules.vaultix
             inputs.determinate.nixosModules.default
 
             inputs.lanzaboote.nixosModules.lanzaboote
@@ -240,7 +239,6 @@ rec # to pass `nixConfig` as an argument
             inputs.nixos-hardware.nixosModules.lenovo-legion-15ach6h-hybrid # https://github.com/NixOS/nixos-hardware/tree/master/lenovo/legion/15ach6h
             inputs.nixos-winpe.nixosModules.lenovo-legion-15ach6h
             ./nix/nixos-hardware-override.nix
-            inputs.disko.nixosModules.disko
             ./nix/disko.nix
 
             inputs.home-manager.nixosModules.default
@@ -252,9 +250,7 @@ rec # to pass `nixConfig` as an argument
           inherit specialArgs;
           modules = [
             ./nix/base.nix
-            inputs.vaultix.nixosModules.vaultix
             inputs.impermanence.nixosModules.default
-            inputs.disko.nixosModules.disko
             ./nix/hosts/${usbHostName}/disko.nix
             ./nix/hosts/${usbHostName}/configuration.nix
           ];

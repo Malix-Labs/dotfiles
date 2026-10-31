@@ -6,7 +6,6 @@
   hostName,
   usbHostName,
   self,
-  ssh,
   ...
 }:
 {
@@ -86,8 +85,6 @@
     HandleLidSwitchExternalPower = "ignore";
   };
 
-  users.users.root.openssh.authorizedKeys.keys = [ ssh.identities.master ];
-
   vaultix.secrets.malix_password = {
     file = ./password.age;
   };
@@ -96,13 +93,7 @@
   };
   vaultix.beforeUserborn = [ "malix_password" ];
 
-  users.users.${username} = {
-    isNormalUser = true;
-    uid = 1000;
-    hashedPasswordFile = config.vaultix.secrets.malix_password.path;
-    extraGroups = [ "wheel" ];
-    openssh.authorizedKeys.keys = config.users.users.root.openssh.authorizedKeys.keys;
-  };
+  users.users.${username}.hashedPasswordFile = config.vaultix.secrets.malix_password.path;
 
   security.sudo.wheelNeedsPassword = false;
 
@@ -146,10 +137,8 @@
 
   # Lightweight nh with stripped binary (drops ~76MB Haskell nom), retaining last 3 generations
   programs.nh = {
-    enable = true;
     package = pkgs.nh-unwrapped;
     clean = {
-      enable = true;
       extraArgs = "--keep 3";
       dates = "weekly";
     };

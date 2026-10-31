@@ -7,6 +7,9 @@
   nixpkgs-stable,
   nixConfig,
   ssh,
+  username,
+  vaultix,
+  disko,
   ...
 }:
 let
@@ -37,10 +40,31 @@ let
     );
 in
 {
+  imports = [
+    vaultix.nixosModules.vaultix
+    disko.nixosModules.disko
+  ];
+
   _module.args = extraPkgs;
 
   services.userborn.enable = lib.mkDefault true;
   zramSwap.enable = lib.mkDefault true;
+
+  boot.tmp.useTmpfs = lib.mkDefault true;
+
+  time.timeZone = lib.mkDefault "Europe/Paris";
+  i18n = {
+    defaultLocale = lib.mkDefault "fr_CH.UTF-8";
+    extraLocaleSettings.LANGUAGE = lib.mkDefault "en:C:fr";
+  };
+  console.keyMap = lib.mkDefault "fr";
+
+  programs.git.enable = lib.mkDefault true;
+
+  programs.nh = {
+    enable = lib.mkDefault true;
+    clean.enable = lib.mkDefault true;
+  };
 
   services.openssh = {
     enable = lib.mkDefault true;
@@ -51,6 +75,16 @@ in
   };
 
   vaultix.settings.hostPubkey = lib.mkDefault ssh.hosts.${config.networking.hostName};
+
+  users.users.root.openssh.authorizedKeys.keys = [ ssh.identities.master ];
+
+  users.users.${username} = {
+    isNormalUser = true;
+    uid = 1000;
+    description = "Malix";
+    extraGroups = [ "wheel" ];
+    openssh.authorizedKeys.keys = [ ssh.identities.master ];
+  };
 
   nix = {
     daemonCPUSchedPolicy = lib.mkDefault "batch";
