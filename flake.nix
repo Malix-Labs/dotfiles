@@ -244,7 +244,7 @@ rec # to pass `nixConfig` as an argument
             ./nix/disko.nix
 
             inputs.home-manager.nixosModules.default
-            { home-manager.extraSpecialArgs = specialArgs; }
+            ./nix/base-hm.nix
           ];
         };
 

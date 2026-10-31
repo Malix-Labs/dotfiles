@@ -3,8 +3,6 @@
   lib,
 
   pkgs,
-  pkgs-unstable,
-  pkgs-stable,
 
   username,
   hostName,
@@ -196,15 +194,7 @@
     waydroid.enable = true;
   };
 
-  home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages = true;
-    users.${username} = ./home.nix;
-    backupFileExtension = "bak";
-    extraSpecialArgs = {
-      inherit pkgs-unstable pkgs-stable;
-    };
-  };
+  home-manager.users.${username} = ./home.nix;
 
   users.users.nix-builder = {
     isSystemUser = true;
