@@ -7,13 +7,11 @@
   usbHostName,
   self,
   ssh,
-  nixConfig,
   ...
 }:
 {
   networking.hostName = usbHostName;
   nixpkgs.hostPlatform = "x86_64-linux";
-  services.userborn.enable = true;
   users.mutableUsers = false;
 
   # Bootloader configured for portable USB (do not alter host motherboard NVRAM)
@@ -74,19 +72,13 @@
     SystemMaxFileSize = "50M";
   };
 
-  # OpenSSH server with key-only authentication
-  services.openssh = {
-    enable = true;
-    hostKeys = [
-      {
-        type = "ed25519";
-        path = "/etc/ssh/ssh_host_ed25519_key";
-      }
-    ];
-    settings = {
-      PasswordAuthentication = false;
-    };
-  };
+  # OpenSSH server with host key configured on /persist
+  services.openssh.hostKeys = [
+    {
+      type = "ed25519";
+      path = "/etc/ssh/ssh_host_ed25519_key";
+    }
+  ];
 
   # Headless power policy: prevent laptop suspend on lid close
   services.logind.settings.Login = {
@@ -126,13 +118,9 @@
     ) config.vaultix.secrets.tailscale_authkey.path;
   };
 
-  # Vaultix: decrypt secrets using usb-remote's SSH host key
-  vaultix.settings.hostPubkey = ssh.hosts.${config.networking.hostName};
-
-  # Storage constraints: auto-deduplication, reactive GC via min-free/max-free, zram swap
+  # Storage constraints: reactive GC via min-free/max-free
   nix = {
-    settings = nixConfig // {
-      auto-optimise-store = true;
+    settings = {
       # Reactive on-demand GC: only triggers during nix commands when space is low
       min-free = 256 * 1024 * 1024; # 256 MiB: trigger GC if free space drops below this
       max-free = 1024 * 1024 * 1024; # 1 GiB: delete dead paths until 1 GiB is free
@@ -155,8 +143,6 @@
       }
     ];
   };
-
-  zramSwap.enable = true;
 
   # Lightweight nh with stripped binary (drops ~76MB Haskell nom), retaining last 3 generations
   programs.nh = {

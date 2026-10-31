@@ -251,6 +251,7 @@ rec # to pass `nixConfig` as an argument
         nixosConfigurations.${usbHostName} = nixpkgs-chosen.lib.nixosSystem {
           inherit specialArgs;
           modules = [
+            ./nix/base.nix
             inputs.vaultix.nixosModules.vaultix
             inputs.impermanence.nixosModules.default
             inputs.disko.nixosModules.disko

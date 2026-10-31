@@ -1,10 +1,12 @@
 {
+  config,
   pkgs,
   lib,
   nixpkgs-chosen,
   nixpkgs-unstable,
   nixpkgs-stable,
   nixConfig,
+  ssh,
   ...
 }:
 let
@@ -36,7 +38,19 @@ let
 in
 {
   _module.args = extraPkgs;
-  home-manager.extraSpecialArgs = extraPkgs;
+
+  services.userborn.enable = lib.mkDefault true;
+  zramSwap.enable = lib.mkDefault true;
+
+  services.openssh = {
+    enable = lib.mkDefault true;
+    settings = {
+      PasswordAuthentication = lib.mkDefault false;
+      KbdInteractiveAuthentication = lib.mkDefault false;
+    };
+  };
+
+  vaultix.settings.hostPubkey = lib.mkDefault ssh.hosts.${config.networking.hostName};
 
   nix = {
     daemonCPUSchedPolicy = lib.mkDefault "batch";

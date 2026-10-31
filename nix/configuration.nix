@@ -3,6 +3,8 @@
   lib,
 
   pkgs,
+  pkgs-unstable,
+  pkgs-stable,
 
   username,
   hostName,
@@ -66,8 +68,6 @@
     supportedFilesystems.exfat = true;
   };
 
-  zramSwap.enable = true;
-
   networking = {
     inherit hostName;
     networkmanager.enable = true;
@@ -120,7 +120,6 @@
       extraSetFlags = [ "--operator=${username}" ];
     };
 
-    userborn.enable = true;
   };
 
   hardware.bluetooth.enable = true;
@@ -202,15 +201,8 @@
     useUserPackages = true;
     users.${username} = ./home.nix;
     backupFileExtension = "bak";
-  };
-
-  vaultix.settings.hostPubkey = ssh.hosts.${hostName};
-
-  services.openssh = {
-    enable = true;
-    settings = {
-      PasswordAuthentication = false;
-      KbdInteractiveAuthentication = false;
+    extraSpecialArgs = {
+      inherit pkgs-unstable pkgs-stable;
     };
   };
 
