@@ -130,6 +130,15 @@
   hardware.winpe.autoBootOnUpdate = false;
 
   programs = {
+    nh = {
+      enable = true;
+      flake = "${config.users.users.${username}.home}/${dotfilesDirectory}";
+      clean = {
+        enable = true;
+        dates = "daily";
+        extraArgs = "--keep-since 2w --keep 10 --optimise";
+      };
+    };
     git.enable = true;
     nix-ld.enable = true;
     partition-manager.enable = true;

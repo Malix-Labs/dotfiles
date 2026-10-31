@@ -78,16 +78,6 @@ in
       };
     };
 
-    nh = {
-      enable = true;
-      clean = {
-        enable = true;
-        extraArgs = "--keep-since 2w --keep 10 --optimise";
-        dates = "daily";
-      };
-      flake = "${config.home.homeDirectory}/${dotfilesDirectory}";
-    };
-
     nix-index = {
       enable = true;
       package = nix-index-database.packages.${pkgs.stdenv.hostPlatform.system}.nix-index-with-small-db;
