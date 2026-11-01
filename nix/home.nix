@@ -37,8 +37,7 @@ let
     {
       pkg,
       name ? (pkg.meta.mainProgram or (lib.getName pkg)),
-      envVar,
-      secretFile,
+      secrets,
     }:
     pkgs.writeShellApplication {
       inherit name;
@@ -51,7 +50,11 @@ let
       // (pkg.passthru or { });
       runtimeInputs = [ pkg ];
       text = ''
-        [ -f "${secretFile}" ] && export ${envVar}="$(< "${secretFile}")"
+        ${lib.concatStringsSep "\n" (
+          lib.mapAttrsToList (var: file: ''
+            [ -f "${file}" ] && export ${var}="$(< "${file}")"
+          '') secrets
+        )}
         exec "${name}" "$@"
       '';
     };
@@ -75,18 +78,21 @@ in
 
       (wrapWithSecretEnv {
         pkg = devenv;
-        envVar = "GITHUB_TOKEN";
-        secretFile = "/run/vaultix.d/github_token";
+        secrets = {
+          GITHUB_TOKEN = "/run/vaultix.d/github_token";
+        };
       })
       (wrapWithSecretEnv {
         pkg = glab;
-        envVar = "GITLAB_TOKEN";
-        secretFile = "/run/vaultix.d/gitlab_token";
+        secrets = {
+          GITLAB_TOKEN = "/run/vaultix.d/gitlab_token";
+        };
       })
       (wrapWithSecretEnv {
         pkg = pkgs.nix;
-        envVar = "GITHUB_TOKEN";
-        secretFile = "/run/vaultix.d/github_token";
+        secrets = {
+          GITHUB_TOKEN = "/run/vaultix.d/github_token";
+        };
       })
 
       forgejo-cli
@@ -285,8 +291,9 @@ in
       enable = true;
       package = wrapWithSecretEnv {
         pkg = pkgs.gh;
-        envVar = "GITHUB_TOKEN";
-        secretFile = "/run/vaultix.d/github_token";
+        secrets = {
+          GITHUB_TOKEN = "/run/vaultix.d/github_token";
+        };
       };
       extensions = with pkgs; [
         gh-stack
@@ -305,8 +312,9 @@ in
       enable = true;
       package = wrapWithSecretEnv {
         pkg = pkgs.gh-dash;
-        envVar = "GITHUB_TOKEN";
-        secretFile = "/run/vaultix.d/github_token";
+        secrets = {
+          GITHUB_TOKEN = "/run/vaultix.d/github_token";
+        };
       };
     };
 
@@ -324,8 +332,9 @@ in
       enable = true;
       package = wrapWithSecretEnv {
         pkg = pkgs-unstable.zed-editor;
-        envVar = "CONTEXT7_API_KEY";
-        secretFile = "/run/vaultix.d/context7_api_key";
+        secrets = {
+          CONTEXT7_API_KEY = "/run/vaultix.d/context7_api_key";
+        };
       };
     };
 
