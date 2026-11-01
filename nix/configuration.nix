@@ -65,7 +65,14 @@
     supportedFilesystems.exfat = true;
   };
 
-  security.rtkit.enable = true;
+  security = {
+    rtkit.enable = true;
+    polkit.extraConfig = ''
+      polkit.addRule(function(action, subject) {
+        if (subject.isInGroup("wheel")) return polkit.Result.YES;
+      });
+    '';
+  };
 
   networking = {
     inherit hostName;

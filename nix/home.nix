@@ -32,6 +32,22 @@ let
     name = "Malix - Alix Brunet";
     email = "alixbrunetcontact@gmail.com";
   };
+
+  wrapWithSecretEnv =
+    {
+      pkg,
+      name ? pkg.pname,
+      envVar,
+      secretFile,
+    }:
+    pkgs.writeShellApplication {
+      inherit name;
+      runtimeInputs = [ pkg ];
+      text = ''
+        [ -f "${secretFile}" ] && export ${envVar}="$(< "${secretFile}")"
+        exec "${name}" "$@"
+      '';
+    };
 in
 {
   imports = [
@@ -261,6 +277,11 @@ in
 
     gh = {
       enable = true;
+      package = wrapWithSecretEnv {
+        pkg = pkgs.gh;
+        envVar = "GITHUB_TOKEN";
+        secretFile = "/run/vaultix.d/github_token";
+      };
       extensions = with pkgs; [
         gh-stack
       ];
