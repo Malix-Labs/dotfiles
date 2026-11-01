@@ -58,6 +58,14 @@ let
         exec "${name}" "$@"
       '';
     };
+
+  secretPath = name: "/run/vaultix.d/${name}";
+  withGithubToken =
+    pkg:
+    wrapWithSecretEnv {
+      inherit pkg;
+      secrets.GITHUB_TOKEN = secretPath "github_token";
+    };
 in
 {
   imports = [
@@ -76,24 +84,12 @@ in
       gitkraken
       simplex-chat-desktop
 
-      (wrapWithSecretEnv {
-        pkg = devenv;
-        secrets = {
-          GITHUB_TOKEN = "/run/vaultix.d/github_token";
-        };
-      })
+      (withGithubToken devenv)
       (wrapWithSecretEnv {
         pkg = glab;
-        secrets = {
-          GITLAB_TOKEN = "/run/vaultix.d/gitlab_token";
-        };
+        secrets.GITLAB_TOKEN = secretPath "gitlab_token";
       })
-      (wrapWithSecretEnv {
-        pkg = pkgs.nix;
-        secrets = {
-          GITHUB_TOKEN = "/run/vaultix.d/github_token";
-        };
-      })
+      (withGithubToken pkgs.nix)
 
       forgejo-cli
       tea
@@ -289,12 +285,7 @@ in
 
     gh = {
       enable = true;
-      package = wrapWithSecretEnv {
-        pkg = pkgs.gh;
-        secrets = {
-          GITHUB_TOKEN = "/run/vaultix.d/github_token";
-        };
-      };
+      package = withGithubToken pkgs.gh;
       extensions = with pkgs; [
         gh-stack
       ];
@@ -310,12 +301,7 @@ in
 
     gh-dash = {
       enable = true;
-      package = wrapWithSecretEnv {
-        pkg = pkgs.gh-dash;
-        secrets = {
-          GITHUB_TOKEN = "/run/vaultix.d/github_token";
-        };
-      };
+      package = withGithubToken pkgs.gh-dash;
     };
 
     helix = {
@@ -332,9 +318,7 @@ in
       enable = true;
       package = wrapWithSecretEnv {
         pkg = pkgs-unstable.zed-editor;
-        secrets = {
-          CONTEXT7_API_KEY = "/run/vaultix.d/context7_api_key";
-        };
+        secrets.CONTEXT7_API_KEY = secretPath "context7_api_key";
       };
     };
 
