@@ -125,6 +125,7 @@
         extraArgs = "--keep-since 2w --keep 10 --optimise";
       };
     };
+    ssh.enableAskPassword = true;
     nix-ld.enable = true;
     partition-manager.enable = true;
     kdeconnect.enable = true;

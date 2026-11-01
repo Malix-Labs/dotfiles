@@ -347,4 +347,25 @@ in
       };
     };
   };
+
+  systemd.user.services.ssh-add-master = {
+    Unit = {
+      Description = "Load master SSH key into ssh-agent via KWallet";
+      After = [
+        "graphical-session.target"
+        "ssh-agent.service"
+      ];
+      PartOf = [ "graphical-session.target" ];
+    };
+    Service = {
+      Type = "oneshot";
+      Environment = [
+        "SSH_ASKPASS=${pkgs.kdePackages.ksshaskpass}/bin/ksshaskpass"
+        "SSH_ASKPASS_REQUIRE=prefer"
+      ];
+      ExecStart = "${pkgs.openssh}/bin/ssh-add -q ${sshDir}/master";
+      RemainAfterExit = true;
+    };
+    Install.WantedBy = [ "graphical-session.target" ];
+  };
 }
