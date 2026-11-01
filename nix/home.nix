@@ -67,7 +67,11 @@ in
       simplex-chat-desktop
 
       devenv
-      glab
+      (wrapWithSecretEnv {
+        pkg = glab;
+        envVar = "GITLAB_TOKEN";
+        secretFile = "/run/vaultix.d/gitlab_token";
+      })
       forgejo-cli
       tea
 
