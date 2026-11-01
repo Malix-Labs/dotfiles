@@ -153,6 +153,7 @@
   environment = {
     systemPackages = with pkgs; [
       sbctl
+      age-plugin-tpm
 
       ghostty
 
