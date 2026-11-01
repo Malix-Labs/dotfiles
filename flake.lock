@@ -871,11 +871,11 @@
         "systems": "systems_4"
       },
       "locked": {
-        "lastModified": 1791038208,
-        "narHash": "sha256-ja7b/LZ4tdvFgK7YlXr2U0gwU/IJbT7Zb0Rw640JqjU=",
+        "lastModified": 1792960843,
+        "narHash": "sha256-TdDQ92zKfEguy8dsZtMNdf9/t6ZBpFanZwSYJCGEfRA=",
         "owner": "Malix-Labs",
         "repo": "NixOS_WinPE",
-        "rev": "a298376b4ec7873c9f58b2240bb7c541e57b5626",
+        "rev": "3a58c7a5e270e1cbc812302af31f4e7eae9ef699",
         "type": "github"
       },
       "original": {
