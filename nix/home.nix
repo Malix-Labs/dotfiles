@@ -44,7 +44,9 @@ let
       inherit name;
       passthru = {
         pname = name;
-        inherit (pkg) meta;
+        meta = (pkg.meta or { }) // {
+          outputsToInstall = [ "out" ];
+        };
       }
       // (pkg.passthru or { });
       runtimeInputs = [ pkg ];
@@ -81,6 +83,12 @@ in
         envVar = "GITLAB_TOKEN";
         secretFile = "/run/vaultix.d/gitlab_token";
       })
+      (wrapWithSecretEnv {
+        pkg = pkgs.nix;
+        envVar = "GITHUB_TOKEN";
+        secretFile = "/run/vaultix.d/github_token";
+      })
+
       forgejo-cli
       tea
 
@@ -88,10 +96,7 @@ in
     ];
   };
 
-  xdg.configFile = (mapSymlinks [ "zed" ]) // {
-    "environment.d/10-secrets.conf".source =
-      config.lib.file.mkOutOfStoreSymlink "/run/vaultix.d/secrets.env";
-  };
+  xdg.configFile = mapSymlinks [ "zed" ];
   home.file = mapSymlinks [
     ".gemini/config"
     ".gemini/antigravity-cli"
@@ -121,23 +126,11 @@ in
       settings = {
         show_banner = false;
       };
-      extraEnv = ''
-        if ('/run/vaultix.d/secrets.env' | path exists) {
-          open /run/vaultix.d/secrets.env
-          | lines
-          | where ($it | str contains '=')
-          | parse "{key}={value}"
-          | transpose -r -d
-          | load-env
-        }
-      '';
     };
 
     bash = {
       enable = true;
       initExtra = ''
-        [ -f "/run/vaultix.d/secrets.env" ] && set -a && . /run/vaultix.d/secrets.env && set +a
-
         if [[ $- == *i* ]] && \
           [ -z "$BASH_EXECUTION_STRING" ] && \
           [ "$TERM" != "dumb" ] && \
