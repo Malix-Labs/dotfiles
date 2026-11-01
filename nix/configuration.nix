@@ -61,8 +61,22 @@
 
       bootCounting.initialTries = 3;
     };
-    kernel.sysctl."vm.swappiness" = 100;
+    kernel.sysctl = {
+      "vm.swappiness" = 100;
+      kernel.yama.ptrace_scope = 1;
+    };
     supportedFilesystems.exfat = true;
+  };
+
+  security = {
+    protectKernelImage = true;
+    rtkit.enable = true;
+    audit = {
+      enable = true;
+      rules = [
+        "-w /run/vaultix.d/ -p rwa -k secret_access"
+      ];
+    };
   };
 
   networking = {
@@ -138,8 +152,6 @@
     noto-fonts-color-emoji
     nerd-fonts.fira-code
   ];
-
-  security.rtkit.enable = true;
 
   nixpkgs.config.allowUnfree = true;
 
