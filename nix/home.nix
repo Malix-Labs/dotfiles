@@ -36,7 +36,7 @@ let
   wrapWithSecretEnv =
     {
       pkg,
-      name ? pkg.pname,
+      name ? (pkg.meta.mainProgram or pkg.pname),
       envVar,
       secretFile,
     }:
@@ -44,6 +44,7 @@ let
       inherit name;
       passthru = {
         pname = name;
+        inherit (pkg) meta;
       }
       // (pkg.passthru or { });
       runtimeInputs = [ pkg ];
@@ -70,7 +71,11 @@ in
       gitkraken
       simplex-chat-desktop
 
-      devenv
+      (wrapWithSecretEnv {
+        pkg = devenv;
+        envVar = "GITHUB_TOKEN";
+        secretFile = "/run/vaultix.d/github_token";
+      })
       (wrapWithSecretEnv {
         pkg = glab;
         envVar = "GITLAB_TOKEN";
@@ -324,7 +329,11 @@ in
 
     zed-editor = {
       enable = true;
-      package = pkgs-unstable.zed-editor;
+      package = wrapWithSecretEnv {
+        pkg = pkgs-unstable.zed-editor;
+        envVar = "CONTEXT7_API_KEY";
+        secretFile = "/run/vaultix.d/context7_api_key";
+      };
     };
 
     vscode = {
