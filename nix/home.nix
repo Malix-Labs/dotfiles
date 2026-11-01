@@ -42,6 +42,10 @@ let
     }:
     pkgs.writeShellApplication {
       inherit name;
+      passthru = {
+        pname = name;
+      }
+      // (pkg.passthru or { });
       runtimeInputs = [ pkg ];
       text = ''
         [ -f "${secretFile}" ] && export ${envVar}="$(< "${secretFile}")"
@@ -299,7 +303,14 @@ in
       };
     };
 
-    gh-dash.enable = true;
+    gh-dash = {
+      enable = true;
+      package = wrapWithSecretEnv {
+        pkg = pkgs.gh-dash;
+        envVar = "GITHUB_TOKEN";
+        secretFile = "/run/vaultix.d/github_token";
+      };
+    };
 
     helix = {
       enable = true;
