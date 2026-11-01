@@ -223,7 +223,6 @@ rec # to pass `nixConfig` as an argument
           identity = "$HOME/${ssh.dir}/master";
           defaultSecretDirectory = secretsDir;
           cache = "${secretsDir}/cache"; # see https://github.com/milieuim/vaultix/issues/64
-          extraPackages = [ inputs.nixpkgs-unstable.legacyPackages.x86_64-linux.age-plugin-tpm ];
         };
 
         nixosConfigurations.${hostName} = nixpkgs-chosen.lib.nixosSystem {
