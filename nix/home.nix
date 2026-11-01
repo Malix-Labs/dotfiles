@@ -36,7 +36,7 @@ let
   wrapWithSecretEnv =
     {
       pkg,
-      name ? (pkg.meta.mainProgram or pkg.pname),
+      name ? (pkg.meta.mainProgram or (lib.getName pkg)),
       envVar,
       secretFile,
     }:
