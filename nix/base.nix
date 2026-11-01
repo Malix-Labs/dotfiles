@@ -50,7 +50,22 @@ in
   services.userborn.enable = lib.mkDefault true;
   zramSwap.enable = lib.mkDefault true;
 
-  boot.tmp.useTmpfs = lib.mkDefault true;
+  boot = {
+    tmp.useTmpfs = lib.mkDefault true;
+    kernel.sysctl = lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux {
+      kernel.yama.ptrace_scope = lib.mkDefault 1;
+    };
+  };
+
+  security = lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux {
+    protectKernelImage = lib.mkDefault true;
+    audit = {
+      enable = lib.mkDefault true;
+      rules = [
+        "-w /run/vaultix.d/ -p rwa -k secret_access"
+      ];
+    };
+  };
 
   time.timeZone = lib.mkDefault "Europe/Paris";
   i18n = {

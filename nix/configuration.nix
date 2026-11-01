@@ -61,23 +61,11 @@
 
       bootCounting.initialTries = 3;
     };
-    kernel.sysctl = {
-      "vm.swappiness" = 100;
-      kernel.yama.ptrace_scope = 1;
-    };
+    kernel.sysctl."vm.swappiness" = 100;
     supportedFilesystems.exfat = true;
   };
 
-  security = {
-    protectKernelImage = true;
-    rtkit.enable = true;
-    audit = {
-      enable = true;
-      rules = [
-        "-w /run/vaultix.d/ -p rwa -k secret_access"
-      ];
-    };
-  };
+  security.rtkit.enable = true;
 
   networking = {
     inherit hostName;
