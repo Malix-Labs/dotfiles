@@ -85,7 +85,7 @@ rec # to pass `nixConfig` as an argument
     };
 
     vaultix = {
-      url = "github:milieuim/vaultix/pull/70/head";
+      url = "github:milieuim/vaultix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 

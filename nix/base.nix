@@ -126,6 +126,10 @@ in
       use-xdg-base-directories = lib.mkDefault true;
 
       extra-trusted-users = if pkgs.stdenv.hostPlatform.isDarwin then [ "@admin" ] else [ "@wheel" ];
+
+      # Reactive on-demand GC: triggers during nix commands when disk space is low
+      min-free = lib.mkDefault (10 * 1024 * 1024 * 1024); # 10 GiB
+      max-free = lib.mkDefault (25 * 1024 * 1024 * 1024); # 25 GiB
     };
   };
 

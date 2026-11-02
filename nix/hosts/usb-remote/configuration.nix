@@ -109,14 +109,7 @@
     ) config.vaultix.secrets.tailscale_authkey.path;
   };
 
-  # Storage constraints: reactive GC via min-free/max-free
   nix = {
-    settings = {
-      # Reactive on-demand GC: only triggers during nix commands when space is low
-      min-free = 256 * 1024 * 1024; # 256 MiB: trigger GC if free space drops below this
-      max-free = 1024 * 1024 * 1024; # 1 GiB: delete dead paths until 1 GiB is free
-    };
-
     distributedBuilds = true;
     buildMachines = [
       {
