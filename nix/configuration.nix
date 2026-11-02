@@ -206,5 +206,13 @@
     "podman"
   ];
 
+  vaultix = {
+    extraPackages = [ pkgs.age-plugin-tpm ];
+    settings = {
+      hostPubkey = "age1tpm1qfm0lrpj6em9rhryj5rsd4yjsu758wqkx5untgvcxusvn95pzuez6fh79da";
+      hostKeys = [ "/etc/age-tpm/identity.txt" ];
+    };
+  };
+
   system.stateVersion = "24.11"; # NEVER MUTATE
 }
