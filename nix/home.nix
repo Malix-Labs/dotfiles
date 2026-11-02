@@ -52,7 +52,10 @@ let
       text = ''
         ${lib.concatStringsSep "\n" (
           lib.mapAttrsToList (var: file: ''
-            [ -f "${file}" ] && export ${var}="$(< "${file}")"
+            if [ -f "${file}" ]; then
+              ${var}="$(< "${file}")"
+              export ${var}
+            fi
           '') secrets
         )}
         exec "${name}" "$@"
