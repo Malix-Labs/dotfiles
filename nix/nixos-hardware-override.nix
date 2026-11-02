@@ -25,7 +25,15 @@
   hardware.amdgpu.initrd.enable = lib.mkForce true;
 
   # Add Lenovo Legion kernel module and userspace utility
-  boot.extraModulePackages = [ config.boot.kernelPackages.lenovo-legion-module ];
+  boot.extraModulePackages = [
+    (config.boot.kernelPackages.lenovo-legion-module.overrideAttrs (old: {
+      postInstall =
+        (old.postInstall or "")
+        + ''
+          find "$out/lib/modules" -name "*.ko" -exec touch "{}.cer" \;
+        '';
+    }))
+  ];
   environment.systemPackages = with pkgs; [
     lenovo-legion
     l5p-keyboard-rgb.packages.${stdenv.hostPlatform.system}.default
