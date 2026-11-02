@@ -53,7 +53,7 @@ in
   boot = {
     tmp.useTmpfs = lib.mkDefault true;
     kernel.sysctl = lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux {
-      kernel.yama.ptrace_scope = lib.mkDefault 1;
+      "kernel.yama.ptrace_scope" = lib.mkDefault 1;
     };
   };
 
