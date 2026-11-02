@@ -385,6 +385,7 @@ in
   systemd.user.services.ssh-add-master = {
     Unit = {
       Description = "Load master SSH key into ssh-agent via KWallet";
+      Requires = [ "ssh-agent.service" ];
       After = [
         "graphical-session.target"
         "ssh-agent.service"
