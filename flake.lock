@@ -1328,15 +1328,16 @@
         "pre-commit-hooks": "pre-commit-hooks"
       },
       "locked": {
-        "lastModified": 1791154051,
-        "narHash": "sha256-nrha+qCXqJBV7kmvUQB1acc/YzO9YLicR6rdiCaUWYs=",
+        "lastModified": 1793580302,
+        "narHash": "sha256-AeVXYy0e0Xe8oLjF767l4X+tyN2Y/36YEWbOZy+nOiA=",
         "owner": "milieuim",
         "repo": "vaultix",
-        "rev": "8e6331194139366a0398d936b68ff9926ecf3221",
+        "rev": "816cc0124d5df66facdfc5fcf5d7ba5a80caef4b",
         "type": "github"
       },
       "original": {
         "owner": "milieuim",
+        "ref": "pull/70/head",
         "repo": "vaultix",
         "type": "github"
       }
