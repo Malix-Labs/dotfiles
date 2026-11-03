@@ -15,7 +15,6 @@ runs:
           --select '${{ github.repository == 'Malix-Labs/dotfiles' && 'flake: (flake.inputs.schemas-evaluator.lib.select { safe = false; }) flake.outputs' || format('(builtins.getFlake "path:{0}/../../..").inputs.schemas-evaluator.lib.select {{ safe = false; }}', github.action_path) }}' \
           ${{ github.repository != 'Malix-Labs/dotfiles' && '--impure' || '' }} \
           --skip-cached \
-          --no-nom \
           --debug \
           --eval-workers 2 \
           --option show-trace true \
