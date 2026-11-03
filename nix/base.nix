@@ -54,6 +54,7 @@ in
     tmp.useTmpfs = lib.mkDefault true;
     kernel.sysctl = lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux {
       "kernel.yama.ptrace_scope" = lib.mkDefault 1;
+      "fs.suid_dumpable" = lib.mkDefault 0;
     };
   };
 
@@ -133,8 +134,11 @@ in
     };
   };
 
-  systemd.services = lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux {
-    nix-daemon.serviceConfig = {
+  systemd = lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux {
+    coredump.settings.Coredump = {
+      Storage = lib.mkDefault "none";
+    };
+    services.nix-daemon.serviceConfig = {
       CPUWeight = lib.mkDefault 20;
       IOWeight = lib.mkDefault 20;
       MemoryHigh = lib.mkDefault "80%";
