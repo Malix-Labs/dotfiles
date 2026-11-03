@@ -67,11 +67,12 @@
 
   security = {
     rtkit.enable = true;
-    polkit.extraConfig = ''
-      polkit.addRule(function(action, subject) {
-        if (subject.isInGroup("wheel")) return polkit.Result.YES;
-      });
-    '';
+    sudo.enable = false;
+    run0 = {
+      enable = true;
+      persistentAuth.enable = true;
+      sudo-shim.enable = true;
+    };
   };
 
   networking = {
