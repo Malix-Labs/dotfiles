@@ -36,30 +36,38 @@ let
   wrapWithSecretEnv =
     {
       pkg,
-      name ? (pkg.meta.mainProgram or (lib.getName pkg)),
+      name ? baseNameOf (lib.getExe pkg),
       secrets,
     }:
-    pkgs.writeShellApplication {
-      inherit name;
-      passthru = {
-        pname = name;
-        meta = (pkg.meta or { }) // {
-          outputsToInstall = [ "out" ];
-        };
-      }
-      // (pkg.passthru or { });
-      runtimeInputs = [ pkg ];
-      text = ''
-        ${lib.concatStringsSep "\n" (
-          lib.mapAttrsToList (var: file: ''
-            if [ -f "${file}" ]; then
-              ${var}="$(< "${file}")"
-              export ${var}
-            fi
-          '') secrets
-        )}
-        exec "${name}" "$@"
+    let
+      wrapArgs =
+        secrets
+        |> lib.attrsToList
+        |> lib.concatMap (
+          { name, value }: [
+            "--run"
+            ''if [ -f "${value}" ]; then export ${name}="$(< "${value}")"; fi''
+          ]
+        )
+        |> lib.escapeShellArgs;
+    in
+    pkgs.symlinkJoin {
+      name = "${name}-secret-wrapped";
+      pname = pkg.pname or name;
+      version = pkg.version or "";
+      paths = [ pkg ];
+      nativeBuildInputs = [ pkgs.makeWrapper ];
+      postBuild = ''
+        wrapProgram "$out/bin/${name}" ${wrapArgs}
       '';
+      passthru = (pkg.passthru or { }) // {
+        unwrapped = pkg;
+        pname = pkg.pname or name;
+      };
+      meta = (pkg.meta or { }) // {
+        mainProgram = name;
+        outputsToInstall = [ "out" ];
+      };
     };
 
   secretPath = name: "/run/vaultix.d/${name}";
