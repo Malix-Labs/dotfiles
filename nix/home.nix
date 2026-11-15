@@ -91,7 +91,7 @@ in
     inherit username;
     stateVersion = "25.11"; # NEVER MUTATE
     packages = with pkgs; [
-      audacity_3
+      audacity
       gitkraken
       simplex-chat-desktop
 
