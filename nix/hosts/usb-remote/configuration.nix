@@ -128,13 +128,9 @@
     ];
   };
 
-  # Lightweight nh with stripped binary (drops ~76MB Haskell nom), retaining last 3 generations
-  programs.nh = {
-    package = pkgs.nh-unwrapped;
-    clean = {
-      extraArgs = "--keep 3";
-      dates = "weekly";
-    };
+  programs.nh.clean = {
+    extraArgs = "--keep 3";
+    dates = "weekly";
   };
 
   # Universal cross-shell SSH logging to systemd journal (interactive and remote command tasks)
