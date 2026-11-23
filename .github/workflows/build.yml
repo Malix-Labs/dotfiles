@@ -6,11 +6,17 @@ on:
       - main
   pull_request:
   workflow_call:
+    secrets:
+      token:
+        description: "Optional auth token for external access"
+        required: false
 
 jobs:
   toplevel:
     name: "Build Toplevel"
     runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.token || github.token }}
     steps:
       - uses: actions/checkout@v7
       - uses: Malix-Labs/dotfiles/.github/actions/nix-setup@main

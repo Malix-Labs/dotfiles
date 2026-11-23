@@ -15,11 +15,17 @@ on:
         description: "Nixpkgs inputs to check"
         type: string
         required: false
+    secrets:
+      token:
+        description: "Optional auth token for external access"
+        required: false
 
 jobs:
   flake-check:
     name: "Flake Check"
     runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.token || github.token }}
     steps:
       - uses: actions/checkout@v7
       - uses: Malix-Labs/dotfiles/.github/actions/nix-setup@main
